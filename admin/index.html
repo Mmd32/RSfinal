@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>پنل مدیریت — ریتیل سلوشنز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Lalezar&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ===== Login / first-time setup ===== -->
+<div class="auth" id="auth" hidden>
+  <form class="auth-card" id="auth-form" autocomplete="on">
+    <img src="../assets/logo/logo-color.png" alt="ریتیل سلوشنز" class="auth-logo">
+    <h1 id="auth-title">ورود به پنل مدیریت</h1>
+    <p class="muted" id="auth-sub">برای ویرایش محتوای سایت وارد شوید.</p>
+    <input type="text" name="username" value="admin" autocomplete="username" hidden>
+    <label class="field">
+      <span>رمز عبور</span>
+      <input type="password" id="pw1" autocomplete="current-password" required>
+    </label>
+    <label class="field" id="pw2-wrap" hidden>
+      <span>تکرار رمز عبور</span>
+      <input type="password" id="pw2" autocomplete="new-password">
+    </label>
+    <p class="form-error" id="auth-error" hidden></p>
+    <button class="btn btn-primary btn-block" type="submit" id="auth-btn">ورود</button>
+  </form>
+</div>
+
+<!-- ===== App ===== -->
+<div class="app" id="app" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <img src="../assets/logo/logo-white.png" alt="ریتیل سلوشنز">
+      <span>پنل مدیریت</span>
+    </div>
+    <nav class="side-nav" id="side-nav"></nav>
+    <div class="side-foot">
+      <button class="side-link" data-tool="messages">پیام‌های فرم تماس <span class="badge" id="msg-badge" hidden></span></button>
+      <button class="side-link" data-tool="backups">نسخه‌های پشتیبان</button>
+      <button class="side-link" data-tool="password">تغییر رمز عبور</button>
+      <button class="side-link danger" id="logout">خروج</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="منو">☰</button>
+      <div class="topbar-title">
+        <h2 id="page-title"></h2>
+        <span class="dirty" id="dirty" hidden>● تغییرات ذخیره نشده</span>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn btn-ghost" id="view-btn" href="../" target="_blank" rel="noopener">مشاهده‌ی صفحه</a>
+        <button class="btn btn-ghost" id="preview-btn">پیش‌نمایش تغییرات</button>
+        <button class="btn btn-primary" id="save-btn" disabled>ذخیره و انتشار</button>
+      </div>
+    </header>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<!-- media library -->
+<div class="modal" id="media-modal" hidden>
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>کتابخانه‌ی تصاویر</h3>
+      <button class="icon-btn" data-close aria-label="بستن">✕</button>
+    </div>
+    <div class="media-grid" id="media-grid"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>
