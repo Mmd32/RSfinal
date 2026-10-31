@@ -155,13 +155,8 @@
       { key: 'image', type: 'image', label: 'عکس بالای صفحه', dark: true },
       { row: [ { key: 'eyebrow', type: 'text', label: 'برچسب کوچک' }, { key: 'title', type: 'text', label: 'تیتر صفحه' } ] },
       { key: 'lead', type: 'textarea', label: 'متن زیر تیتر', rows: 2, hint: RICH_HINT },
-      { key: 'introTitle', type: 'text', label: 'تیتر بخش اول' },
-      { key: 'paragraphs', type: 'strings', label: 'پاراگراف‌های بخش اول', itemLabel: 'پاراگراف', multiline: true, hint: RICH_HINT },
-      { row: [ { key: 'visionTitle', type: 'text', label: 'عنوان کادر اول' }, { key: 'missionTitle', type: 'text', label: 'عنوان کادر دوم' } ] },
-      { row: [ { key: 'vision', type: 'textarea', label: 'متن کادر اول (چشم‌انداز)' }, { key: 'mission', type: 'textarea', label: 'متن کادر دوم (مأموریت)' } ] },
-      { key: 'pillarsTitle', type: 'text', label: 'تیتر بخش ستون‌ها' },
-      { key: 'pillars', type: 'list', label: 'ستون‌ها', itemLabel: 'ستون', titleKey: 'title', template: { title: 'ستون جدید', text: '' }, fields: [
-        { key: 'title', type: 'text', label: 'عنوان' }, { key: 'text', type: 'textarea', label: 'توضیح (اختیاری)', rows: 2 }
+      { key: 'blocks', type: 'list', label: 'بخش‌های درباره ما (برگرفته از کروسل)', itemLabel: 'بخش', titleKey: 'title', template: { title: 'عنوان بخش', text: '' }, fields: [
+        { key: 'title', type: 'text', label: 'عنوان' }, { key: 'text', type: 'textarea', label: 'متن', rows: 4, hint: RICH_HINT }
       ] },
       { key: 'valuesTitle', type: 'text', label: 'تیتر بخش ارزش‌ها' },
       { key: 'values', type: 'list', label: 'ارزش‌ها', itemLabel: 'ارزش', titleKey: 'title', template: { title: 'ارزش جدید', text: '' }, fields: [
@@ -301,8 +296,8 @@
     /* ================= settings ================= */
     { key: 'typography', group: 'settings', title: 'تایپوگرافی (فونت و اندازه)', intro: 'فونت و اندازه‌ی متن‌های کل سایت. برای تغییر یک متنِ خاص، دکمه‌ی «Aa» کنار همان متن را در بخش خودش بزنید.', fields: [
       { row: [
-        { key: 'fontBody', type: 'select', label: 'فونت متن‌ها', options: [['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ']] },
-        { key: 'fontHeading', type: 'select', label: 'فونت تیترها', options: [['', 'مثل متن‌ها'], ['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ'], ['lalezar', 'لاله‌زار (نمایشی)']] }
+        { key: 'fontBody', type: 'select', label: 'فونت متن‌ها', options: [['lahzeh', 'لحظه'], ['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ']] },
+        { key: 'fontHeading', type: 'select', label: 'فونت تیترها', options: [['', 'مثل متن‌ها'], ['lahzeh', 'لحظه'], ['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ'], ['lalezar', 'لاله‌زار (نمایشی)']] }
       ] },
       { key: 'scale', type: 'range', label: 'اندازه‌ی کلی همه‌ی متن‌ها', min: 70, max: 150, step: 5, unit: '٪', def: 100 },
       { row: [
@@ -570,11 +565,12 @@
 
   /* ---------- per-text style («Aa»): font, size, weight, colour, alignment — saved in obj._style[key] ---------- */
   const FONT_CSS = {
+    lahzeh: '"Lahzeh", "Vazirmatn", Tahoma, sans-serif',
     vazirmatn: '"Vazirmatn", Tahoma, sans-serif', iransans: '"IRANSansX", "Vazirmatn", sans-serif',
     'noto-kufi': '"Noto Kufi Arabic", "Vazirmatn", sans-serif', 'noto-naskh': '"Noto Naskh Arabic", "Vazirmatn", serif',
     lalezar: '"Lalezar", "Vazirmatn", sans-serif'
   };
-  const STYLE_FONTS = [['', 'پیش‌فرض سایت'], ['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ'], ['lalezar', 'لاله‌زار']];
+  const STYLE_FONTS = [['', 'پیش‌فرض سایت'], ['lahzeh', 'لحظه'], ['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ'], ['lalezar', 'لاله‌زار']];
   const STYLE_WEIGHTS = [['', 'پیش‌فرض'], ['300', 'نازک'], ['400', 'معمولی'], ['500', 'متوسط'], ['600', 'نیمه‌ضخیم'], ['700', 'ضخیم'], ['800', 'خیلی ضخیم']];
   const STYLE_ALIGNS = [['', 'پیش‌فرض'], ['right', 'راست‌چین'], ['center', 'وسط‌چین'], ['left', 'چپ‌چین'], ['justify', 'تراز']];
   const NO_STYLE_KEYS = ['imageAlt', 'brandName', 'logoAlt', 'id', 'date', 'readTime'];
@@ -862,7 +858,7 @@
     } catch (e) { panel.append(h('p', { class: 'form-error', text: e.message })); }
   }
 
-  const MSG_LABELS = { company: 'برند', jobTitle: 'سمت', mobile: 'شماره تماس', email: 'ایمیل', industry: 'صنعت', branches: 'تعداد شعب', city: 'شهر', preferredContactMethod: 'روش تماس', preferredContactTime: 'زمان تماس', primaryChallenge: 'چالش اصلی' };
+  const MSG_LABELS = { company: 'برند', jobTitle: 'سمت', mobile: 'شماره تماس', email: 'ایمیل', industry: 'صنعت', branches: 'تعداد شعب', city: 'شهر', preferredContactMethod: 'روش تماس', preferredContactTime: 'زمان تماس', primaryChallenge: 'مسئله‌ای که کسب‌وکارتان با آن مواجه است' };
   async function renderMessages(box) {
     $('#page-title').textContent = 'پیام‌های فرم تماس';
     const panel = h('div', { class: 'panel' }, h('p', { class: 'panel-intro', text: 'درخواست‌هایی که از صفحه‌ی «تماس با ما» ارسال شده‌اند. جدیدترین‌ها بالا هستند.' }));

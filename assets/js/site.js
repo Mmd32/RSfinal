@@ -34,13 +34,14 @@
      (admin → «تایپوگرافی» and the «Aa» button next to each text field)
      ========================================================= */
   const FONTS = {
+    lahzeh: { css: '"Lahzeh"' },
     vazirmatn: { css: '"Vazirmatn"', google: 'Vazirmatn:wght@300;400;500;600;700;800' },
     iransans: { css: '"IRANSansX"' },                                         // local files (assets/fonts)
     'noto-kufi': { css: '"Noto Kufi Arabic"', google: 'Noto+Kufi+Arabic:wght@300;400;500;600;700;800' },
     'noto-naskh': { css: '"Noto Naskh Arabic"', google: 'Noto+Naskh+Arabic:wght@400;500;600;700' },
     lalezar: { css: '"Lalezar"', google: 'Lalezar' }
   };
-  const FALLBACK = ', "Vazirmatn", Tahoma, sans-serif';
+  const FALLBACK = ', "Lahzeh", "Vazirmatn", Tahoma, sans-serif';
   const fontStack = key => FONTS[key] ? FONTS[key].css + FALLBACK : '';
 
   // style attribute for one text: o._style[key] = {font, size(%), weight, color, align}
@@ -149,15 +150,16 @@
 
   function renderAbout(c) {
     const a = c.about, cta = a.cta || {};
+    const hasCta = Boolean((cta.title && cta.title.trim()) || (cta.primaryLabel && cta.primaryLabel.trim()));
     $('#about').innerHTML = `
-      <div class="container">
-        <div>
+      <div class="container${hasCta ? '' : ' story--single'}">
+        <div class="story-content">
           ${a.eyebrow ? `<span class="eyebrow"${sa(a, 'eyebrow')}>${esc(a.eyebrow)}</span>` : ''}
-          <h2${sa(a, 'title')}>${esc(a.title)} ${a.titleHighlight ? `<em${sa(a, 'titleHighlight')}>${esc(a.titleHighlight)}</em>` : ''}</h2>
+          <h2${sa(a, 'title')}>${rich(a.title || '')} ${a.titleHighlight ? `<em${sa(a, 'titleHighlight')}>${esc(a.titleHighlight)}</em>` : ''}</h2>
           ${(a.paragraphs || []).filter(Boolean).map(p => `<p class="lead"${sa(a, 'paragraphs')}>${rich(p)}</p>`).join('')}
           ${(a.stats || []).length ? `<div class="stats">${a.stats.map(s => `<div class="stat"><b${sa(s, 'value')}>${esc(s.value)}</b><span${sa(s, 'label')}>${esc(s.label)}</span></div>`).join('')}</div>` : ''}
         </div>
-        <aside class="cta-box">
+        ${hasCta ? `<aside class="cta-box">
           ${cta.eyebrow ? `<span class="eyebrow"${sa(cta, 'eyebrow')}>${esc(cta.eyebrow)}</span>` : ''}
           <h3${sa(cta, 'title')}>${esc(cta.title)}</h3>
           <p${sa(cta, 'text')}>${rich(cta.text)}</p>
@@ -165,7 +167,7 @@
             ${cta.primaryLabel ? `<a class="btn btn-primary" href="${url(cta.primaryUrl)}"${target(cta.primaryUrl)}${sa(cta, 'primaryLabel')}>${esc(cta.primaryLabel)} ${arrow}</a>` : ''}
             ${cta.secondaryLabel ? `<a class="btn btn-outline" href="${url(cta.secondaryUrl)}"${target(cta.secondaryUrl)}${sa(cta, 'secondaryLabel')}>${esc(cta.secondaryLabel)}</a>` : ''}
           </div>
-        </aside>
+        </aside>` : ''}
       </div>`;
   }
 
@@ -533,7 +535,7 @@
       points: list(s.outputs).slice(0, 4), pointsLabel: L.outputs || 'خروجی‌ها'
     }));
     if (cfg.source === 'both') (c.capabilityPages.items || []).forEach(k => items.push({
-      o: k, textKey: 'summary', tag: 'Capability', title: k.title, text: k.summary, image: k.image, url: capabilityUrl(k.id), points: [], pointsLabel: ''
+      o: k, textKey: 'summary', tag: '', title: k.title, text: k.summary, image: k.image, url: capabilityUrl(k.id), points: [], pointsLabel: ''
     }));
     if (!items.length) return '';
     const total = pad2(items.length);
@@ -572,21 +574,25 @@
   const PAGES = {
     about(c) {
       const p = c.pages.about;
+      const blocks = list(p.blocks);
       return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: p.title }], o: p }) + `
-        <section class="section">
+        ${blocks.length ? `<section class="section about-blocks"><div class="container">
+          ${blocks.map((b, i) => `
+            <div class="split about-block-item" style="${i > 0 ? 'margin-top:var(--s-8);padding-top:var(--s-8);border-top:1px solid var(--line);' : ''}">
+              <div>
+                <span class="num" style="display:block;margin-bottom:var(--s-1);color:var(--brand);font-weight:800;font-size:22px">${pad2(i + 1)}</span>
+                <h2${sa(b, 'title')}>${rich(b.title)}</h2>
+              </div>
+              <div>
+                ${String(b.text || '').split(/\n\s*\n/).map(t => `<p class="lead"${sa(b, 'text')}>${rich(t)}</p>`).join('')}
+              </div>
+            </div>`).join('')}
+        </div></section>` : (list(p.paragraphs).length ? `<section class="section">
           <div class="container split">
             <div><h2${sa(p, 'introTitle')}>${esc(p.introTitle)}</h2></div>
             <div>${list(p.paragraphs).map(t => `<p class="lead"${sa(p, 'paragraphs')}>${rich(t)}</p>`).join('')}</div>
           </div>
-        </section>
-        ${(p.vision || p.mission) ? `<section class="section" style="padding-top:0"><div class="container duo">
-          ${p.vision ? `<div><h3${sa(p, 'visionTitle')}>${esc(p.visionTitle)}</h3><p${sa(p, 'vision')}>${rich(p.vision)}</p></div>` : ''}
-          ${p.mission ? `<div><h3${sa(p, 'missionTitle')}>${esc(p.missionTitle)}</h3><p${sa(p, 'mission')}>${rich(p.mission)}</p></div>` : ''}
-        </div></section>` : ''}
-        ${list(p.pillars).length ? `<section class="section pains"><div class="container" style="display:block">
-          <div class="sec-head"><h2${sa(p, 'pillarsTitle')}>${esc(p.pillarsTitle)}</h2></div>
-          <div class="pillars">${p.pillars.map((x, i) => `<div class="pillar"><span class="num">${pad2(i + 1)}</span><h3${sa(x, 'title')}>${esc(x.title)}</h3>${x.text ? `<p${sa(x, 'text')}>${rich(x.text)}</p>` : ''}</div>`).join('')}</div>
-        </div></section>` : ''}
+        </section>` : '')}
         ${list(p.values).length ? `<section class="section surface"><div class="container">
           <div class="sec-head"><h2${sa(p, 'valuesTitle')}>${esc(p.valuesTitle)}</h2></div>
           <div class="cards">${p.values.map((v, i) => `<div class="info-card"><span class="num">${pad2(i + 1)}</span><h3${sa(v, 'title')}>${esc(v.title)}</h3><p${sa(v, 'text')}>${rich(v.text)}</p></div>`).join('')}</div>
@@ -599,7 +605,7 @@
       const pr = p.products || {};
       return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: 'خدمات' }], o: p }) + `
         ${sols.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><span class="eyebrow"${sa(pr, 'eyebrow')}>${esc(pr.eyebrow || 'Signature solutions')}</span><h2${sa(p, 'signatureTitle')}>${esc(p.signatureTitle)}</h2>
+          <div class="sec-head"><h2${sa(p, 'signatureTitle')}>${esc(p.signatureTitle)}</h2>
             ${pr.text ? `<p class="lead"${sa(pr, 'text')}>${rich(pr.text)}</p>` : ''}</div>
           ${pr.enabled === false ? `<div class="cards">${sols.map(s => solutionCard(s)).join('')}</div>` : productSlider(c)}
         </div></section>` : ''}
@@ -618,7 +624,7 @@
           <ul class="checks cross">${p.compareItems.filter(Boolean).map(t => `<li${sa(p, 'compareItems')}>${rich(t)}</li>`).join('')}</ul>
         </div></section>` : ''}
         ${caps.length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><span class="eyebrow">Capabilities</span><h2${sa(p, 'capabilitiesTitle')}>${esc(p.capabilitiesTitle)}</h2></div>
+          <div class="sec-head"><h2${sa(p, 'capabilitiesTitle')}>${esc(p.capabilitiesTitle)}</h2></div>
           <div class="cards">${caps.map((k, i) => capabilityCard(k, i)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -630,7 +636,7 @@
       document.title = `${s.tag ? s.tag + ' — ' : ''}${s.title} | ${c.site.brandName || ''}`;
       const caps = list(s.capabilities).map(id => findBy(c.capabilityPages.items, id)).filter(Boolean);
       const posts = list(s.articles).map(id => findBy(c.articles.items, id)).filter(Boolean);
-      return pageHero({ image: s.image, eyebrow: 'Signature solution', title: s.title, tag: s.tag, lead: s.summary,
+      return pageHero({ image: s.image, eyebrow: '', title: s.title, tag: s.tag, lead: s.summary,
         crumbs: [{ label: 'خدمات', url: 'solutions.html' }, { label: s.title }], o: s, k: { lead: 'summary' } }) + `
         <section class="section"><div class="container">
           ${s.intro ? `<div class="sec-head"><p class="lead"${sa(s, 'intro', 'color:var(--navy);font-weight:400;')}>${rich(s.intro)}</p></div>` : ''}
@@ -673,7 +679,7 @@
       document.title = `${k.title} | ${c.site.brandName || ''}`;
       const sols = list(k.solutions).map(id => findBy(c.solutionPages.items, id)).filter(Boolean);
       const others = (cp.items || []).filter(x => x.id !== k.id);
-      return pageHero({ image: k.image, eyebrow: 'Capability', title: k.title, lead: k.summary,
+      return pageHero({ image: k.image, eyebrow: '', title: k.title, lead: k.summary,
         crumbs: [{ label: 'خدمات', url: 'solutions.html' }, { label: k.title }], o: k, k: { lead: 'summary' } }) + `
         ${k.body ? `<section class="section"><div class="container"><div class="prose"${sa(k, 'body')}>${prose(k.body)}</div></div></section>` : ''}
         ${sols.length ? `<section class="section surface"><div class="container">
@@ -719,7 +725,7 @@
       const p = c.pages.contact;
       const opt = arr => list(arr).map(o => `<option>${esc(o)}</option>`).join('');
       const fld = (label, control, required, cls = '') =>
-        `<label class="f-field ${cls}"><span class="lbl">${esc(label)}${required ? ' <i class="req">*</i>' : ' <small>(اختیاری)</small>'}</span>${control}</label>`;
+        `<label class="f-field ${cls}"><span class="lbl">${esc(label)}${required ? ' <i class="req">*</i>' : ''}</span>${control}</label>`;
       const channels = [
         p.email && `<a class="channel" href="mailto:${esc(p.email)}"><span class="ico">${icons.mail}</span><span class="latin">${esc(p.email)}</span></a>`,
         p.phone && `<a class="channel" href="tel:${esc(p.phone.replace(/[^\d+]/g, ''))}"><span class="ico">${icons.phone}</span><span class="latin">${esc(p.phone)}</span></a>`,
@@ -748,7 +754,7 @@
               ${fld('شهر', '<input name="city" maxlength="80">')}
               ${fld('روش تماس ترجیحی', `<select name="preferredContactMethod"><option value="">انتخاب کنید</option>${opt(p.contactMethods)}</select>`)}
               ${fld('زمان مناسب تماس', '<input name="preferredContactTime" maxlength="80">')}
-              ${fld('چالش اصلی', '<textarea name="primaryChallenge" maxlength="3000"></textarea>', false, 'full')}
+              ${fld('مسئله‌ای که کسب‌وکارتان با آن مواجه است', '<textarea name="primaryChallenge" maxlength="3000"></textarea>', false, 'full')}
               <label class="f-check full"><input type="checkbox" name="consent" required> <span${sa(p, 'consentText')}>${rich(p.consentText)}</span></label>
             </div>
             <button class="btn btn-primary" type="submit"${sa(p, 'submitLabel')}>${esc(p.submitLabel || 'ارسال')} ${arrow}</button>

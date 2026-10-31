@@ -1,3 +1,12 @@
+/* Lahzeh (FaNum) — official corporate typeface */
+@font-face{font-family:"Lahzeh";src:url("../fonts/Lahzeh-FaNum-Light.woff2") format("woff2"),url("../fonts/Lahzeh-FaNum-Light.ttf") format("truetype");font-weight:300;font-display:swap}
+@font-face{font-family:"Lahzeh";src:url("../fonts/Lahzeh-FaNum-Regular.woff2") format("woff2"),url("../fonts/Lahzeh-FaNum-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Lahzeh";src:url("../fonts/Lahzeh-FaNum-Medium.woff2") format("woff2"),url("../fonts/Lahzeh-FaNum-Medium.ttf") format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:"Lahzeh";src:url("../fonts/Lahzeh-FaNum-SemiBold.woff2") format("woff2"),url("../fonts/Lahzeh-FaNum-SemiBold.ttf") format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:"Lahzeh";src:url("../fonts/Lahzeh-FaNum-Bold.woff2") format("woff2"),url("../fonts/Lahzeh-FaNum-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Lahzeh";src:url("../fonts/Lahzeh-FaNum-ExtraBold.woff2") format("woff2"),url("../fonts/Lahzeh-FaNum-ExtraBold.ttf") format("truetype");font-weight:800;font-display:swap}
+@font-face{font-family:"Lahzeh";src:url("../fonts/Lahzeh-FaNum-Black.woff2") format("woff2"),url("../fonts/Lahzeh-FaNum-Black.ttf") format("truetype");font-weight:900;font-display:swap}
+
 /* IRANSansX (FaNum) — local files, only downloaded when chosen in the admin */
 @font-face{font-family:"IRANSansX";src:url("../fonts/IRANSansXFaNum-Light.ttf") format("truetype");font-weight:300;font-display:swap}
 @font-face{font-family:"IRANSansX";src:url("../fonts/IRANSansXFaNum-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
@@ -21,7 +30,7 @@
   --white:#fff;
 
   /* type */
-  --font:"Vazirmatn", "Vazir", Tahoma, sans-serif;
+  --font:"Lahzeh", "Vazirmatn", "IRANSansX", Tahoma, sans-serif;
   --font-head:var(--font);
   /* text size multipliers — set from the admin (تایپوگرافی) */
   --ts:1; --ts-head:1; --ts-body:1;
@@ -49,7 +58,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{margin:0;padding:0}
-body{font-family:var(--font);font-size:calc(var(--fs-body) * var(--ts,1) * var(--ts-body,1));font-weight:400;line-height:1.9;color:var(--navy);background:#fff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:var(--font);font-size:calc(var(--fs-body) * var(--ts,1) * var(--ts-body,1));font-weight:400;line-height:1.9;color:var(--navy);background:#fff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"calt" 1,"kern" 1}
 a{color:var(--brand);text-decoration:none;transition:color .2s,background-color .2s,border-color .2s}
 img{max-width:100%;height:auto;display:block}
 h1,h2,h3,h4,p{margin:0}
@@ -241,6 +250,8 @@ body.is-loading main,body.is-loading footer{visibility:hidden}
    Story (Who we are)
    ========================================================= */
 .story .container{display:grid;grid-template-columns:7fr 5fr;gap:var(--s-6);align-items:stretch}
+.story .container.story--single{display:block;max-width:1080px;margin:0 auto}
+.story .container.story--single h2{max-width:100%;font-size:calc(clamp(26px, 3vw, 42px) * var(--ts,1) * var(--ts-head,1));line-height:1.6;font-weight:700}
 .story h2{font-size:calc(var(--fs-h2) * var(--ts,1) * var(--ts-head,1));color:var(--navy);margin-bottom:var(--s-3)}
 .story h2 em{font-style:normal;color:var(--brand)}
 .story .container{gap:var(--s-8)}
@@ -379,6 +390,9 @@ body.is-loading main,body.is-loading footer{visibility:hidden}
 .split h2{font-size:calc(var(--fs-h2) * var(--ts,1) * var(--ts-head,1))}
 .split .lead{color:var(--muted)}
 .split .lead + .lead{margin-top:var(--s-2)}
+.about-blocks{padding-top:var(--s-6)}
+.about-block-item h2{font-size:calc(var(--fs-h2) * var(--ts,1) * var(--ts-head,1));line-height:1.35;color:var(--navy)}
+.about-block-item .lead{color:var(--muted);line-height:1.9}
 
 /* generic cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:var(--s-2)}
