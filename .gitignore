@@ -3,3 +3,5 @@ Thumbs.db
 .claude/
 .vercel/
 content/backups/content-*-user-update.json
+.vercel
+.env*

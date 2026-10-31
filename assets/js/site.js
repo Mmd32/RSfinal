@@ -10,8 +10,22 @@
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+  // Typographic hygiene:
+  // 1. Keep Persian conjunction «و» glued to the next word (never dangling at the end of a line)
+  // 2. Prevent orphan/widow single words at line ends in headings by binding the last space with NBSP
+  const typo = (str, isHeading = false) => {
+    if (str == null) return '';
+    let s = String(str);
+    s = s.replace(/(^|[\s،؛«\(\[])(و)\s+/g, '$1$2\u00A0');
+    if (isHeading) {
+      s = s.replace(/\s+([^\s]+)$/, '\u00A0$1');
+    }
+    return s;
+  };
+
   // **bold** and line breaks are the only formatting allowed in text fields
-  const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  const rich = (s, isHeading = false) => typo(esc(s), isHeading).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  const heading = s => rich(s, true);
 
   // only allow safe link schemes
   const url = u => {
@@ -131,7 +145,7 @@
           <div class="hero-content">
             ${slides.length > 1 ? `<div class="hero-count"><b>${pad2(i + 1)}</b><span>/ ${total}</span></div>` : ''}
             ${s.eyebrow ? `<span class="eyebrow"${sa(s, 'eyebrow')}>${esc(s.eyebrow)}</span>` : ''}
-            ${i === 0 ? `<h1${sa(s, 'title')}>${rich(s.title)}</h1>` : `<h2 class="h1-like"${sa(s, 'title')}>${rich(s.title)}</h2>`}
+            ${i === 0 ? `<h1${sa(s, 'title')}>${heading(s.title)}</h1>` : `<h2 class="h1-like"${sa(s, 'title')}>${heading(s.title)}</h2>`}
             ${s.text ? `<div class="hero-text"${sa(s, 'text')}>${paras(s.text)}</div>` : ''}
             ${s.buttonLabel ? `<div><a class="btn btn-primary" href="${url(s.buttonUrl)}"${target(s.buttonUrl)}${sa(s, 'buttonLabel')}>${esc(s.buttonLabel)} ${arrow}</a></div>` : ''}
           </div>
@@ -155,13 +169,13 @@
       <div class="container${hasCta ? '' : ' story--single'}">
         <div class="story-content">
           ${a.eyebrow ? `<span class="eyebrow"${sa(a, 'eyebrow')}>${esc(a.eyebrow)}</span>` : ''}
-          <h2${sa(a, 'title')}>${rich(a.title || '')} ${a.titleHighlight ? `<em${sa(a, 'titleHighlight')}>${esc(a.titleHighlight)}</em>` : ''}</h2>
+          <h2${sa(a, 'title')}>${heading(a.title || '')} ${a.titleHighlight ? `<em${sa(a, 'titleHighlight')}>${esc(a.titleHighlight)}</em>` : ''}</h2>
           ${(a.paragraphs || []).filter(Boolean).map(p => `<p class="lead"${sa(a, 'paragraphs')}>${rich(p)}</p>`).join('')}
           ${(a.stats || []).length ? `<div class="stats">${a.stats.map(s => `<div class="stat"><b${sa(s, 'value')}>${esc(s.value)}</b><span${sa(s, 'label')}>${esc(s.label)}</span></div>`).join('')}</div>` : ''}
         </div>
         ${hasCta ? `<aside class="cta-box">
           ${cta.eyebrow ? `<span class="eyebrow"${sa(cta, 'eyebrow')}>${esc(cta.eyebrow)}</span>` : ''}
-          <h3${sa(cta, 'title')}>${esc(cta.title)}</h3>
+          <h3${sa(cta, 'title')}>${heading(cta.title)}</h3>
           <p${sa(cta, 'text')}>${rich(cta.text)}</p>
           <div class="btn-group">
             ${cta.primaryLabel ? `<a class="btn btn-primary" href="${url(cta.primaryUrl)}"${target(cta.primaryUrl)}${sa(cta, 'primaryLabel')}>${esc(cta.primaryLabel)} ${arrow}</a>` : ''}
@@ -177,7 +191,7 @@
       <div class="container">
         <div>
           ${s.eyebrow ? `<span class="eyebrow"${sa(s, 'eyebrow')}>${esc(s.eyebrow)}</span>` : ''}
-          <h2${sa(s, 'title')}>${esc(s.title)}</h2>
+          <h2${sa(s, 'title')}>${heading(s.title)}</h2>
         </div>
         <div>
           <p class="lead"${sa(s, 'text')}>${rich(s.text)}</p>
@@ -188,7 +202,7 @@
       <article class="card ${cls} bg-img" style="${bg(k.image)}">
         <a class="card-link" href="${url(k.url)}"${target(k.url)} aria-label="${esc(k.title)}"></a>
         ${k.tag ? `<span class="eyebrow"${sa(k, 'tag')}>${esc(k.tag)}</span>` : ''}
-        <h3${sa(k, 'title')}>${esc(k.title)}</h3>
+        <h3${sa(k, 'title')}>${heading(k.title)}</h3>
         ${k.text ? `<p${sa(k, 'text')}>${rich(k.text)}</p>` : ''}
         ${s.moreLabel ? `<span class="more"${sa(s, 'moreLabel')}>${esc(s.moreLabel)} ${arrow}</span>` : ''}
       </article>` : '';
@@ -208,10 +222,10 @@
         <div class="pains-media bg-img" style="${bg(p.image)}"></div>
         <div>
           ${p.eyebrow ? `<span class="eyebrow"${sa(p, 'eyebrow')}>${esc(p.eyebrow)}</span>` : ''}
-          <h2${sa(p, 'title')}>${esc(p.title)}</h2>
+          <h2${sa(p, 'title')}>${heading(p.title)}</h2>
           ${p.text ? `<p class="lead"${sa(p, 'text')}>${rich(p.text)}</p>` : ''}
           <ul class="pain-list">${(p.items || []).filter(Boolean).map((t, i) =>
-            `<li class="pain-item"><span class="num">${pad2(i + 1)}</span><h4${sa(p, 'items')}>${rich(t)}</h4></li>`).join('')}</ul>
+            `<li class="pain-item"><span class="num">${pad2(i + 1)}</span><h4${sa(p, 'items')}>${heading(t)}</h4></li>`).join('')}</ul>
           ${p.closing ? `<p class="pains-close"${sa(p, 'closing')}>${rich(p.closing)}</p>` : ''}
         </div>
       </div>`;
@@ -223,7 +237,7 @@
       <div class="container">
         <div>
           ${d.eyebrow ? `<span class="eyebrow"${sa(d, 'eyebrow')}>${esc(d.eyebrow)}</span>` : ''}
-          <h2${sa(d, 'title')}>${esc(d.title)}</h2>
+          <h2${sa(d, 'title')}>${heading(d.title)}</h2>
           <p class="lead"${sa(d, 'text')}>${rich(d.text)}</p>
           ${d.buttonLabel ? `<a class="btn btn-light" href="${url(d.buttonUrl)}"${target(d.buttonUrl)}${sa(d, 'buttonLabel')}>${esc(d.buttonLabel)} ${arrow}</a>` : ''}
         </div>
@@ -256,14 +270,14 @@
     const tile = (k, cls) => k ? `
       <a class="tile ${cls}" href="${url(k.url)}"${target(k.url)}>
         <div class="tile-image bg-img" style="${bg(k.image)}"></div>
-        <div class="tile-text">${k.tag ? `<span class="eyebrow"${sa(k, 'tag')}>${esc(k.tag)}</span>` : ''}<h3 class="tile-title"${sa(k, 'title')}>${esc(k.title)}</h3></div>
+        <div class="tile-text">${k.tag ? `<span class="eyebrow"${sa(k, 'tag')}>${esc(k.tag)}</span>` : ''}<h3 class="tile-title"${sa(k, 'title')}>${heading(k.title)}</h3></div>
       </a>` : '';
     $('#solutions').innerHTML = `
       <div class="container">
         <div class="section-head">
           <div>
             ${s.eyebrow ? `<span class="eyebrow"${sa(s, 'eyebrow')}>${esc(s.eyebrow)}</span>` : ''}
-            <h2${sa(s, 'title')}>${esc(s.title)}</h2>
+            <h2${sa(s, 'title')}>${heading(s.title)}</h2>
           </div>
           ${s.linkLabel ? `<a class="link" href="${url(s.linkUrl)}"${target(s.linkUrl)}${sa(s, 'linkLabel')}>${esc(s.linkLabel)} <span>←</span></a>` : ''}
         </div>
@@ -302,10 +316,10 @@
       <div class="footer-main bg-brand">
         <div class="container footer-grid">
           <div class="footer-logo"><img src="${esc(s.logoFooter)}" alt="${esc(s.logoAlt)}"></div>
-          <div><h4${sa(f, 'brandTitle')}>${esc(f.brandTitle)}</h4><p${sa(f, 'tagline')}>${rich(f.tagline)}</p></div>
-          <div><h4${sa(f, 'linksTitle')}>${esc(f.linksTitle)}</h4><ul>${(f.links || []).map(l => `<li><a href="${url(l.url)}"${target(l.url)}${sa(l, 'label')}>${esc(l.label)}</a></li>`).join('')}</ul></div>
+          <div>${f.brandTitle ? `<h4${sa(f, 'brandTitle')}>${heading(f.brandTitle)}</h4>` : ''}<p class="tagline"${sa(f, 'tagline')}>${heading(f.tagline)}</p></div>
+          <div><h4${sa(f, 'linksTitle')}>${heading(f.linksTitle)}</h4><ul>${(f.links || []).map(l => `<li><a href="${url(l.url)}"${target(l.url)}${sa(l, 'label')}>${esc(l.label)}</a></li>`).join('')}</ul></div>
           <div>
-            <h4${sa(f, 'contactTitle')}>${esc(f.contactTitle)}</h4>
+            <h4${sa(f, 'contactTitle')}>${heading(f.contactTitle)}</h4>
             ${f.email ? `<p><a href="mailto:${esc(f.email)}" class="latin">${esc(f.email)}</a></p>` : ''}
             ${f.phone ? `<p><a href="tel:${esc(f.phone.replace(/[^\d+]/g, ''))}" class="latin">${esc(f.phone)}</a></p>` : ''}
             ${social ? `<div class="social" style="margin-top:16px">${social}</div>` : ''}
@@ -460,7 +474,7 @@
           <nav class="crumbs" aria-label="مسیر">${trail.map((c, i) => (i ? '<span aria-hidden="true">/</span>' : '') +
             (c.url ? `<a href="${url(c.url)}">${esc(c.label)}</a>` : `<span>${esc(c.label)}</span>`)).join('')}</nav>
           ${eyebrow ? `<span class="eyebrow"${sa(o, k.eyebrow || 'eyebrow')}>${esc(eyebrow)}</span>` : ''}
-          <h1${sa(o, k.title || 'title')}>${tag ? `<span class="tag">${esc(tag)}</span>` : ''}${rich(title)}</h1>
+          <h1${sa(o, k.title || 'title')}>${tag ? `<span class="tag">${esc(tag)}</span>` : ''}${heading(title)}</h1>
           ${lead ? `<p class="lead"${sa(o, k.lead || 'lead')}>${rich(lead)}</p>` : ''}
           ${meta.length ? `<div class="meta">${meta.filter(Boolean).map(m => `<span>${esc(m)}</span>`).join('<span aria-hidden="true">•</span>')}</div>` : ''}
         </div>
@@ -475,7 +489,7 @@
         <div class="container">
           <div>
             ${k.eyebrow ? `<span class="eyebrow"${sa(k, 'eyebrow')}>${esc(k.eyebrow)}</span>` : ''}
-            <h2${sa(k, 'title')}>${esc(k.title)}</h2>
+            <h2${sa(k, 'title')}>${heading(k.title)}</h2>
             ${k.text ? `<p${sa(k, 'text')}>${rich(k.text)}</p>` : ''}
           </div>
           ${k.buttonLabel ? `<a class="btn btn-light" href="${url(k.buttonUrl)}"${target(k.buttonUrl)}${sa(k, 'buttonLabel')}>${esc(k.buttonLabel)} ${arrow}</a>` : ''}
@@ -500,7 +514,7 @@
   function solutionCard(s, more) {
     return `<a class="info-card" href="${solutionUrl(s.id)}">
       ${s.tag ? `<span class="tag">${esc(s.tag)}</span>` : ''}
-      <h3${sa(s, 'title')}>${esc(s.title)}</h3>
+      <h3${sa(s, 'title')}>${heading(s.title)}</h3>
       ${s.summary ? `<p${sa(s, 'summary')}>${rich(s.summary)}</p>` : ''}
       <span class="more">${esc(more || 'بیشتر بخوانید')} ${arrow}</span>
     </a>`;
@@ -508,7 +522,7 @@
   function capabilityCard(k, i, more) {
     return `<a class="info-card" href="${capabilityUrl(k.id)}">
       <span class="num">${pad2(i + 1)}</span>
-      <h3${sa(k, 'title')}>${esc(k.title)}</h3>
+      <h3${sa(k, 'title')}>${heading(k.title)}</h3>
       ${k.summary ? `<p${sa(k, 'summary')}>${rich(k.summary)}</p>` : ''}
       <span class="more">${esc(more || 'بیشتر بخوانید')} ${arrow}</span>
     </a>`;
@@ -519,7 +533,7 @@
       <div class="thumb-wrap"><div class="thumb" style="${bg(a.image)}"></div></div>
       <div class="body">
         <div class="post-meta">${a.type ? `<span class="type"${sa(a, 'type')}>${esc(a.type)}</span>` : ''}${a.date ? `<span>${esc(a.date)}</span>` : ''}${a.readTime ? `<span>${esc(a.readTime)}</span>` : ''}</div>
-        <h3${sa(a, 'title')}>${esc(a.title)}</h3>
+        <h3${sa(a, 'title')}>${heading(a.title)}</h3>
         ${a.excerpt ? `<p${sa(a, 'excerpt')}>${rich(a.excerpt)}</p>` : ''}
         <span class="more"${sa(p, 'readMoreLabel')}>${esc(p.readMoreLabel || 'ادامه‌ی مطلب')} ${arrow}</span>
       </div>
@@ -552,7 +566,7 @@
               <div class="hero-content">
                 <div class="hero-count"><b>${pad2(i + 1)}</b><span>/ ${total}</span></div>
                 ${it.tag ? `<span class="ps-tag">${esc(it.tag)}</span>` : ''}
-                <h3 class="ps-title"${sa(it.o, 'title')}>${esc(it.title)}</h3>
+                <h3 class="ps-title"${sa(it.o, 'title')}>${heading(it.title)}</h3>
                 ${it.text ? `<div class="hero-text"><p${sa(it.o, it.textKey)}>${rich(it.text)}</p></div>` : ''}
                 ${it.points.length ? `<div class="ps-points"><b${sa(L, 'outputs')}>${esc(it.pointsLabel)}</b><ul class="checks">${it.points.map(t => `<li${sa(it.o, 'outputs')}>${rich(t)}</li>`).join('')}</ul></div>` : ''}
                 <div class="btn-group">
@@ -581,7 +595,7 @@
             <div class="split about-block-item" style="${i > 0 ? 'margin-top:var(--s-8);padding-top:var(--s-8);border-top:1px solid var(--line);' : ''}">
               <div>
                 <span class="num" style="display:block;margin-bottom:var(--s-1);color:var(--brand);font-weight:800;font-size:22px">${pad2(i + 1)}</span>
-                <h2${sa(b, 'title')}>${rich(b.title)}</h2>
+                <h2${sa(b, 'title')}>${heading(b.title)}</h2>
               </div>
               <div>
                 ${String(b.text || '').split(/\n\s*\n/).map(t => `<p class="lead"${sa(b, 'text')}>${rich(t)}</p>`).join('')}
@@ -589,13 +603,13 @@
             </div>`).join('')}
         </div></section>` : (list(p.paragraphs).length ? `<section class="section">
           <div class="container split">
-            <div><h2${sa(p, 'introTitle')}>${esc(p.introTitle)}</h2></div>
+            <div><h2${sa(p, 'introTitle')}>${heading(p.introTitle)}</h2></div>
             <div>${list(p.paragraphs).map(t => `<p class="lead"${sa(p, 'paragraphs')}>${rich(t)}</p>`).join('')}</div>
           </div>
         </section>` : '')}
         ${list(p.values).length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(p, 'valuesTitle')}>${esc(p.valuesTitle)}</h2></div>
-          <div class="cards">${p.values.map((v, i) => `<div class="info-card"><span class="num">${pad2(i + 1)}</span><h3${sa(v, 'title')}>${esc(v.title)}</h3><p${sa(v, 'text')}>${rich(v.text)}</p></div>`).join('')}</div>
+          <div class="sec-head"><h2${sa(p, 'valuesTitle')}>${heading(p.valuesTitle)}</h2></div>
+          <div class="cards">${p.values.map((v, i) => `<div class="info-card"><span class="num">${pad2(i + 1)}</span><h3${sa(v, 'title')}>${heading(v.title)}</h3><p${sa(v, 'text')}>${rich(v.text)}</p></div>`).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
     },
@@ -605,26 +619,26 @@
       const pr = p.products || {};
       return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: 'خدمات' }], o: p }) + `
         ${sols.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(p, 'signatureTitle')}>${esc(p.signatureTitle)}</h2>
+          <div class="sec-head"><h2${sa(p, 'signatureTitle')}>${heading(p.signatureTitle)}</h2>
             ${pr.text ? `<p class="lead"${sa(pr, 'text')}>${rich(pr.text)}</p>` : ''}</div>
           ${pr.enabled === false ? `<div class="cards">${sols.map(s => solutionCard(s)).join('')}</div>` : productSlider(c)}
         </div></section>` : ''}
         ${list(p.areas).length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(p, 'areasTitle')}>${esc(p.areasTitle)}</h2></div>
-          <div class="cards">${p.areas.map((a, i) => `<div class="info-card"><span class="num">${pad2(i + 1)}</span><h3${sa(a, 'title')}>${esc(a.title)}</h3><p${sa(a, 'text')}>${rich(a.text)}</p>
+          <div class="sec-head"><h2${sa(p, 'areasTitle')}>${heading(p.areasTitle)}</h2></div>
+          <div class="cards">${p.areas.map((a, i) => `<div class="info-card"><span class="num">${pad2(i + 1)}</span><h3${sa(a, 'title')}>${heading(a.title)}</h3><p${sa(a, 'text')}>${rich(a.text)}</p>
             ${list(a.items).length ? `<div class="chips">${a.items.filter(Boolean).map(t => `<span${sa(a, 'items')}>${esc(t)}</span>`).join('')}</div>` : ''}</div>`).join('')}</div>
         </div></section>` : ''}
         ${list(p.pains).length ? `<section class="section pains"><div class="container" style="display:block">
-          <div class="sec-head"><h2${sa(p, 'painsTitle')}>${esc(p.painsTitle)}</h2>${p.painsText ? `<p class="lead"${sa(p, 'painsText')}>${rich(p.painsText)}</p>` : ''}</div>
-          <div class="pain-cards">${p.pains.map(x => `<div class="pain-card"><h3${sa(x, 'title')}>${esc(x.title)}</h3><p${sa(x, 'problem')}>${rich(x.problem)}</p>
+          <div class="sec-head"><h2${sa(p, 'painsTitle')}>${heading(p.painsTitle)}</h2>${p.painsText ? `<p class="lead"${sa(p, 'painsText')}>${rich(p.painsText)}</p>` : ''}</div>
+          <div class="pain-cards">${p.pains.map(x => `<div class="pain-card"><h3${sa(x, 'title')}>${heading(x.title)}</h3><p${sa(x, 'problem')}>${rich(x.problem)}</p>
             ${x.help ? `<div class="help"><b${sa(p, 'helpLabel')}>${esc(p.helpLabel || 'چطور کمک می‌کنیم')}</b><p${sa(x, 'help')}>${rich(x.help)}</p></div>` : ''}</div>`).join('')}</div>
         </div></section>` : ''}
         ${list(p.compareItems).length ? `<section class="section"><div class="container split">
-          <div><h2${sa(p, 'compareTitle')}>${esc(p.compareTitle)}</h2>${p.compareText ? `<p class="lead"${sa(p, 'compareText', 'margin-top:16px;')}>${rich(p.compareText)}</p>` : ''}</div>
+          <div><h2${sa(p, 'compareTitle')}>${heading(p.compareTitle)}</h2>${p.compareText ? `<p class="lead"${sa(p, 'compareText', 'margin-top:16px;')}>${rich(p.compareText)}</p>` : ''}</div>
           <ul class="checks cross">${p.compareItems.filter(Boolean).map(t => `<li${sa(p, 'compareItems')}>${rich(t)}</li>`).join('')}</ul>
         </div></section>` : ''}
         ${caps.length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(p, 'capabilitiesTitle')}>${esc(p.capabilitiesTitle)}</h2></div>
+          <div class="sec-head"><h2${sa(p, 'capabilitiesTitle')}>${heading(p.capabilitiesTitle)}</h2></div>
           <div class="cards">${caps.map((k, i) => capabilityCard(k, i)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -641,33 +655,33 @@
         <section class="section"><div class="container">
           ${s.intro ? `<div class="sec-head"><p class="lead"${sa(s, 'intro', 'color:var(--navy);font-weight:400;')}>${rich(s.intro)}</p></div>` : ''}
           <div class="detail-grid">
-            ${s.challenge ? `<div class="detail-box"><h3${sa(L, 'challenge')}>${esc(L.challenge)}</h3><p${sa(s, 'challenge')}>${rich(s.challenge)}</p></div>` : ''}
-            ${s.audience ? `<div class="detail-box"><h3${sa(L, 'audience')}>${esc(L.audience)}</h3><p${sa(s, 'audience')}>${rich(s.audience)}</p></div>` : ''}
+            ${s.challenge ? `<div class="detail-box"><h3${sa(L, 'challenge')}>${heading(L.challenge)}</h3><p${sa(s, 'challenge')}>${rich(s.challenge)}</p></div>` : ''}
+            ${s.audience ? `<div class="detail-box"><h3${sa(L, 'audience')}>${heading(L.audience)}</h3><p${sa(s, 'audience')}>${rich(s.audience)}</p></div>` : ''}
           </div>
         </div></section>
         ${list(s.questions).length ? `<section class="section surface"><div class="container split">
-          <div><h2${sa(L, 'questions')}>${esc(L.questions)}</h2></div>
+          <div><h2${sa(L, 'questions')}>${heading(L.questions)}</h2></div>
           <ul class="checks">${s.questions.filter(Boolean).map(q => `<li${sa(s, 'questions')}>${rich(q)}</li>`).join('')}</ul>
         </div></section>` : ''}
         ${list(s.approach).length || list(s.outputs).length ? `<section class="section"><div class="container detail-grid">
-          ${list(s.approach).length ? `<div><div class="sec-head" style="margin-bottom:24px"><h2${sa(L, 'approach')}>${esc(L.approach)}</h2></div><ol class="steps">${s.approach.filter(Boolean).map(t => `<li${sa(s, 'approach')}>${rich(t)}</li>`).join('')}</ol></div>` : ''}
-          ${list(s.outputs).length ? `<div><div class="sec-head" style="margin-bottom:24px"><h2${sa(L, 'outputs')}>${esc(L.outputs)}</h2></div><div class="detail-box"><ul class="checks">${s.outputs.filter(Boolean).map(t => `<li${sa(s, 'outputs')}>${rich(t)}</li>`).join('')}</ul></div></div>` : ''}
+          ${list(s.approach).length ? `<div><div class="sec-head" style="margin-bottom:24px"><h2${sa(L, 'approach')}>${heading(L.approach)}</h2></div><ol class="steps">${s.approach.filter(Boolean).map(t => `<li${sa(s, 'approach')}>${rich(t)}</li>`).join('')}</ol></div>` : ''}
+          ${list(s.outputs).length ? `<div><div class="sec-head" style="margin-bottom:24px"><h2${sa(L, 'outputs')}>${heading(L.outputs)}</h2></div><div class="detail-box"><ul class="checks">${s.outputs.filter(Boolean).map(t => `<li${sa(s, 'outputs')}>${rich(t)}</li>`).join('')}</ul></div></div>` : ''}
         </div></section>` : ''}
         ${list(s.impacts).length ? `<section class="section pains"><div class="container" style="display:block">
-          <div class="sec-head"><h2${sa(L, 'impacts')}>${esc(L.impacts)}</h2></div>
+          <div class="sec-head"><h2${sa(L, 'impacts')}>${heading(L.impacts)}</h2></div>
           <div class="impact-row">${s.impacts.filter(Boolean).map(t => `<div class="impact"${sa(s, 'impacts')}>${rich(t)}</div>`).join('')}</div>
           ${s.disclaimer ? `<p class="note"${sa(s, 'disclaimer', 'color:rgba(255,255,255,.6);')}>${rich(s.disclaimer)}</p>` : ''}
         </div></section>` : ''}
         ${list(s.faqs).length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(L, 'faq')}>${esc(L.faq)}</h2></div>
+          <div class="sec-head"><h2${sa(L, 'faq')}>${heading(L.faq)}</h2></div>
           <div class="faq">${s.faqs.filter(f => f.q).map((f, i) => `<details${i === 0 ? ' open' : ''}><summary${sa(f, 'q')}>${esc(f.q)}</summary><p${sa(f, 'a')}>${rich(f.a)}</p></details>`).join('')}</div>
         </div></section>` : ''}
         ${caps.length || list(s.industries).length ? `<section class="section surface"><div class="container detail-grid">
-          ${caps.length ? `<div class="detail-box"><h3${sa(L, 'capabilities')}>${esc(L.capabilities)}</h3><div class="chips">${caps.map(k => `<a href="${capabilityUrl(k.id)}">${esc(k.title)}</a>`).join('')}</div></div>` : ''}
-          ${list(s.industries).length ? `<div class="detail-box"><h3${sa(L, 'industries')}>${esc(L.industries)}</h3><div class="chips">${s.industries.filter(Boolean).map(t => `<span${sa(s, 'industries')}>${esc(t)}</span>`).join('')}</div></div>` : ''}
+          ${caps.length ? `<div class="detail-box"><h3${sa(L, 'capabilities')}>${heading(L.capabilities)}</h3><div class="chips">${caps.map(k => `<a href="${capabilityUrl(k.id)}">${esc(k.title)}</a>`).join('')}</div></div>` : ''}
+          ${list(s.industries).length ? `<div class="detail-box"><h3${sa(L, 'industries')}>${heading(L.industries)}</h3><div class="chips">${s.industries.filter(Boolean).map(t => `<span${sa(s, 'industries')}>${esc(t)}</span>`).join('')}</div></div>` : ''}
         </div></section>` : ''}
         ${posts.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(c.pages.insights, 'relatedTitle')}>${esc((c.pages.insights || {}).relatedTitle || 'بینش‌های مرتبط')}</h2></div>
+          <div class="sec-head"><h2${sa(c.pages.insights, 'relatedTitle')}>${heading((c.pages.insights || {}).relatedTitle || 'بینش‌های مرتبط')}</h2></div>
           <div class="post-grid">${posts.map(a => postCard(a, c)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -683,11 +697,11 @@
         crumbs: [{ label: 'خدمات', url: 'solutions.html' }, { label: k.title }], o: k, k: { lead: 'summary' } }) + `
         ${k.body ? `<section class="section"><div class="container"><div class="prose"${sa(k, 'body')}>${prose(k.body)}</div></div></section>` : ''}
         ${sols.length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(cp, 'relatedTitle')}>${esc(cp.relatedTitle || 'راهکارهای مرتبط')}</h2></div>
+          <div class="sec-head"><h2${sa(cp, 'relatedTitle')}>${heading(cp.relatedTitle || 'راهکارهای مرتبط')}</h2></div>
           <div class="cards">${sols.map(s => solutionCard(s)).join('')}</div>
         </div></section>` : ''}
         ${others.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(c.pages.solutions, 'capabilitiesTitle')}>${esc((c.pages.solutions || {}).capabilitiesTitle || 'سایر تخصص‌ها')}</h2></div>
+          <div class="sec-head"><h2${sa(c.pages.solutions, 'capabilitiesTitle')}>${heading((c.pages.solutions || {}).capabilitiesTitle || 'سایر تخصص‌ها')}</h2></div>
           <div class="cards">${others.map(x => capabilityCard(x, (cp.items || []).indexOf(x))).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -715,7 +729,7 @@
           <article class="prose"${sa(a, 'body')}>${prose(a.body)}</article>
         </div></section>
         ${related.length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(p, 'relatedTitle')}>${esc(p.relatedTitle || 'بینش‌های مرتبط')}</h2></div>
+          <div class="sec-head"><h2${sa(p, 'relatedTitle')}>${heading(p.relatedTitle || 'بینش‌های مرتبط')}</h2></div>
           <div class="post-grid">${related.map(x => postCard(x, c)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -735,12 +749,12 @@
       return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: 'تماس با ما' }], o: p }) + `
         <section class="section"><div class="container contact-grid">
           <aside class="contact-card">
-            <h2${sa(p, 'channelsTitle')}>${esc(p.channelsTitle)}</h2>
+            <h2${sa(p, 'channelsTitle')}>${heading(p.channelsTitle)}</h2>
             ${channels}
             ${!p.phone && p.phoneNote ? `<p class="muted"${sa(p, 'phoneNote')}>${rich(p.phoneNote)}</p>` : ''}
           </aside>
           <form class="form-card" id="contact-form" novalidate>
-            <h2${sa(p, 'formTitle')}>${esc(p.formTitle)}</h2>
+            <h2${sa(p, 'formTitle')}>${heading(p.formTitle)}</h2>
             ${p.formIntro ? `<p${sa(p, 'formIntro')}>${rich(p.formIntro)}</p>` : ''}
             <div class="form-grid">
               <label class="hp" aria-hidden="true">Website <input name="website_hp" tabindex="-1" autocomplete="off"></label>
