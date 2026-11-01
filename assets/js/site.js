@@ -344,16 +344,20 @@
       email: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></svg>'
     };
     const social = [
-      f.linkedin && `<a href="${url(f.linkedin)}" target="_blank" rel="noopener" aria-label="لینکدین">${icons.linkedin}</a>`,
-      f.instagram && `<a href="${url(f.instagram)}" target="_blank" rel="noopener" aria-label="اینستاگرام">${icons.instagram}</a>`,
-      f.email && `<a href="mailto:${esc(f.email)}" aria-label="ایمیل">${icons.email}</a>`
+      f.linkedin && `<a href="${url(f.linkedin)}" target="_blank" rel="noopener" aria-label="${isEn ? 'LinkedIn' : 'لینکدین'}">${icons.linkedin}</a>`,
+      f.instagram && `<a href="${url(f.instagram)}" target="_blank" rel="noopener" aria-label="${isEn ? 'Instagram' : 'اینستاگرام'}">${icons.instagram}</a>`,
+      f.email && `<a href="mailto:${esc(f.email)}" aria-label="${isEn ? 'Email' : 'ایمیل'}">${icons.email}</a>`
     ].filter(Boolean).join('');
-    const year = new Date().getFullYear().toLocaleString('fa-IR', { useGrouping: false });
+    const year = isEn ? new Date().getFullYear() : new Date().getFullYear().toLocaleString('fa-IR', { useGrouping: false });
+    const slogan = f.tagline || 'Level Up your Stores';
     $('#contact').innerHTML = `
       <div class="footer-main bg-brand">
         <div class="container footer-grid">
-          <div class="footer-logo"><img src="${esc(s.logoFooter)}" alt="${esc(s.logoAlt)}"></div>
-          <div>${f.brandTitle ? `<h4${sa(f, 'brandTitle')}>${heading(f.brandTitle)}</h4>` : ''}<p class="tagline"${sa(f, 'tagline')}>${heading(f.tagline)}</p></div>
+          <div class="footer-brand">
+            <div class="footer-logo"><img src="${esc(s.logoFooter)}" alt="${esc(s.logoAlt)}"></div>
+            ${slogan ? `<p class="footer-tagline"${sa(f, 'tagline')}>${heading(slogan)}</p>` : ''}
+            ${f.brandTitle ? `<h4${sa(f, 'brandTitle')} style="margin-top:12px;">${heading(f.brandTitle)}</h4>` : ''}
+          </div>
           <div><h4${sa(f, 'linksTitle')}>${heading(f.linksTitle)}</h4><ul>${(f.links || []).map(l => `<li><a href="${url(l.url)}"${target(l.url)}${sa(l, 'label')}>${esc(l.label)}</a></li>`).join('')}</ul></div>
           <div>
             <h4${sa(f, 'contactTitle')}>${heading(f.contactTitle)}</h4>

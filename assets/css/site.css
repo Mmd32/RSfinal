@@ -342,8 +342,10 @@ body.is-loading main,body.is-loading footer{visibility:hidden}
    Footer
    ========================================================= */
 .footer-main{padding:var(--s-8) 0 var(--s-6)}
-.footer-grid{display:grid;grid-template-columns:minmax(180px, 1.25fr) minmax(220px, 1.45fr) 1fr 1.1fr;gap:var(--s-6);align-items:start}
-.footer-logo img{width:150px;height:auto}
+.footer-grid{display:grid;grid-template-columns:minmax(240px, 1.6fr) 1fr 1.2fr;gap:var(--s-6);align-items:start}
+.footer-brand{display:flex;flex-direction:column;align-items:flex-start}
+.footer-logo img{width:150px;height:auto;display:block}
+.footer-tagline{margin-top:14px;margin-bottom:0;color:rgba(255,255,255,.9);font-size:calc(15px * var(--ts,1) * var(--ts-body,1));font-weight:600;letter-spacing:.02em;line-height:1.5;direction:ltr;align-self:flex-start}
 .footer-main h4{font-size:calc(15px * var(--ts,1) * var(--ts-head,1));font-weight:700;color:#fff;margin-bottom:var(--s-2);text-wrap:balance}
 .footer-main p,.footer-main a{color:rgba(255,255,255,.92);font-size:calc(15px * var(--ts,1) * var(--ts-body,1));line-height:2;text-wrap:pretty}
 .footer-main a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
