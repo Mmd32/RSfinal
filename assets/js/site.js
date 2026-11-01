@@ -763,8 +763,8 @@
           <div class="cards">${sols.map(s => solutionCard(s)).join('')}</div>
         </div></section>` : ''}
         ${others.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(c.pages.solutions, 'capabilitiesTitle')}>${heading((c.pages.solutions || {}).capabilitiesTitle || (isEn ? 'Other Capabilities' : 'سایر تخصص‌ها'))}</h2></div>
-          <div class="cards">${others.map(x => capabilityCard(x, (cp.items || []).indexOf(x))).join('')}</div>
+          <div class="sec-head"><h2>${heading(isEn ? 'Other Capabilities' : 'سایر تخصص‌ها و قابلیت‌ها')}</h2></div>
+          <div class="cards">${others.map((x, i) => capabilityCard(x, i)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
     },

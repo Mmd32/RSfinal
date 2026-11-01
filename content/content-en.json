@@ -71,19 +71,9 @@
             "url": "solution.html?id=franch"
           },
           {
-            "tag": "STRATEGY",
-            "label": "Growth Strategy Formulation",
-            "url": "capability.html?id=strategy"
-          },
-          {
-            "tag": "OPS",
-            "label": "Operational System Design",
-            "url": "capability.html?id=operations"
-          },
-          {
-            "tag": "PEOPLE",
-            "label": "Human Capital Development",
-            "url": "capability.html?id=people"
+            "tag": "STORE",
+            "label": "Store Standards Development",
+            "url": "capability.html?id=store-development"
           },
           {
             "tag": "EXPANSION",
@@ -91,9 +81,19 @@
             "url": "capability.html?id=expansion"
           },
           {
-            "tag": "STORE",
-            "label": "Store Standards Development",
-            "url": "capability.html?id=store-development"
+            "tag": "PEOPLE",
+            "label": "Human Capital Development",
+            "url": "capability.html?id=people"
+          },
+          {
+            "tag": "OPS",
+            "label": "Operational System Design",
+            "url": "capability.html?id=operations"
+          },
+          {
+            "tag": "STRATEGY",
+            "label": "Growth Strategy Formulation",
+            "url": "capability.html?id=strategy"
           }
         ]
       },
@@ -185,28 +185,28 @@
         "title": "Growth Strategy",
         "text": "From problem discovery to solution design",
         "url": "capability.html?id=strategy",
-        "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1000&q=80"
+        "image": "uploads/services-strategy.jpg"
       },
       {
         "tag": "Operations",
         "title": "Operating System Design",
         "text": "Moving from person-dependency toward systems",
         "url": "capability.html?id=operations",
-        "image": "https://images.unsplash.com/photo-1764795849885-e226e3cabe87?auto=format&fit=crop&w=1000&q=80"
+        "image": "uploads/services-operations.jpg"
       },
       {
         "tag": "People",
         "title": "Human Capital Development",
         "text": "From strategy to staff training and professional leadership",
         "url": "capability.html?id=people",
-        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80"
+        "image": "uploads/services-people.jpg"
       },
       {
         "tag": "Store Development",
         "title": "Store Standard Development",
         "text": "From data and performance to expansion planning; powered by Discover, Diagnose, Design, Deploy & Develop.",
         "url": "capability.html?id=store-development",
-        "image": "https://images.unsplash.com/photo-1789098175597-e633516c3df8?auto=format&fit=crop&w=1600&q=80"
+        "image": "uploads/services-store.jpg"
       }
     ]
   },
@@ -214,7 +214,7 @@
     "eyebrow": "What You Face",
     "title": "We Understand the Problem.",
     "text": "Many retail brands reach a stage where further growth creates mounting pressure instead of predictable profits.",
-    "image": "https://images.unsplash.com/photo-1771033834141-023d630b3965?auto=format&fit=crop&w=1200&q=80",
+    "image": "uploads/page-pains.jpg",
     "items": [
       "Decisions waiting on the founder or key executives",
       "Uneven customer experience and inconsistent branch quality",
@@ -230,7 +230,8 @@
     "buttonLabel": "About Our Approach",
     "buttonUrl": "about.html",
     "videoUrl": "",
-    "videoImage": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=80"
+    "videoImage": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=80",
+    "image": "uploads/page-difference.jpg"
   },
   "solutions": {
     "eyebrow": "Core Solutions",
@@ -242,19 +243,19 @@
         "tag": "FR™",
         "title": "Retail Friction & Reward",
         "url": "solution.html?id=fr",
-        "image": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1400&q=80"
+        "image": "uploads/solution-fr.jpg"
       },
       {
         "tag": "SVP™",
         "title": "Store Validation Process",
         "url": "solution.html?id=svp",
-        "image": "https://images.unsplash.com/photo-1772331274672-a5eecb4c6498?auto=format&fit=crop&w=1400&q=80"
+        "image": "uploads/solution-svp.jpg"
       },
       {
         "tag": "FRANCH™",
         "title": "Franchise Governance",
         "url": "solution.html?id=franch",
-        "image": "https://images.unsplash.com/photo-1772760224872-db7c8f49404a?auto=format&fit=crop&w=900&q=80"
+        "image": "uploads/solution-franch.jpg"
       },
       {
         "tag": "Strategy",
@@ -284,7 +285,7 @@
   },
   "pages": {
     "about": {
-      "image": "https://images.unsplash.com/photo-1785741393025-d6b6ba1d1eee?auto=format&fit=crop&w=2400&q=80",
+      "image": "uploads/page-solutions-hero.jpg",
       "eyebrow": "",
       "title": "Organizational Transformation Partner for the Retail Industry",
       "lead": "Brand consistency must exist throughout the organization, from strategy design to daily operational execution.",
@@ -327,7 +328,7 @@
       ]
     },
     "solutions": {
-      "image": "https://images.unsplash.com/photo-1776000680544-ebf0989a71df?auto=format&fit=crop&w=2400&q=80",
+      "image": "uploads/page-solutions-hero.jpg",
       "eyebrow": "Solutions",
       "title": "Services & Solutions",
       "lead": "Integrated transformation solutions designed to build scalable, system-driven retail organizations.",
@@ -343,7 +344,7 @@
       "capabilitiesTitle": "Services Built on Five Integrated Capabilities"
     },
     "insights": {
-      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2400&q=80",
+      "image": "uploads/page-insights.jpg",
       "eyebrow": "Insights",
       "title": "Insights & Thought Leadership in Retail",
       "lead": "Perspectives from Retail Solutions on building system-driven, data-grounded, and scalable organizations.",
@@ -351,7 +352,7 @@
       "relatedTitle": "Related Insights"
     },
     "contact": {
-      "image": "https://images.unsplash.com/photo-1771033834141-023d630b3965?auto=format&fit=crop&w=2400&q=80",
+      "image": "uploads/page-pains.jpg",
       "eyebrow": "Contact",
       "title": "Request a Meeting",
       "lead": "Organizational transformation partner for the retail industry",
@@ -415,7 +416,7 @@
         "faqs": [],
         "capabilities": [],
         "industries": [],
-        "image": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=2400&q=80"
+        "image": "uploads/solution-fr.jpg"
       },
       {
         "id": "svp",
@@ -440,7 +441,7 @@
         "faqs": [],
         "capabilities": [],
         "industries": [],
-        "image": "https://images.unsplash.com/photo-1772331274672-a5eecb4c6498?auto=format&fit=crop&w=2400&q=80"
+        "image": "uploads/solution-svp.jpg"
       },
       {
         "id": "franch",
@@ -465,7 +466,7 @@
         "faqs": [],
         "capabilities": [],
         "industries": [],
-        "image": "https://images.unsplash.com/photo-1772760224872-db7c8f49404a?auto=format&fit=crop&w=2400&q=80"
+        "image": "uploads/solution-franch.jpg"
       }
     ]
   },
@@ -473,24 +474,24 @@
     "relatedTitle": "Related Solutions",
     "items": [
       {
-        "id": "strategy",
-        "title": "Growth Strategy Formulation",
-        "summary": "Defining growth direction, strategic priorities, expansion models, and critical business decisions tailored to brand positioning.",
-        "body": "Strategy is where the transformation system begins: growth direction, priorities, and decision boundaries are defined so that every other capability — operations, people, expansion, and store standards — is built on one coherent logic.\n\n## Why Growth Strategy Matters\nGrowth without strategy creates complexity without profitability. We help retail leaders define where to compete, how to differentiate, and where to allocate limited capital.\n\n## Core Focus Areas\n- Market and competitive positioning\n- Expansion models (owned, franchised, concession)\n- Portfolio and category strategy\n- Strategic KPIs and governance rhythm",
-        "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=2400&q=80",
+        "id": "store-development",
+        "title": "Store Standard Development",
+        "summary": "Defining rigorous standards for store architectural design, fit-out rollout, store operations, and performance audits.",
+        "body": "The store is the brand’s primary point of contact with the customer. Standards for design, launch, operation, and evaluation are defined so the brand experience is consistent and measurable everywhere.\n\n## Uniform Brand Identity\nA customer stepping into store #1 or store #20 should immediately recognize the same premium quality and brand ethos.\n\n## Key Standards\n- Store layout and customer circulation guidelines\n- Visual merchandising and display rules\n- Fit-out guidelines and rollout speed\n- Store audit scorecards and mystery shopping frameworks",
+        "image": "uploads/services-store.jpg",
         "solutions": [
-          "svp",
-          "franch"
+          "fr",
+          "svp"
         ]
       },
       {
-        "id": "operations",
-        "title": "Operating System Design",
-        "summary": "Designing repeatable processes, operational standards, organizational roles, and control mechanisms for consistent execution.",
-        "body": "Operations turns strategy into daily execution. Processes, standards, and control mechanisms are designed so that quality is repeatable across every store and team — independent of any single individual.\n\n## From Chaos to Predictability\nWhen retail stores rely on memory or verbal instructions, customer experience fluctuates wildly. Operating systems create institutional memory and repeatable excellence.\n\n## Core Deliverables\n- Store Operations Manual (SOPs)\n- Inventory and merchandising rhythms\n- Daily, weekly, and monthly store audit systems\n- Store manager and supervisor routines",
-        "image": "https://images.unsplash.com/photo-1764795849885-e226e3cabe87?auto=format&fit=crop&w=2400&q=80",
+        "id": "expansion",
+        "title": "Branch Expansion Planning",
+        "summary": "Mapping the network expansion trajectory, prioritizing regional opportunities, and de-risking store rollout decisions.",
+        "body": "Network growth is sustainable only when it is driven by data and clear priorities. The expansion path is designed and the risk of expansion decisions is reduced before capital is committed.\n\n## Disciplined Rollout\nOpening stores in the wrong order or wrong catchments drains cash flow. We build scientific expansion roadmaps aligned with brand maturity.\n\n## Strategic Components\n- Catchment area and demographic analysis\n- Store opening velocity and sequencing\n- Cluster economics and logistics synchronization\n- Expansion risk mitigation",
+        "image": "uploads/services-expansion.jpg",
         "solutions": [
-          "fr",
+          "svp",
           "franch"
         ]
       },
@@ -499,31 +500,31 @@
         "title": "Human Capital Development",
         "summary": "Strengthening organizational structure, competencies, performance systems, and managerial leadership required for scalable growth.",
         "body": "A system does not run without capable people. Structure, roles, competencies, and performance systems are developed so the organization can lead and grow independently of its founder.\n\n## Empowering Store Teams\nRetail frontline staff are the true ambassadors of your brand. We build training academies, clear career paths, and incentive structures that motivate high performance.\n\n## Core Focus Areas\n- Organization chart and role clarity\n- Retail competency framework\n- Store incentive and KPI alignment\n- Retail leadership development programs",
-        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=2400&q=80",
+        "image": "uploads/services-people.jpg",
         "solutions": [
           "fr"
         ]
       },
       {
-        "id": "expansion",
-        "title": "Branch Expansion Planning",
-        "summary": "Mapping the network expansion trajectory, prioritizing regional opportunities, and de-risking store rollout decisions.",
-        "body": "Network growth is sustainable only when it is driven by data and clear priorities. The expansion path is designed and the risk of expansion decisions is reduced before capital is committed.\n\n## Disciplined Rollout\nOpening stores in the wrong order or wrong catchments drains cash flow. We build scientific expansion roadmaps aligned with brand maturity.\n\n## Strategic Components\n- Catchment area and demographic analysis\n- Store opening velocity and sequencing\n- Cluster economics and logistics synchronization\n- Expansion risk mitigation",
-        "image": "https://images.unsplash.com/photo-1522684462852-01b24e76b77d?auto=format&fit=crop&w=2400&q=80",
+        "id": "operations",
+        "title": "Operating System Design",
+        "summary": "Designing repeatable processes, operational standards, organizational roles, and control mechanisms for consistent execution.",
+        "body": "Operations turns strategy into daily execution. Processes, standards, and control mechanisms are designed so that quality is repeatable across every store and team — independent of any single individual.\n\n## From Chaos to Predictability\nWhen retail stores rely on memory or verbal instructions, customer experience fluctuates wildly. Operating systems create institutional memory and repeatable excellence.\n\n## Core Deliverables\n- Store Operations Manual (SOPs)\n- Inventory and merchandising rhythms\n- Daily, weekly, and monthly store audit systems\n- Store manager and supervisor routines",
+        "image": "uploads/services-operations.jpg",
         "solutions": [
-          "svp",
+          "fr",
           "franch"
         ]
       },
       {
-        "id": "store-development",
-        "title": "Store Standard Development",
-        "summary": "Defining rigorous standards for store architectural design, fit-out rollout, store operations, and performance audits.",
-        "body": "The store is the brand’s primary point of contact with the customer. Standards for design, launch, operation, and evaluation are defined so the brand experience is consistent and measurable everywhere.\n\n## Uniform Brand Identity\nA customer stepping into store #1 or store #20 should immediately recognize the same premium quality and brand ethos.\n\n## Key Standards\n- Store layout and customer circulation guidelines\n- Visual merchandising and display rules\n- Fit-out guidelines and rollout speed\n- Store audit scorecards and mystery shopping frameworks",
-        "image": "https://images.unsplash.com/photo-1789098175597-e633516c3df8?auto=format&fit=crop&w=2400&q=80",
+        "id": "strategy",
+        "title": "Growth Strategy Formulation",
+        "summary": "Defining growth direction, strategic priorities, expansion models, and critical business decisions tailored to brand positioning.",
+        "body": "Strategy is where the transformation system begins: growth direction, priorities, and decision boundaries are defined so that every other capability — operations, people, expansion, and store standards — is built on one coherent logic.\n\n## Why Growth Strategy Matters\nGrowth without strategy creates complexity without profitability. We help retail leaders define where to compete, how to differentiate, and where to allocate limited capital.\n\n## Core Focus Areas\n- Market and competitive positioning\n- Expansion models (owned, franchised, concession)\n- Portfolio and category strategy\n- Strategic KPIs and governance rhythm",
+        "image": "uploads/services-strategy.jpg",
         "solutions": [
-          "fr",
-          "svp"
+          "svp",
+          "franch"
         ]
       }
     ]
@@ -536,7 +537,7 @@
         "type": "Thought Leadership",
         "date": "November 10, 2025",
         "readTime": "6 min read",
-        "image": "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=2000&q=80",
+        "image": "uploads/article-founder.jpg",
         "excerpt": "Why the biggest ceiling on many retail brands is neither the market nor capital, but the organization’s dependency on a handful of key people — and how to move past it.",
         "body": "In many retail brands, early growth is powered by the founder’s energy, intuition, and direct presence. The very factor that drove the first years becomes the ceiling at scale: when decisions, problem-solving, and execution quality are tied to a few people, the organization cannot grow faster than the capacity of those individuals.\n\nMoving beyond this is not an event but a transition: from person-dependent management to an organization that runs on systems, data, and professional leadership. The transition becomes durable only when four layers form together — a clear strategy, repeatable processes, capable people, and a data-based feedback loop.\n\nThe key point is that systems do not replace leadership; they elevate it from \"solving each problem\" to \"designing the mechanism that solves problems.\" An enduring organization is one that can preserve its quality and direction without the founder’s constant presence."
       },
@@ -546,7 +547,7 @@
         "type": "Practical Guide",
         "date": "December 2, 2025",
         "readTime": "7 min read",
-        "image": "https://images.unsplash.com/photo-1772331274672-a5eecb4c6498?auto=format&fit=crop&w=2000&q=80",
+        "image": "uploads/solution-svp.jpg",
         "excerpt": "A practical guide to turning a store-opening decision from intuition into a data-driven process that reduces avoidable risk.",
         "body": "Opening a new store is often a retail brand’s largest single investment decision in a given period — yet it is frequently made with the least structured analysis. A location looks attractive, the opportunity feels \"not to be missed,\" and the decision is made on gut feel.\n\nA good validation process does not remove the decision; it raises its quality. Before committing capital, clearly assess at least these dimensions: location quality and accessibility, customer catchment, competitive intensity, brand-market fit, the appropriate store format, and investment risk.\n\nThe output should not be a plain yes or no. A useful validation presents the recommendation in three modes: proceed, adjust conditions first, or stop. This simple framing eliminates a large share of predictable store failures."
       },
@@ -556,7 +557,7 @@
         "type": "Thought Leadership",
         "date": "December 20, 2025",
         "readTime": "5 min read",
-        "image": "https://images.unsplash.com/photo-1761370571873-5d869310d731?auto=format&fit=crop&w=2000&q=80",
+        "image": "uploads/article-friction.jpg",
         "excerpt": "The smallest points of friction in the buying journey erode sales and loyalty without ever appearing in a report. How to see them and remove them.",
         "body": "Friction in the purchasing experience rarely shows up directly in any report; it appears instead in lower conversion, higher returns, and weaker loyalty. Today’s customer rarely complains — they simply do not come back.\n\nThe first step is to see the buying journey through the customer’s eyes, not the organization’s. A journey map reveals the points where unnecessary effort, ambiguity, or waiting exist. These points are then prioritized by their impact on conversion and loyalty.\n\nRemoving friction is only half the work. The other half is designing reward and interaction mechanisms that reinforce buying behavior and return visits. Combining the two — less friction, more reward — is what moves an experience from \"acceptable\" to \"memorable.\""
       },
@@ -566,7 +567,7 @@
         "type": "Strategic Advisory",
         "date": "January 15, 2026",
         "readTime": "5 min read",
-        "image": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=2000&q=80",
+        "image": "uploads/article-governance.jpg",
         "excerpt": "Franchising without governance scatters brand quality across locations. Why governance must be designed before the first franchise is granted.",
         "body": "Franchising is attractive because it enables growth without the brand’s direct capital. But that same feature is its core risk: direct control drops, and without a clear governance structure, brand quality at each location becomes dependent on the taste and capability of the franchisee.\n\nFranchise governance means clearly defining which decisions remain central, which standards are non-negotiable, and how branch quality is monitored and corrected. This framework must be designed before the first franchise is granted; fixing it after the network has expanded is far more costly."
       }
