@@ -46,6 +46,17 @@
   const heading = s => rich(s, true);
 
   // only allow safe link schemes and preserve lang parameter
+  const cleanTel = str => {
+    if (!str) return '';
+    const faDigits = '۰۱۲۳۴۵۶۷۸۹', arDigits = '٠١٢٣٤٥٦٧٨٩';
+    let s = String(str)
+      .replace(/[۰-۹]/g, d => faDigits.indexOf(d))
+      .replace(/[٠-٩]/g, d => arDigits.indexOf(d))
+      .replace(/[^\d+]/g, '');
+    if (s.startsWith('0')) s = '+98' + s.slice(1);
+    return s;
+  };
+
   const url = u => {
     u = String(u || '').trim();
     if (!u) return '#';
@@ -345,7 +356,8 @@
     const icons = {
       linkedin: '<svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3V9.5zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4V9.5z"/></svg>',
       instagram: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
-      email: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></svg>'
+      email: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></svg>',
+      phone: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
     };
     const social = [
       f.linkedin && `<a href="${url(f.linkedin)}" target="_blank" rel="noopener" aria-label="${isEn ? 'LinkedIn' : 'لینکدین'}">${icons.linkedin}</a>`,
@@ -353,7 +365,7 @@
       f.email && `<a href="mailto:${esc(f.email)}" aria-label="${isEn ? 'Email' : 'ایمیل'}">${icons.email}</a>`
     ].filter(Boolean).join('');
     const year = isEn ? new Date().getFullYear() : new Date().getFullYear().toLocaleString('fa-IR', { useGrouping: false });
-    const slogan = f.tagline || 'Level Up your Stores';
+    const slogan = f.tagline || 'Level Up Your Stores';
     $('#contact').innerHTML = `
       <div class="footer-main bg-brand">
         <div class="container footer-grid">
@@ -363,10 +375,10 @@
             ${f.brandTitle ? `<h4${sa(f, 'brandTitle')} style="margin-top:12px;">${heading(f.brandTitle)}</h4>` : ''}
           </div>
           <div><h4${sa(f, 'linksTitle')}>${heading(f.linksTitle)}</h4><ul>${(f.links || []).map(l => `<li><a href="${url(l.url)}"${target(l.url)}${sa(l, 'label')}>${esc(l.label)}</a></li>`).join('')}</ul></div>
-          <div>
+          <div class="footer-contact-col">
             <h4${sa(f, 'contactTitle')}>${heading(f.contactTitle)}</h4>
-            ${f.email ? `<p><a href="mailto:${esc(f.email)}" class="latin">${esc(f.email)}</a></p>` : ''}
-            ${f.phone ? `<p><a href="tel:${esc(f.phone.replace(/[^\d+]/g, ''))}" class="latin">${esc(f.phone)}</a></p>` : ''}
+            ${f.phone ? `<p class="footer-contact-row"><a href="tel:${cleanTel(f.phone)}" class="footer-contact-link"><span class="footer-contact-icon">${icons.phone}</span><span class="footer-phone" dir="ltr">${esc(f.phone)}</span></a></p>` : ''}
+            ${f.email ? `<p class="footer-contact-row"><a href="mailto:${esc(f.email)}" class="footer-contact-link"><span class="footer-contact-icon">${icons.email}</span><span class="latin">${esc(f.email)}</span></a></p>` : ''}
             ${social ? `<div class="social" style="margin-top:16px">${social}</div>` : ''}
           </div>
         </div>
@@ -804,7 +816,7 @@
         `<label class="f-field ${cls}"><span class="lbl">${esc(label)}${required ? ' <i class="req">*</i>' : ''}</span>${control}</label>`;
       const channels = [
         p.email && `<a class="channel" href="mailto:${esc(p.email)}"><span class="ico">${icons.mail}</span><span class="latin">${esc(p.email)}</span></a>`,
-        p.phone && `<a class="channel" href="tel:${esc(p.phone.replace(/[^\d+]/g, ''))}"><span class="ico">${icons.phone}</span><span class="latin">${esc(p.phone)}</span></a>`,
+        p.phone && `<a class="channel" href="tel:${cleanTel(p.phone)}"><span class="ico">${icons.phone}</span><span class="channel-phone" dir="ltr">${esc(p.phone)}</span></a>`,
         p.website && `<a class="channel" href="${url(/^https?:/.test(p.website) ? p.website : 'https://' + p.website)}" target="_blank" rel="noopener"><span class="ico">${icons.web}</span><span class="latin">${esc(p.website)}</span></a>`,
         p.linkedin && `<a class="channel" href="${url(p.linkedin)}" target="_blank" rel="noopener"><span class="ico">${icons.linkedin}</span><span>${isEn ? 'LinkedIn' : 'لینکدین'}</span></a>`
       ].filter(Boolean).join('');
