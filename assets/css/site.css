@@ -616,96 +616,219 @@ a.channel:hover .ico{background:var(--brand);color:#fff}
 }
 
 /* =========================================================
-   LTR (English) support
+   LTR (English) Polish & Direction Rules
    ========================================================= */
 html[dir="ltr"] {
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-head: var(--font);
 }
+
+html[dir="ltr"] body {
+  line-height: 1.68;
+}
+
+html[dir="ltr"] h1,
+html[dir="ltr"] h2,
+html[dir="ltr"] h3,
+html[dir="ltr"] h4,
+html[dir="ltr"] .h1-like,
+html[dir="ltr"] .ps-title,
+html[dir="ltr"] .tile-title {
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+html[dir="ltr"] .lead {
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
 html[dir="ltr"] .hero .eyebrow {
   direction: ltr;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
 }
+
+/* Header & Menu */
 html[dir="ltr"] .sub-menu {
   right: auto;
   left: 0;
+  min-width: 320px;
 }
+
+html[dir="ltr"] .sub-menu a .latin {
+  min-width: 84px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
 html[dir="ltr"] .main-nav .lang a {
   margin-right: 0;
   margin-left: var(--s-1);
 }
+
+/* Arrows & Micro-motion */
 html[dir="ltr"] .btn .arrow,
-html[dir="ltr"] .more .arrow {
+html[dir="ltr"] .more .arrow,
+html[dir="ltr"] .section-head .link .arrow {
   display: inline-block;
   transform: none;
+  transition: transform 0.25s var(--ease);
 }
+
 html[dir="ltr"] .btn:hover .arrow,
 html[dir="ltr"] .card:hover .more .arrow,
-html[dir="ltr"] a.info-card:hover .more .arrow {
-  transform: translateX(4px);
+html[dir="ltr"] a.info-card:hover .more .arrow,
+html[dir="ltr"] .post-card:hover .more .arrow,
+html[dir="ltr"] .section-head .link:hover .arrow {
+  transform: translateX(5px);
 }
+
+/* Hero Split layout in LTR: text on left, photo on right */
 html[dir="ltr"] .hero--split .hero-panel {
+  margin-right: auto;
+  margin-left: 0;
   background-image: radial-gradient(circle at 15% 15%, rgba(0, 176, 240, 0.18), transparent 55%);
 }
+
+html[dir="ltr"] .hero--split .hero-media {
+  inset: 0 0 0 auto;
+  left: auto;
+  right: 0;
+}
+
+html[dir="ltr"] .hero--split .hero-panel::after {
+  inset: 0 0 0 auto;
+  left: auto;
+  right: 0;
+}
+
+/* Hero Overlay layout in LTR: dark gradient on left */
+html[dir="ltr"] .hero--overlay .hero-slide::after {
+  background: linear-gradient(90deg, rgba(13, 20, 40, 0.94) 0%, rgba(13, 20, 40, 0.76) 45%, rgba(13, 20, 40, 0.18) 85%);
+}
+
 html[dir="ltr"] .hero-controls {
   right: auto;
   left: 0;
 }
+
 html[dir="ltr"] .hero--overlay .hero-controls {
   right: auto;
   left: 50%;
   transform: translateX(-50%);
 }
+
 html[dir="ltr"] .hero-arrows {
   margin-right: 0;
   margin-left: auto;
 }
+
+/* Product slider on services page */
 html[dir="ltr"] .ps-tabs .hero-dot {
   text-align: left;
 }
+
 html[dir="ltr"] .ps-tabs .hero-dot + .hero-dot {
   border-right: none;
   border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+html[dir="ltr"] .ps-tabs .hero-dot span {
+  inset: auto auto 0 0;
+}
+
+html[dir="ltr"] .product-slider .hero-arrows {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Layout blocks & alignment */
+html[dir="ltr"] .story .container.story--single {
+  text-align: left;
+}
+
 html[dir="ltr"] .stat + .stat {
   border-right: none;
   border-left: 1px solid var(--line);
   padding-right: 0;
   padding-left: var(--s-3);
 }
+
 html[dir="ltr"] .stat:first-child {
   padding-left: 0;
 }
+
 html[dir="ltr"] .pains-close {
   border-right: none;
   border-left: 3px solid var(--brand);
   padding-right: 0;
   padding-left: var(--s-3);
 }
+
 html[dir="ltr"] .checks li {
   padding-right: 0;
   padding-left: 34px;
 }
+
 html[dir="ltr"] .checks li::before {
   right: auto;
   left: 0;
 }
+
+html[dir="ltr"] .steps li::before {
+  content: counter(step, decimal);
+}
+
 html[dir="ltr"] .detail-box h3::before {
   margin-left: 0;
   margin-right: 10px;
 }
+
 html[dir="ltr"] .prose blockquote {
   border-right: none;
   border-left: 4px solid var(--brand);
 }
+
 html[dir="ltr"] .prose ul {
   padding-right: 0;
-  padding-left: 1.2em;
+  padding-left: 1.4em;
 }
+
 html[dir="ltr"] .page-hero h1 .tag {
   margin-left: 0;
   margin-right: var(--s-2);
 }
+
 html[dir="ltr"] .f-field .req {
   margin-right: 0;
   margin-left: 4px;
+}
+
+/* Industries Carousel */
+html[dir="ltr"] .logo-item {
+  direction: ltr;
+}
+
+html[dir="ltr"] .logo-prev {
+  right: auto;
+  left: 0;
+}
+
+html[dir="ltr"] .logo-next {
+  left: auto;
+  right: 0;
+}
+
+/* Footer in LTR */
+html[dir="ltr"] .footer-brand {
+  align-items: flex-start;
+  text-align: left;
+}
+
+html[dir="ltr"] .footer-tagline {
+  align-self: flex-start;
+  text-align: left;
 }

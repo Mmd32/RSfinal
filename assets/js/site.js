@@ -174,10 +174,12 @@
     el.className = 'hero hero--' + style;
     if (h.panelWidth) el.style.setProperty('--panel', Math.min(60, Math.max(34, Number(h.panelWidth) || 44)) + '%');
     const total = pad2(slides.length);
+    const prevArrow = isEn ? '<path d="M15 5l-7 7 7 7"/>' : '<path d="M9 5l7 7-7 7"/>';
+    const nextArrow = isEn ? '<path d="M9 5l7 7-7 7"/>' : '<path d="M15 5l-7 7 7 7"/>';
     // body text: blank line = new paragraph, single line break kept
     const paras = t => String(t || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean).map(p => `<p>${rich(p)}</p>`).join('');
     el.innerHTML = slides.map((s, i) => `
-      <div class="hero-slide${i === 0 ? ' is-active' : ''}" aria-hidden="${i !== 0}" role="group" aria-label="اسلاید ${faDigits(i + 1)}">
+      <div class="hero-slide${i === 0 ? ' is-active' : ''}" aria-hidden="${i !== 0}" role="group" aria-label="${isEn ? 'Slide ' + (i + 1) : 'اسلاید ' + faDigits(i + 1)}">
         <div class="hero-panel">
           <div class="hero-content">
             ${slides.length > 1 ? `<div class="hero-count"><b>${pad2(i + 1)}</b><span>/ ${total}</span></div>` : ''}
@@ -190,10 +192,10 @@
         <div class="hero-media"><div class="hero-bg" style="${bg(s.image)};background-position:${['center', 'top', 'bottom', 'right', 'left'].includes(s.imagePosition) ? s.imagePosition : 'center'}" role="img" aria-label="${esc(s.imageAlt || '')}"></div></div>
       </div>`).join('') + `
       <div class="hero-controls">
-        <div class="hero-dots">${slides.map((_, i) => `<button class="hero-dot${i === 0 ? ' is-active' : ''}" aria-label="اسلاید ${faDigits(i + 1)}"><span></span></button>`).join('')}</div>
+        <div class="hero-dots">${slides.map((_, i) => `<button class="hero-dot${i === 0 ? ' is-active' : ''}" aria-label="${isEn ? 'Slide ' + (i + 1) : 'اسلاید ' + faDigits(i + 1)}"><span></span></button>`).join('')}</div>
         <div class="hero-arrows">
-          <button class="hero-arrow hero-prev" aria-label="اسلاید قبلی"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
-          <button class="hero-arrow hero-next" aria-label="اسلاید بعدی"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="hero-arrow hero-prev" aria-label="${isEn ? 'Previous slide' : 'اسلاید قبلی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">${prevArrow}</svg></button>
+          <button class="hero-arrow hero-next" aria-label="${isEn ? 'Next slide' : 'اسلاید بعدی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">${nextArrow}</svg></button>
         </div>
       </div>`;
     initHeroSlider(el, h);
@@ -316,7 +318,7 @@
             ${s.eyebrow ? `<span class="eyebrow"${sa(s, 'eyebrow')}>${esc(s.eyebrow)}</span>` : ''}
             <h2${sa(s, 'title')}>${heading(s.title)}</h2>
           </div>
-          ${s.linkLabel ? `<a class="link" href="${url(s.linkUrl)}"${target(s.linkUrl)}${sa(s, 'linkLabel')}>${esc(s.linkLabel)} <span>←</span></a>` : ''}
+          ${s.linkLabel ? `<a class="link" href="${url(s.linkUrl)}"${target(s.linkUrl)}${sa(s, 'linkLabel')}>${esc(s.linkLabel)} ${arrow}</a>` : ''}
         </div>
         <div class="tiles-grid">${tile(t[0], 'tile-lg')}${tile(t[1], 'tile-md')}${tile(t[2], '')}${tile(t[3], '')}</div>
       </div>`;
@@ -324,13 +326,15 @@
 
   function renderIndustries(c) {
     const ind = c.industries;
+    const prevArrow = isEn ? '<path d="M15 5l-7 7 7 7"/>' : '<path d="M9 5l7 7-7 7"/>';
+    const nextArrow = isEn ? '<path d="M9 5l7 7-7 7"/>' : '<path d="M15 5l-7 7 7 7"/>';
     $('#industries').innerHTML = `
       <div class="container">
         ${ind.eyebrow ? `<span class="eyebrow"${sa(ind, 'eyebrow')}>${esc(ind.eyebrow)}</span>` : ''}
         <div class="logo-carousel">
           <div class="logo-viewport"><div class="logo-track"></div></div>
-          <button class="logo-nav logo-prev" aria-label="قبلی"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
-          <button class="logo-nav logo-next" aria-label="بعدی"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="logo-nav logo-prev" aria-label="${isEn ? 'Previous' : 'قبلی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">${prevArrow}</svg></button>
+          <button class="logo-nav logo-next" aria-label="${isEn ? 'Next' : 'بعدی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">${nextArrow}</svg></button>
         </div>
       </div>`;
     initCarousel((ind.items || []).filter(Boolean), sa(ind, 'items'));
@@ -415,15 +419,26 @@
       // only the slider that is on screen reacts (the page may have more than one)
       const r = el.getBoundingClientRect();
       if (r.bottom < 0 || r.top > innerHeight) return;
-      if (e.key === 'ArrowLeft') go(i + 1);   // RTL: left = next
-      if (e.key === 'ArrowRight') go(i - 1);
+      if (isEn) {
+        if (e.key === 'ArrowRight') go(i + 1);
+        if (e.key === 'ArrowLeft') go(i - 1);
+      } else {
+        if (e.key === 'ArrowLeft') go(i + 1);   // RTL: left = next
+        if (e.key === 'ArrowRight') go(i - 1);
+      }
     });
     let x0 = null;
     el.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
     el.addEventListener('touchend', e => {
       if (x0 === null) return;
       const dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (Math.abs(dx) > 50) go(dx > 0 ? i + 1 : i - 1);
+      if (Math.abs(dx) > 50) {
+        if (isEn) {
+          go(dx < 0 ? i + 1 : i - 1);
+        } else {
+          go(dx > 0 ? i + 1 : i - 1);
+        }
+      }
     });
     restart();
   }
@@ -625,8 +640,8 @@
             <div class="hero-media"><div class="hero-bg" style="${bg(it.image)}"></div></div>
           </div>`).join('')}
           <div class="hero-controls"><div class="hero-arrows">
-            <button class="hero-arrow hero-prev" aria-label="${isEn ? 'Previous' : 'محصول قبلی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
-            <button class="hero-arrow hero-next" aria-label="${isEn ? 'Next' : 'محصول بعدی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="hero-arrow hero-prev" aria-label="${isEn ? 'Previous' : 'محصول قبلی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">${isEn ? '<path d="M15 5l-7 7 7 7"/>' : '<path d="M9 5l7 7-7 7"/>'}</svg></button>
+            <button class="hero-arrow hero-next" aria-label="${isEn ? 'Next' : 'محصول بعدی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">${isEn ? '<path d="M9 5l7 7-7 7"/>' : '<path d="M15 5l-7 7 7 7"/>'}</svg></button>
           </div></div>
         </div>
       </div>`;
