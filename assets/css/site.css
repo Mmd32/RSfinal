@@ -274,7 +274,7 @@ body.is-loading main,body.is-loading footer{visibility:hidden}
    ========================================================= */
 .pains{background:var(--navy);color:#fff}
 .pains .container{display:grid;grid-template-columns:5fr 7fr;gap:var(--s-8);align-items:center}
-.pains-media{aspect-ratio:4/5;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.pains-media{aspect-ratio:4/5;border-radius:14px;border:1px solid rgba(255,255,255,.12);box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden}
 .pains h2{font-size:calc(var(--fs-h2) * var(--ts,1) * var(--ts-head,1));color:#fff;margin-bottom:var(--s-2)}
 .pains .lead{color:rgba(255,255,255,.75)}
 .pain-list{list-style:none;margin:var(--s-5) 0 0;padding:0;display:grid;gap:var(--s-2)}
