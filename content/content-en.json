@@ -1,0 +1,629 @@
+{
+  "site": {
+    "title": "Retail Solutions — Level Up Your Stores",
+    "description": "We help retail businesses enhance their performance, build growth infrastructure, and realize their true capacity for expansion and growth.",
+    "brandName": "Retail Solutions",
+    "logo": "assets/logo/logo-dark.png",
+    "logoFooter": "assets/logo/logo-white.png",
+    "logoAlt": "Retail Solutions Logo",
+    "homeUrl": "index.html?lang=en"
+  },
+  "typography": {
+    "fontBody": "",
+    "fontHeading": "",
+    "scale": 90,
+    "headingScale": 100,
+    "bodyScale": 100
+  },
+  "layout": {
+    "sections": [
+      {
+        "key": "about",
+        "visible": true
+      },
+      {
+        "key": "services",
+        "visible": true
+      },
+      {
+        "key": "pains",
+        "visible": true
+      },
+      {
+        "key": "difference",
+        "visible": true
+      },
+      {
+        "key": "solutions",
+        "visible": true
+      },
+      {
+        "key": "industries",
+        "visible": true
+      }
+    ]
+  },
+  "nav": {
+    "brand": "Retail Solutions",
+    "items": [
+      {
+        "label": "About Us",
+        "url": "about.html",
+        "children": []
+      },
+      {
+        "label": "Services",
+        "url": "solutions.html",
+        "children": [
+          {
+            "tag": "FR™",
+            "label": "Frictional Reward",
+            "url": "solution.html?id=fr"
+          },
+          {
+            "tag": "SVP™",
+            "label": "Store Validation Process",
+            "url": "solution.html?id=svp"
+          },
+          {
+            "tag": "FRANCH™",
+            "label": "Franchise Development & Governance",
+            "url": "solution.html?id=franch"
+          },
+          {
+            "tag": "STRATEGY",
+            "label": "Growth Strategy Formulation",
+            "url": "capability.html?id=strategy"
+          },
+          {
+            "tag": "OPS",
+            "label": "Operational System Design",
+            "url": "capability.html?id=operations"
+          },
+          {
+            "tag": "PEOPLE",
+            "label": "Human Capital Development",
+            "url": "capability.html?id=people"
+          },
+          {
+            "tag": "EXPANSION",
+            "label": "Store Expansion Planning",
+            "url": "capability.html?id=expansion"
+          },
+          {
+            "tag": "STORE",
+            "label": "Store Standards Development",
+            "url": "capability.html?id=store-development"
+          }
+        ]
+      },
+      {
+        "label": "Industries",
+        "url": "index.html#industries",
+        "children": []
+      },
+      {
+        "label": "Insights",
+        "url": "insights.html",
+        "children": []
+      },
+      {
+        "label": "Contact Us",
+        "url": "contact.html",
+        "children": []
+      }
+    ],
+    "ctaLabel": "Request a Meeting",
+    "ctaUrl": "contact.html",
+    "langLabel": "FA",
+    "langUrl": "?lang=fa"
+  },
+  "hero": {
+    "style": "overlay",
+    "panelWidth": 44,
+    "autoplay": true,
+    "interval": 8,
+    "slides": [
+      {
+        "title": "Sustainable Growth Through Building a Capable Organization",
+        "eyebrow": "Retail Transformation",
+        "text": "Retail Solutions helps brands transform from sales-driven, person-dependent businesses into cohesive, resilient, and growth-ready professional retail organizations.\n\nOrganizations that understand the role of customer experience in brand success, equipped with the necessary infrastructure and team for sustainable expansion.",
+        "buttonLabel": "Our Services",
+        "buttonUrl": "solutions.html",
+        "image": "uploads/20261024-1-190dc5.jpg",
+        "imageAlt": "Sustainable retail growth",
+        "imagePosition": "center"
+      },
+      {
+        "title": "Helping Build the Businesses of the Future",
+        "eyebrow": "Strategic Transformation",
+        "text": "Our goal is not merely to improve today’s performance; it is to build capabilities that empower brands to make sharper, more impactful decisions, operate with greater consistency, and establish robust infrastructure and systems thinking for enduring growth.",
+        "buttonLabel": "About Our Approach",
+        "buttonUrl": "about.html",
+        "image": "uploads/20261024-2-2-746f15.jpg",
+        "imageAlt": "Building businesses of the future",
+        "imagePosition": "center"
+      },
+      {
+        "title": "From Problem Discovery to Solution Design & Execution",
+        "eyebrow": "Systems & Operations",
+        "text": "Through a rigorous diagnostic of each retail business, we identify the critical linkages between strategy, operations, human capital, and store expansion. Working alongside leadership, we turn strategy into actionable systems, operational practices, and practical infrastructure.",
+        "buttonLabel": "Request a Meeting",
+        "buttonUrl": "contact.html",
+        "image": "uploads/20261024-3-a21ed4.jpg",
+        "imageAlt": "Discovery to execution",
+        "imagePosition": "center"
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "",
+    "title": "We help retail businesses enhance their performance, build growth infrastructure, and realize their true capacity for expansion and growth.",
+    "titleHighlight": "",
+    "paragraphs": [],
+    "stats": [],
+    "cta": {
+      "eyebrow": "",
+      "title": "",
+      "text": "",
+      "primaryLabel": "",
+      "primaryUrl": "",
+      "secondaryLabel": "",
+      "secondaryUrl": ""
+    }
+  },
+  "services": {
+    "eyebrow": "What We Do",
+    "title": "What We Do",
+    "text": "We connect strategy, operational systems, human capital, and store expansion into an integrated capability for sustainable growth.",
+    "buttonLabel": "Explore Services",
+    "buttonUrl": "solutions.html",
+    "moreLabel": "Learn More",
+    "cards": [
+      {
+        "tag": "Strategy",
+        "title": "Growth Strategy",
+        "text": "From problem discovery to solution design",
+        "url": "capability.html?id=strategy",
+        "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1000&q=80"
+      },
+      {
+        "tag": "Operations",
+        "title": "Operating System Design",
+        "text": "Moving from person-dependency toward systems",
+        "url": "capability.html?id=operations",
+        "image": "https://images.unsplash.com/photo-1764795849885-e226e3cabe87?auto=format&fit=crop&w=1000&q=80"
+      },
+      {
+        "tag": "People",
+        "title": "Human Capital Development",
+        "text": "From strategy to staff training and professional leadership",
+        "url": "capability.html?id=people",
+        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "tag": "Store Development",
+        "title": "Store Standard Development",
+        "text": "From data and performance to expansion planning; powered by Discover, Diagnose, Design, Deploy & Develop.",
+        "url": "capability.html?id=store-development",
+        "image": "https://images.unsplash.com/photo-1789098175597-e633516c3df8?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+  "pains": {
+    "eyebrow": "What You Face",
+    "title": "We Understand the Problem.",
+    "text": "Many retail brands reach a stage where further growth creates mounting pressure instead of predictable profits.",
+    "image": "https://images.unsplash.com/photo-1771033834141-023d630b3965?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      "Decisions waiting on the founder or key executives",
+      "Uneven customer experience and inconsistent branch quality",
+      "Growth increasing operational pressure instead of profitability",
+      "Major expansion and investment decisions made without reliable data"
+    ],
+    "closing": "Retail Solutions partners with leadership to systematically address these bottlenecks."
+  },
+  "difference": {
+    "eyebrow": "Why Retail Solutions",
+    "title": "What Sets Us Apart",
+    "text": "Traditional consultants deliver an analysis report and leave execution to the organization. Retail Solutions works alongside leadership and teams through implementation, ensuring the organization builds its own permanent capabilities and operational independence.",
+    "buttonLabel": "About Our Approach",
+    "buttonUrl": "about.html",
+    "videoUrl": "",
+    "videoImage": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=80"
+  },
+  "solutions": {
+    "eyebrow": "Core Solutions",
+    "title": "Structured Solutions",
+    "linkLabel": "View All Solutions",
+    "linkUrl": "solutions.html",
+    "tiles": [
+      {
+        "tag": "FR™",
+        "title": "Retail Friction & Reward",
+        "url": "solution.html?id=fr",
+        "image": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1400&q=80"
+      },
+      {
+        "tag": "SVP™",
+        "title": "Store Validation Process",
+        "url": "solution.html?id=svp",
+        "image": "https://images.unsplash.com/photo-1772331274672-a5eecb4c6498?auto=format&fit=crop&w=1400&q=80"
+      },
+      {
+        "tag": "FRANCH™",
+        "title": "Franchise Governance",
+        "url": "solution.html?id=franch",
+        "image": "https://images.unsplash.com/photo-1772760224872-db7c8f49404a?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "tag": "Strategy",
+        "title": "Growth Strategy Formulation",
+        "url": "capability.html?id=strategy",
+        "image": "https://images.unsplash.com/photo-1522684462852-01b24e76b77d?auto=format&fit=crop&w=900&q=80"
+      }
+    ]
+  },
+  "industries": {
+    "eyebrow": "Industries We Serve",
+    "items": [
+      "Fashion & Leather",
+      "Café & Restaurant",
+      "Beauty & Cosmetics",
+      "Furniture & Homeware",
+      "FMCG",
+      "Consumer Electronics"
+    ]
+  },
+  "cta": {
+    "eyebrow": "Start Collaboration",
+    "title": "Ready to Level Up Your Stores?",
+    "text": "Book a diagnostic meeting with our advisory team to review your organizational priorities.",
+    "buttonLabel": "Request a Meeting",
+    "buttonUrl": "contact.html"
+  },
+  "pages": {
+    "about": {
+      "image": "https://images.unsplash.com/photo-1785741393025-d6b6ba1d1eee?auto=format&fit=crop&w=2400&q=80",
+      "eyebrow": "",
+      "title": "Organizational Transformation Partner for the Retail Industry",
+      "lead": "Brand consistency must exist throughout the organization, from strategy design to daily operational execution.",
+      "valuesTitle": "Our Values",
+      "values": [
+        {
+          "title": "Trust",
+          "text": "We believe professional relationships, transparency, and accountability are the foundation of long-term collaboration."
+        },
+        {
+          "title": "Systems Thinking",
+          "text": "We do not examine problems in isolation; we connect strategy, people, processes, data, and execution."
+        },
+        {
+          "title": "Execution",
+          "text": "The true value of a solution is realized only when it transforms into action, behavior, and results within the organization."
+        },
+        {
+          "title": "Continuous Learning",
+          "text": "We view organizational transformation as an ongoing cycle of observation, analysis, experimentation, refinement, and development."
+        },
+        {
+          "title": "Long-Term Value",
+          "text": "Rather than short-term fixes, we focus on establishing capabilities and infrastructure that create enduring value over time."
+        }
+      ],
+      "blocks": [
+        {
+          "title": "Sustainable Growth Through Building a Capable Organization",
+          "text": "Retail Solutions helps brands transform from sales-driven, person-dependent businesses into cohesive, resilient, and growth-ready professional retail organizations.\n\nOrganizations that understand the role of customer experience in brand success, equipped with the necessary infrastructure and team for sustainable expansion."
+        },
+        {
+          "title": "Helping Build the Businesses of the Future",
+          "text": "Our goal is not merely to improve today’s performance; it is to build capabilities that empower brands to make sharper, more impactful decisions, operate with greater consistency, and establish robust infrastructure and systems thinking for enduring growth."
+        },
+        {
+          "title": "From Problem Discovery to Solution Design & Execution",
+          "text": "Through a rigorous diagnostic of each retail business, we identify the critical linkages between strategy, operations, human capital, and store expansion. Working alongside leadership, we turn strategy into actionable systems, operational practices, and practical infrastructure."
+        }
+      ]
+    },
+    "solutions": {
+      "image": "https://images.unsplash.com/photo-1776000680544-ebf0989a71df?auto=format&fit=crop&w=2400&q=80",
+      "eyebrow": "Solutions",
+      "title": "Services & Solutions",
+      "lead": "Integrated transformation solutions designed to build scalable, system-driven retail organizations.",
+      "signatureTitle": "Structured Solutions",
+      "products": {
+        "source": "solutions",
+        "autoplay": true,
+        "interval": 8,
+        "detailLabel": "Solution Details",
+        "ctaLabel": "Request a Meeting",
+        "ctaUrl": "contact.html"
+      },
+      "capabilitiesTitle": "Services Built on Five Integrated Capabilities"
+    },
+    "insights": {
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2400&q=80",
+      "eyebrow": "Insights",
+      "title": "Insights & Thought Leadership in Retail",
+      "lead": "Perspectives from Retail Solutions on building system-driven, data-grounded, and scalable organizations.",
+      "readMoreLabel": "Read Article",
+      "relatedTitle": "Related Insights"
+    },
+    "contact": {
+      "image": "https://images.unsplash.com/photo-1771033834141-023d630b3965?auto=format&fit=crop&w=2400&q=80",
+      "eyebrow": "Contact",
+      "title": "Request a Meeting",
+      "lead": "Organizational transformation partner for the retail industry",
+      "channelsTitle": "Ways to Connect",
+      "email": "info@retailsolutions.ir",
+      "formTitle": "Meeting Request Form",
+      "formIntro": "Share your business context and goals. We will review your inquiry and reach out shortly.",
+      "industryOptions": [
+        "Fashion & Apparel",
+        "Café & Restaurant (F&B)",
+        "Beauty & Cosmetics",
+        "Furniture & Homeware",
+        "FMCG & Supermarket",
+        "Consumer Electronics",
+        "Other Retail Sectors"
+      ],
+      "contactMethods": [
+        "Phone Call",
+        "Email",
+        "WhatsApp",
+        "In-Person Meeting"
+      ],
+      "consentText": "I agree to the processing of this information for scheduling a business meeting.",
+      "submitLabel": "Submit Request"
+    }
+  },
+  "solutionPages": {
+    "detailLabels": {
+      "challenge": "The Core Challenge",
+      "audience": "Who This Is For",
+      "questions": "Key Diagnostic Questions",
+      "approach": "Approach & Steps",
+      "outputs": "Deliverables & Outputs",
+      "impacts": "Expected Impact",
+      "faq": "Frequently Asked Questions",
+      "capabilities": "Integrated Capabilities",
+      "industries": "Target Industries"
+    },
+    "items": [
+      {
+        "id": "fr",
+        "tag": "FR™",
+        "title": "Retail Friction & Reward",
+        "summary": "Reducing friction in the purchasing experience and designing effective mechanisms to increase customer satisfaction, conversion, and loyalty.",
+        "intro": "While everything may appear orderly on the surface, beneath the daily operations of retail stores lies an ongoing tension between organizational systems and customer experience. Identifying and removing these friction points is the key to unlock sustainable growth.",
+        "challenge": "Modern shoppers are more sensitive than ever to purchasing friction. Minor operational hurdles or disconnected touchpoints directly reduce conversion, erode satisfaction, and weaken long-term brand loyalty.",
+        "audience": "Ideal for brands experiencing conversion drop-offs, inconsistent branch experience, repeated service complaints, high return rates, or weak customer retention.",
+        "questions": [
+          "Is the customer experience uniform across all stores and channels?",
+          "Where are the primary friction points in the customer journey, and how are they tracked?",
+          "Is there an intentional mechanism for rewarding, retaining, and delighting loyal shoppers?",
+          "How are customer complaints and product returns channeled into continuous operational improvement?"
+        ],
+        "approach": [],
+        "outputs": [],
+        "impacts": [
+          "Higher store conversion rates",
+          "Increased customer retention and lifetime value",
+          "Elevated and uniform store experience"
+        ],
+        "faqs": [],
+        "capabilities": [],
+        "industries": [],
+        "image": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=2400&q=80"
+      },
+      {
+        "id": "svp",
+        "tag": "SVP™",
+        "title": "Store Validation Process",
+        "summary": "Data-driven branch opening feasibility and opportunity assessment prior to capital allocation.",
+        "challenge": "Opening a new retail store is a heavy capital commitment. Relying on intuition or isolated traffic observations without holistic data creates severe operational and financial risks.",
+        "audience": "Essential for retail brands planning multi-store expansion, considering new flagship locations, or evaluating network consolidation.",
+        "questions": [
+          "What is the verifiable market potential and foot-traffic quality of the candidate location?",
+          "How does the candidate location correlate with target customer demographics and catchment area?",
+          "What is the projected payback horizon under varying operational scenarios?",
+          "Does the store format align with surrounding retail gravity and competitive positioning?"
+        ],
+        "approach": [],
+        "outputs": [],
+        "impacts": [
+          "Substantially reduced capital expansion risk",
+          "Optimized store format and footprint",
+          "Data-backed location selection and investment certainty"
+        ],
+        "faqs": [],
+        "capabilities": [],
+        "industries": [],
+        "image": "https://images.unsplash.com/photo-1772331274672-a5eecb4c6498?auto=format&fit=crop&w=2400&q=80"
+      },
+      {
+        "id": "franch",
+        "tag": "FRANCH™",
+        "title": "Franchise Governance & Development",
+        "summary": "Designing governance architecture, operational standards, and oversight frameworks for sustainable franchise expansion.",
+        "challenge": "Franchising accelerates physical footprint, but without strict operational standards and governance, branch quality diverges, damaging brand equity and franchisee economics.",
+        "audience": "Designed for established retail brands seeking structured franchise expansion, or existing networks needing governance standardization and audit systems.",
+        "questions": [
+          "Are standard operating procedures (SOPs) documented and auditable across every franchise store?",
+          "What governance mechanisms protect brand integrity, supply chain compliance, and customer experience?",
+          "How are franchisee performance and commercial health monitored proactively?",
+          "Is there a structured partner selection and continuous training framework in place?"
+        ],
+        "approach": [],
+        "outputs": [],
+        "impacts": [
+          "Scalable and disciplined network expansion",
+          "Protected brand equity and service uniformity",
+          "Strengthened franchisee unit economics and alignment"
+        ],
+        "faqs": [],
+        "capabilities": [],
+        "industries": [],
+        "image": "https://images.unsplash.com/photo-1772760224872-db7c8f49404a?auto=format&fit=crop&w=2400&q=80"
+      }
+    ]
+  },
+  "capabilityPages": {
+    "relatedTitle": "Related Solutions",
+    "items": [
+      {
+        "id": "strategy",
+        "title": "Growth Strategy Formulation",
+        "summary": "Defining growth direction, strategic priorities, expansion models, and critical business decisions tailored to brand positioning.",
+        "body": "Strategy is where the transformation system begins: growth direction, priorities, and decision boundaries are defined so that every other capability — operations, people, expansion, and store standards — is built on one coherent logic.\n\n## Why Growth Strategy Matters\nGrowth without strategy creates complexity without profitability. We help retail leaders define where to compete, how to differentiate, and where to allocate limited capital.\n\n## Core Focus Areas\n- Market and competitive positioning\n- Expansion models (owned, franchised, concession)\n- Portfolio and category strategy\n- Strategic KPIs and governance rhythm",
+        "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=2400&q=80",
+        "solutions": [
+          "svp",
+          "franch"
+        ]
+      },
+      {
+        "id": "operations",
+        "title": "Operating System Design",
+        "summary": "Designing repeatable processes, operational standards, organizational roles, and control mechanisms for consistent execution.",
+        "body": "Operations turns strategy into daily execution. Processes, standards, and control mechanisms are designed so that quality is repeatable across every store and team — independent of any single individual.\n\n## From Chaos to Predictability\nWhen retail stores rely on memory or verbal instructions, customer experience fluctuates wildly. Operating systems create institutional memory and repeatable excellence.\n\n## Core Deliverables\n- Store Operations Manual (SOPs)\n- Inventory and merchandising rhythms\n- Daily, weekly, and monthly store audit systems\n- Store manager and supervisor routines",
+        "image": "https://images.unsplash.com/photo-1764795849885-e226e3cabe87?auto=format&fit=crop&w=2400&q=80",
+        "solutions": [
+          "fr",
+          "franch"
+        ]
+      },
+      {
+        "id": "people",
+        "title": "Human Capital Development",
+        "summary": "Strengthening organizational structure, competencies, performance systems, and managerial leadership required for scalable growth.",
+        "body": "A system does not run without capable people. Structure, roles, competencies, and performance systems are developed so the organization can lead and grow independently of its founder.\n\n## Empowering Store Teams\nRetail frontline staff are the true ambassadors of your brand. We build training academies, clear career paths, and incentive structures that motivate high performance.\n\n## Core Focus Areas\n- Organization chart and role clarity\n- Retail competency framework\n- Store incentive and KPI alignment\n- Retail leadership development programs",
+        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=2400&q=80",
+        "solutions": [
+          "fr"
+        ]
+      },
+      {
+        "id": "expansion",
+        "title": "Branch Expansion Planning",
+        "summary": "Mapping the network expansion trajectory, prioritizing regional opportunities, and de-risking store rollout decisions.",
+        "body": "Network growth is sustainable only when it is driven by data and clear priorities. The expansion path is designed and the risk of expansion decisions is reduced before capital is committed.\n\n## Disciplined Rollout\nOpening stores in the wrong order or wrong catchments drains cash flow. We build scientific expansion roadmaps aligned with brand maturity.\n\n## Strategic Components\n- Catchment area and demographic analysis\n- Store opening velocity and sequencing\n- Cluster economics and logistics synchronization\n- Expansion risk mitigation",
+        "image": "https://images.unsplash.com/photo-1522684462852-01b24e76b77d?auto=format&fit=crop&w=2400&q=80",
+        "solutions": [
+          "svp",
+          "franch"
+        ]
+      },
+      {
+        "id": "store-development",
+        "title": "Store Standard Development",
+        "summary": "Defining rigorous standards for store architectural design, fit-out rollout, store operations, and performance audits.",
+        "body": "The store is the brand’s primary point of contact with the customer. Standards for design, launch, operation, and evaluation are defined so the brand experience is consistent and measurable everywhere.\n\n## Uniform Brand Identity\nA customer stepping into store #1 or store #20 should immediately recognize the same premium quality and brand ethos.\n\n## Key Standards\n- Store layout and customer circulation guidelines\n- Visual merchandising and display rules\n- Fit-out guidelines and rollout speed\n- Store audit scorecards and mystery shopping frameworks",
+        "image": "https://images.unsplash.com/photo-1789098175597-e633516c3df8?auto=format&fit=crop&w=2400&q=80",
+        "solutions": [
+          "fr",
+          "svp"
+        ]
+      }
+    ]
+  },
+  "articles": {
+    "items": [
+      {
+        "id": "founder-dependency",
+        "title": "از وابستگی به بنیان‌گذار تا سازمان سیستم‌محور",
+        "type": "Thought Leadership",
+        "date": "۱۹ آبان ۱۴۰۴",
+        "readTime": "۶ دقیقه",
+        "image": "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=2000&q=80",
+        "excerpt": "چرا بزرگ‌ترین سقف رشد بسیاری از برندهای ریتیل، نه بازار و نه سرمایه، بلکه وابستگی سازمان به چند فرد کلیدی است — و مسیر عبور از آن.",
+        "body": "در بسیاری از برندهای ریتیل، رشد اولیه مدیون انرژی، شهود و حضور مستقیم بنیان‌گذار است. همان عاملی که در سال‌های نخست موتور رشد بوده، در مقیاس بزرگ‌تر به سقف تبدیل می‌شود: وقتی تصمیم‌ها، حل مسئله‌ها و کیفیت اجرا به حضور چند نفر گره خورده باشد، سازمان نمی‌تواند سریع‌تر از ظرفیت آن افراد رشد کند.\n\nعبور از این وضعیت یک رویداد نیست، یک انتقال است: از مدیریت فردمحور به سازمانی که بر پایه‌ی سیستم، داده و رهبری حرفه‌ای کار می‌کند. این انتقال زمانی پایدار می‌شود که هم‌زمان چهار لایه شکل بگیرد — استراتژی روشن، فرآیندهای قابل تکرار، افراد توانمند و حلقه‌ی بازخورد مبتنی بر داده.\n\nنکته‌ی کلیدی این است که سیستم جایگزین رهبری نمی‌شود؛ رهبری را از «حل تک‌تک مسائل» به «طراحی سازوکاری که مسائل را حل می‌کند» ارتقا می‌دهد. سازمانِ ماندگار، سازمانی است که بتواند بدون حضور دائم بنیان‌گذار، کیفیت و جهت خود را حفظ کند."
+      },
+      {
+        "id": "validating-new-store",
+        "title": "اعتبارسنجی یک شعبه‌ی جدید پیش از امضای قرارداد",
+        "type": "Thought Leadership",
+        "date": "۱۱ آذر ۱۴۰۴",
+        "readTime": "۷ دقیقه",
+        "image": "https://images.unsplash.com/photo-1772331274672-a5eecb4c6498?auto=format&fit=crop&w=2000&q=80",
+        "excerpt": "یک راهنمای عملی برای تبدیل تصمیم افتتاح شعبه از شهود به فرآیندی داده‌محور که ریسک قابل‌اجتناب را کاهش می‌دهد.",
+        "body": "افتتاح یک شعبه‌ی جدید معمولاً بزرگ‌ترین تصمیم سرمایه‌گذاری یک برند ریتیل در یک بازه‌ی زمانی است؛ اما اغلب با کمترین میزان تحلیل ساختاریافته گرفته می‌شود. مکان جذاب به‌نظر می‌رسد، فرصت «از دست‌رفتنی» است و تصمیم بر پایه‌ی احساس گرفته می‌شود.\n\nیک فرآیند اعتبارسنجی خوب، تصمیم را حذف نمی‌کند؛ کیفیت آن را بالا می‌برد. پیش از تعهد سرمایه، دست‌کم این ابعاد را به‌صورت روشن ارزیابی کنید: کیفیت و دسترسی مکان، حوزه‌ی جذب مشتری، شدت رقابت، تناسب برند و بازار، فرمت مناسب فروشگاه و ریسک سرمایه‌گذاری.\n\nخروجی نباید صرفاً «بله» یا «خیر» باشد. یک اعتبارسنجی مفید، پیشنهاد را در سه حالت ارائه می‌کند: اجرا، اصلاح شرایط پیش از اجرا، یا توقف. همین چارچوب ساده، بخش بزرگی از شکست‌های قابل‌پیش‌بینی شعب را حذف می‌کند."
+      },
+      {
+        "id": "friction",
+        "title": "اصطکاک، مانع فروش",
+        "type": "Thought Leadership",
+        "date": "۲۹ آذر ۱۴۰۴",
+        "readTime": "۵ دقیقه",
+        "image": "https://images.unsplash.com/photo-1761370571873-5d869310d731?auto=format&fit=crop&w=2000&q=80",
+        "excerpt": "کوچک‌ترین اصطکاک‌ها در مسیر خرید، بی‌آنکه در گزارش‌ها دیده شوند، فروش و وفاداری را فرسایش می‌دهند. چگونه آن‌ها را ببینیم و حذف کنیم.",
+        "body": "اصطکاک در تجربه‌ی خرید معمولاً در هیچ گزارشی به‌صورت مستقیم دیده نمی‌شود؛ اما در نرخ تبدیل پایین‌تر، بازگشت بیشتر کالا و وفاداری ضعیف‌تر خود را نشان می‌دهد. مشتری امروز به‌ندرت شکایت می‌کند؛ او صرفاً برنمی‌گردد.\n\nاولین قدم، دیدن مسیر خرید از چشم مشتری است، نه از چشم سازمان. نقشه‌ی سفر مشتری، نقاطی را آشکار می‌کند که در آن‌ها تلاش، ابهام یا انتظار غیرضروری وجود دارد. سپس این نقاط بر اساس اثرشان بر تبدیل و وفاداری اولویت‌بندی می‌شوند.\n\nحذف اصطکاک، تنها نیمی از کار است. نیمه‌ی دیگر، طراحی سازوکارهای پاداش و تعاملی است که رفتار خرید و بازگشت مشتری را تقویت می‌کنند. ترکیب این دو — کاهش اصطکاک و افزایش پاداش — همان چیزی است که تجربه را از «قابل‌قبول» به «به‌یادماندنی» منتقل می‌کند."
+      },
+      {
+        "id": "governance-before-franchise",
+        "title": "حاکمیت، پیش از آنکه فرانچایز بدهید",
+        "type": "Thought Leadership",
+        "date": "۲۵ دی ۱۴۰۴",
+        "readTime": "۵ دقیقه",
+        "image": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=2000&q=80",
+        "excerpt": "فرانچایز بدون ساختار حاکمیتی، کیفیت برند را در شعب پراکنده می‌کند. چرا حاکمیت باید پیش از اولین واگذاری طراحی شود.",
+        "body": "فرانچایز جذاب است چون رشد را بدون سرمایه‌گذاری مستقیم برند ممکن می‌کند. اما همین ویژگی، ریسک اصلی آن هم هست: کنترل مستقیم کاهش می‌یابد و اگر ساختار حاکمیتی روشن نباشد، کیفیت برند در هر شعبه به سلیقه و توان فرانچایزگیرنده وابسته می‌شود.\n\nحاکمیت فرانچایز یعنی تعریف روشن اینکه چه تصمیم‌هایی مرکزی می‌مانند، چه استانداردهایی غیرقابل‌مذاکره‌اند و کیفیت شعب چگونه پایش و اصلاح می‌شود. این چارچوب باید پیش از اولین واگذاری طراحی شود؛ اصلاح آن پس از گسترش شبکه، بسیار پرهزینه‌تر است."
+      }
+    ]
+  },
+  "legalPages": {
+    "items": [
+      {
+        "id": "privacy",
+        "title": "حریم خصوصی",
+        "body": "ریتیل سلوشنز به حفظ حریم خصوصی بازدیدکنندگان وب‌سایت متعهد است. اطلاعاتی که از طریق فرم‌های تماس، درخواست جلسه و ارزیابی آمادگی رشد ارائه می‌کنید، تنها برای پاسخ‌گویی به درخواست شما و پیگیری همکاری استفاده می‌شود.\n\nما اطلاعات شخصی شما را بدون رضایت به اشخاص ثالث نمی‌فروشیم. داده‌های تحلیلی وب‌سایت بدون اطلاعات هویتی و صرفاً برای بهبود تجربه‌ی کاربری جمع‌آوری می‌شوند.\n\nبرای درخواست دسترسی، اصلاح یا حذف اطلاعات خود می‌توانید از طریق ایمیل رسمی با ما در تماس باشید."
+      },
+      {
+        "id": "terms",
+        "title": "شرایط استفاده",
+        "body": "استفاده از این وب‌سایت به معنای پذیرش این شرایط است. محتوای وب‌سایت صرفاً برای اطلاع‌رسانی ارائه می‌شود و به‌تنهایی مبنای تصمیم‌های تجاری قرار نمی‌گیرد.\n\nتمامی محتوا، علائم و مواد این وب‌سایت متعلق به ریتیل سلوشنز است و بازتولید آن بدون اجازه‌ی کتبی مجاز نیست."
+      }
+    ]
+  },
+  "footer": {
+    "brandTitle": "",
+    "tagline": "Retail Solutions: Level Up Your Stores",
+    "linksTitle": "Quick Links",
+    "links": [
+      {
+        "label": "About Us",
+        "url": "about.html"
+      },
+      {
+        "label": "Services",
+        "url": "solutions.html"
+      },
+      {
+        "label": "Insights",
+        "url": "insights.html"
+      },
+      {
+        "label": "Contact",
+        "url": "contact.html"
+      }
+    ],
+    "contactTitle": "Contact Us",
+    "email": "info@retailsolutions.ir",
+    "phone": "",
+    "linkedin": "https://www.linkedin.com/company/retailsolutionspro",
+    "instagram": "https://www.instagram.com/retailsolutionspro",
+    "copyright": "Retail Solutions ©",
+    "poweredBy": "Powered by NOVARK",
+    "legal": [
+      {
+        "label": "Privacy Policy",
+        "url": "page.html?id=privacy"
+      },
+      {
+        "label": "Terms of Use",
+        "url": "page.html?id=terms"
+      }
+    ]
+  }
+}

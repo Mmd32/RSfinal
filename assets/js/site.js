@@ -3,7 +3,23 @@
 (function () {
   'use strict';
 
-  const CONTENT_URL = 'content/content.json';
+  const qParams = new URLSearchParams(location.search);
+  const langQuery = qParams.get('lang');
+  if (langQuery === 'en' || langQuery === 'fa') {
+    try { localStorage.setItem('rs_lang', langQuery); } catch (e) {}
+  }
+  const savedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('rs_lang') : null;
+  const isEn = (langQuery === 'en') || (!langQuery && savedLang === 'en');
+
+  if (isEn) {
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
+  } else {
+    document.documentElement.lang = 'fa';
+    document.documentElement.dir = 'rtl';
+  }
+
+  const CONTENT_URL = isEn ? 'content/content-en.json' : 'content/content.json';
 
   /* ---------- helpers ---------- */
   const esc = s => String(s == null ? '' : s)
@@ -16,7 +32,9 @@
   const typo = (str, isHeading = false) => {
     if (str == null) return '';
     let s = String(str);
-    s = s.replace(/(^|[\s،؛«\(\[])(و)\s+/g, '$1$2\u00A0');
+    if (!isEn) {
+      s = s.replace(/(^|[\s،؛«\(\[])(و)\s+/g, '$1$2\u00A0');
+    }
     if (isHeading) {
       s = s.replace(/\s+([^\s]+)$/, '\u00A0$1');
     }
@@ -27,19 +45,27 @@
   const rich = (s, isHeading = false) => typo(esc(s), isHeading).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
   const heading = s => rich(s, true);
 
-  // only allow safe link schemes
+  // only allow safe link schemes and preserve lang parameter
   const url = u => {
     u = String(u || '').trim();
     if (!u) return '#';
-    if (/^(https?:|mailto:|tel:|#|\/|\.\/|\.\.\/)/i.test(u) || !/^[a-z][a-z0-9+.-]*:/i.test(u)) return esc(u);
-    return '#';
+    if (u.startsWith('?lang=')) return esc(u);
+    if (/^(https?:|mailto:|tel:|#)/i.test(u)) return esc(u);
+    if (/^(\/|\.\/|\.\.\/|[a-z0-9_-]+\.html)/i.test(u)) {
+      if (isEn && !u.includes('lang=')) {
+        const sep = u.includes('?') ? '&' : '?';
+        return esc(u + sep + 'lang=en');
+      }
+      return esc(u);
+    }
+    return esc(u);
   };
   const bg = u => u ? `background-image:url('${esc(String(u).replace(/'/g, '%27'))}')` : '';
   const isExternal = u => /^https?:/i.test(u || '');
   const target = u => isExternal(u) ? ' target="_blank" rel="noopener"' : '';
-  const faDigits = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-  const pad2 = n => faDigits(String(n).padStart(2, '0'));
-  const arrow = '<span class="arrow">←</span>';
+  const faDigits = n => isEn ? String(n) : String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+  const pad2 = n => isEn ? String(n).padStart(2, '0') : faDigits(String(n).padStart(2, '0'));
+  const arrow = isEn ? '<span class="arrow">→</span>' : '<span class="arrow">←</span>';
   const chev = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 9l7 7 7-7"/></svg>';
   const $ = (sel, root = document) => root.querySelector(sel);
 
@@ -112,10 +138,21 @@
   /* ---------- section renderers ---------- */
   function renderHeader(c) {
     const s = c.site, n = c.nav;
+    const targetLang = isEn ? 'fa' : 'en';
+    const langSwitchUrl = (() => {
+      try {
+        const u = new URL(location.href);
+        u.searchParams.set('lang', targetLang);
+        return (u.pathname.split('/').pop() || 'index.html') + '?' + u.searchParams.toString();
+      } catch (e) {
+        return `?lang=${targetLang}`;
+      }
+    })();
+    const langLabel = isEn ? 'FA' : (n.langLabel || 'EN');
     $('#site-header').innerHTML = `
       <div class="container">
         <a class="site-logo" href="${url(s.homeUrl || '#')}" aria-label="${esc(s.logoAlt)}"><img src="${esc(s.logo)}" alt="${esc(s.logoAlt)}"></a>
-        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 5h18v2H3zm0 6h18v2H3zm0 6h18v2H3z"/></svg>منو</button>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 5h18v2H3zm0 6h18v2H3zm0 6h18v2H3z"/></svg>${isEn ? 'Menu' : 'منو'}</button>
         <nav class="main-nav" id="main-nav"><ul>
           ${(n.items || []).map(item => {
             const kids = (item.children || []).filter(k => k.label);
@@ -125,7 +162,7 @@
                 `<li><a href="${url(k.url)}"${target(k.url)}${sa(k, 'label')}>${k.tag ? `<span class="latin">${esc(k.tag)}</span>` : ''}${esc(k.label)}</a></li>`).join('')}</ul>` : ''}
             </li>`;
           }).join('')}
-          ${n.langLabel ? `<li class="lang"><a href="${url(n.langUrl)}"${sa(n, 'langLabel')}>${esc(n.langLabel)}</a></li>` : ''}
+          ${n.langLabel ? `<li class="lang"><a href="${esc(langSwitchUrl)}" data-lang="${targetLang}"${sa(n, 'langLabel')}>${esc(langLabel)}</a></li>` : ''}
         </ul></nav>
       </div>`;
   }
@@ -438,6 +475,12 @@
         nav.classList.remove('toggled'); toggle.setAttribute('aria-expanded', 'false');
       }
     });
+    const langBtn = $('#site-header .lang a');
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        try { localStorage.setItem('rs_lang', langBtn.dataset.lang || (isEn ? 'fa' : 'en')); } catch (e) {}
+      });
+    }
   }
 
   /* =========================================================
@@ -466,12 +509,12 @@
 
   // o = the content object holding the texts (for per-text styles); k = which keys hold title / lead / eyebrow
   function pageHero({ image, eyebrow, title, lead, crumbs = [], tag = '', meta = [], o = null, k = {} }) {
-    const home = (window.__RS && window.__RS.site && window.__RS.site.brandName) || 'خانه';
+    const home = isEn ? 'Home' : ((window.__RS && window.__RS.site && window.__RS.site.brandName) || 'خانه');
     const trail = [{ label: home, url: 'index.html' }].concat(crumbs);
     return `
       <section class="page-hero${image ? '' : ' no-img'}" style="${bg(image)}">
         <div class="container">
-          <nav class="crumbs" aria-label="مسیر">${trail.map((c, i) => (i ? '<span aria-hidden="true">/</span>' : '') +
+          <nav class="crumbs" aria-label="${isEn ? 'Breadcrumbs' : 'مسیر'}">${trail.map((c, i) => (i ? '<span aria-hidden="true">/</span>' : '') +
             (c.url ? `<a href="${url(c.url)}">${esc(c.label)}</a>` : `<span>${esc(c.label)}</span>`)).join('')}</nav>
           ${eyebrow ? `<span class="eyebrow"${sa(o, k.eyebrow || 'eyebrow')}>${esc(eyebrow)}</span>` : ''}
           <h1${sa(o, k.title || 'title')}>${tag ? `<span class="tag">${esc(tag)}</span>` : ''}${heading(title)}</h1>
@@ -500,15 +543,15 @@
   function notFound(title, backUrl, backLabel) {
     return pageHero({ title }) + `
       <section class="section"><div class="container empty-state">
-        <h2>این صفحه پیدا نشد</h2>
-        <p>ممکن است آدرس اشتباه باشد یا این محتوا حذف شده باشد.</p>
+        <h2>${isEn ? 'Page Not Found' : 'این صفحه پیدا نشد'}</h2>
+        <p>${isEn ? 'The page you requested could not be found or has been moved.' : 'ممکن است آدرس اشتباه باشد یا این محتوا حذف شده باشد.'}</p>
         <a class="btn btn-primary" href="${url(backUrl)}">${esc(backLabel)} ${arrow}</a>
       </div></section>`;
   }
 
-  const solutionUrl = id => `solution.html?id=${encodeURIComponent(id)}`;
-  const capabilityUrl = id => `capability.html?id=${encodeURIComponent(id)}`;
-  const articleUrl = id => `article.html?id=${encodeURIComponent(id)}`;
+  const solutionUrl = id => url(`solution.html?id=${encodeURIComponent(id)}`);
+  const capabilityUrl = id => url(`capability.html?id=${encodeURIComponent(id)}`);
+  const articleUrl = id => url(`article.html?id=${encodeURIComponent(id)}`);
   const findBy = (arr, id) => (arr || []).find(x => x.id === id);
 
   function solutionCard(s, more) {
@@ -516,7 +559,7 @@
       ${s.tag ? `<span class="tag">${esc(s.tag)}</span>` : ''}
       <h3${sa(s, 'title')}>${heading(s.title)}</h3>
       ${s.summary ? `<p${sa(s, 'summary')}>${rich(s.summary)}</p>` : ''}
-      <span class="more">${esc(more || 'بیشتر بخوانید')} ${arrow}</span>
+      <span class="more">${esc(more || (isEn ? 'Learn more' : 'بیشتر بخوانید'))} ${arrow}</span>
     </a>`;
   }
   function capabilityCard(k, i, more) {
@@ -524,7 +567,7 @@
       <span class="num">${pad2(i + 1)}</span>
       <h3${sa(k, 'title')}>${heading(k.title)}</h3>
       ${k.summary ? `<p${sa(k, 'summary')}>${rich(k.summary)}</p>` : ''}
-      <span class="more">${esc(more || 'بیشتر بخوانید')} ${arrow}</span>
+      <span class="more">${esc(more || (isEn ? 'Learn more' : 'بیشتر بخوانید'))} ${arrow}</span>
     </a>`;
   }
   function postCard(a, c, featured) {
@@ -535,7 +578,7 @@
         <div class="post-meta">${a.type ? `<span class="type"${sa(a, 'type')}>${esc(a.type)}</span>` : ''}${a.date ? `<span>${esc(a.date)}</span>` : ''}${a.readTime ? `<span>${esc(a.readTime)}</span>` : ''}</div>
         <h3${sa(a, 'title')}>${heading(a.title)}</h3>
         ${a.excerpt ? `<p${sa(a, 'excerpt')}>${rich(a.excerpt)}</p>` : ''}
-        <span class="more"${sa(p, 'readMoreLabel')}>${esc(p.readMoreLabel || 'ادامه‌ی مطلب')} ${arrow}</span>
+        <span class="more"${sa(p, 'readMoreLabel')}>${esc(p.readMoreLabel || (isEn ? 'Read more' : 'ادامه‌ی مطلب'))} ${arrow}</span>
       </div>
     </a>`;
   }
@@ -546,7 +589,7 @@
     const L = c.solutionPages.detailLabels || {};
     const items = (c.solutionPages.items || []).map(s => ({
       o: s, textKey: 'summary', tag: s.tag, title: s.title, text: s.summary, image: s.image, url: solutionUrl(s.id),
-      points: list(s.outputs).slice(0, 4), pointsLabel: L.outputs || 'خروجی‌ها'
+      points: list(s.outputs).slice(0, 4), pointsLabel: L.outputs || (isEn ? 'Deliverables' : 'خروجی‌ها')
     }));
     if (cfg.source === 'both') (c.capabilityPages.items || []).forEach(k => items.push({
       o: k, textKey: 'summary', tag: '', title: k.title, text: k.summary, image: k.image, url: capabilityUrl(k.id), points: [], pointsLabel: ''
@@ -570,7 +613,7 @@
                 ${it.text ? `<div class="hero-text"><p${sa(it.o, it.textKey)}>${rich(it.text)}</p></div>` : ''}
                 ${it.points.length ? `<div class="ps-points"><b${sa(L, 'outputs')}>${esc(it.pointsLabel)}</b><ul class="checks">${it.points.map(t => `<li${sa(it.o, 'outputs')}>${rich(t)}</li>`).join('')}</ul></div>` : ''}
                 <div class="btn-group">
-                  <a class="btn btn-primary" href="${it.url}"${sa(cfg, 'detailLabel')}>${esc(cfg.detailLabel || 'جزئیات راهکار')} ${arrow}</a>
+                  <a class="btn btn-primary" href="${it.url}"${sa(cfg, 'detailLabel')}>${esc(cfg.detailLabel || (isEn ? 'Solution Details' : 'جزئیات راهکار'))} ${arrow}</a>
                   ${cfg.ctaLabel ? `<a class="btn btn-outline" href="${url(cfg.ctaUrl || 'contact.html')}"${sa(cfg, 'ctaLabel')}>${esc(cfg.ctaLabel)}</a>` : ''}
                 </div>
               </div>
@@ -578,8 +621,8 @@
             <div class="hero-media"><div class="hero-bg" style="${bg(it.image)}"></div></div>
           </div>`).join('')}
           <div class="hero-controls"><div class="hero-arrows">
-            <button class="hero-arrow hero-prev" aria-label="محصول قبلی"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
-            <button class="hero-arrow hero-next" aria-label="محصول بعدی"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="hero-arrow hero-prev" aria-label="${isEn ? 'Previous' : 'محصول قبلی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
+            <button class="hero-arrow hero-next" aria-label="${isEn ? 'Next' : 'محصول بعدی'}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 5l-7 7 7 7"/></svg></button>
           </div></div>
         </div>
       </div>`;
@@ -617,7 +660,7 @@
     solutions(c) {
       const p = c.pages.solutions, sols = c.solutionPages.items || [], caps = c.capabilityPages.items || [];
       const pr = p.products || {};
-      return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: 'خدمات' }], o: p }) + `
+      return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: isEn ? 'Services' : 'خدمات' }], o: p }) + `
         ${sols.length ? `<section class="section"><div class="container">
           <div class="sec-head"><h2${sa(p, 'signatureTitle')}>${heading(p.signatureTitle)}</h2>
             ${pr.text ? `<p class="lead"${sa(pr, 'text')}>${rich(pr.text)}</p>` : ''}</div>
@@ -631,7 +674,7 @@
         ${list(p.pains).length ? `<section class="section pains"><div class="container" style="display:block">
           <div class="sec-head"><h2${sa(p, 'painsTitle')}>${heading(p.painsTitle)}</h2>${p.painsText ? `<p class="lead"${sa(p, 'painsText')}>${rich(p.painsText)}</p>` : ''}</div>
           <div class="pain-cards">${p.pains.map(x => `<div class="pain-card"><h3${sa(x, 'title')}>${heading(x.title)}</h3><p${sa(x, 'problem')}>${rich(x.problem)}</p>
-            ${x.help ? `<div class="help"><b${sa(p, 'helpLabel')}>${esc(p.helpLabel || 'چطور کمک می‌کنیم')}</b><p${sa(x, 'help')}>${rich(x.help)}</p></div>` : ''}</div>`).join('')}</div>
+            ${x.help ? `<div class="help"><b${sa(p, 'helpLabel')}>${esc(p.helpLabel || (isEn ? 'How we help' : 'چطور کمک می‌کنیم'))}</b><p${sa(x, 'help')}>${rich(x.help)}</p></div>` : ''}</div>`).join('')}</div>
         </div></section>` : ''}
         ${list(p.compareItems).length ? `<section class="section"><div class="container split">
           <div><h2${sa(p, 'compareTitle')}>${heading(p.compareTitle)}</h2>${p.compareText ? `<p class="lead"${sa(p, 'compareText', 'margin-top:16px;')}>${rich(p.compareText)}</p>` : ''}</div>
@@ -646,12 +689,12 @@
 
     solution(c) {
       const sp = c.solutionPages, s = findBy(sp.items, qsId()), L = sp.detailLabels || {};
-      if (!s) return notFound('راهکار پیدا نشد', 'solutions.html', 'همه‌ی خدمات');
+      if (!s) return notFound(isEn ? 'Solution Not Found' : 'راهکار پیدا نشد', 'solutions.html', isEn ? 'All Services' : 'همه‌ی خدمات');
       document.title = `${s.tag ? s.tag + ' — ' : ''}${s.title} | ${c.site.brandName || ''}`;
       const caps = list(s.capabilities).map(id => findBy(c.capabilityPages.items, id)).filter(Boolean);
       const posts = list(s.articles).map(id => findBy(c.articles.items, id)).filter(Boolean);
       return pageHero({ image: s.image, eyebrow: '', title: s.title, tag: s.tag, lead: s.summary,
-        crumbs: [{ label: 'خدمات', url: 'solutions.html' }, { label: s.title }], o: s, k: { lead: 'summary' } }) + `
+        crumbs: [{ label: isEn ? 'Services' : 'خدمات', url: 'solutions.html' }, { label: s.title }], o: s, k: { lead: 'summary' } }) + `
         <section class="section"><div class="container">
           ${s.intro ? `<div class="sec-head"><p class="lead"${sa(s, 'intro', 'color:var(--navy);font-weight:400;')}>${rich(s.intro)}</p></div>` : ''}
           <div class="detail-grid">
@@ -681,7 +724,7 @@
           ${list(s.industries).length ? `<div class="detail-box"><h3${sa(L, 'industries')}>${heading(L.industries)}</h3><div class="chips">${s.industries.filter(Boolean).map(t => `<span${sa(s, 'industries')}>${esc(t)}</span>`).join('')}</div></div>` : ''}
         </div></section>` : ''}
         ${posts.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(c.pages.insights, 'relatedTitle')}>${heading((c.pages.insights || {}).relatedTitle || 'بینش‌های مرتبط')}</h2></div>
+          <div class="sec-head"><h2${sa(c.pages.insights, 'relatedTitle')}>${heading((c.pages.insights || {}).relatedTitle || (isEn ? 'Related Insights' : 'بینش‌های مرتبط'))}</h2></div>
           <div class="post-grid">${posts.map(a => postCard(a, c)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -689,19 +732,19 @@
 
     capability(c) {
       const cp = c.capabilityPages, k = findBy(cp.items, qsId());
-      if (!k) return notFound('تخصص پیدا نشد', 'solutions.html', 'همه‌ی خدمات');
+      if (!k) return notFound(isEn ? 'Capability Not Found' : 'تخصص پیدا نشد', 'solutions.html', isEn ? 'All Services' : 'همه‌ی خدمات');
       document.title = `${k.title} | ${c.site.brandName || ''}`;
       const sols = list(k.solutions).map(id => findBy(c.solutionPages.items, id)).filter(Boolean);
       const others = (cp.items || []).filter(x => x.id !== k.id);
       return pageHero({ image: k.image, eyebrow: '', title: k.title, lead: k.summary,
-        crumbs: [{ label: 'خدمات', url: 'solutions.html' }, { label: k.title }], o: k, k: { lead: 'summary' } }) + `
+        crumbs: [{ label: isEn ? 'Services' : 'خدمات', url: 'solutions.html' }, { label: k.title }], o: k, k: { lead: 'summary' } }) + `
         ${k.body ? `<section class="section"><div class="container"><div class="prose"${sa(k, 'body')}>${prose(k.body)}</div></div></section>` : ''}
         ${sols.length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(cp, 'relatedTitle')}>${heading(cp.relatedTitle || 'راهکارهای مرتبط')}</h2></div>
+          <div class="sec-head"><h2${sa(cp, 'relatedTitle')}>${heading(cp.relatedTitle || (isEn ? 'Related Solutions' : 'راهکارهای مرتبط'))}</h2></div>
           <div class="cards">${sols.map(s => solutionCard(s)).join('')}</div>
         </div></section>` : ''}
         ${others.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(c.pages.solutions, 'capabilitiesTitle')}>${heading((c.pages.solutions || {}).capabilitiesTitle || 'سایر تخصص‌ها')}</h2></div>
+          <div class="sec-head"><h2${sa(c.pages.solutions, 'capabilitiesTitle')}>${heading((c.pages.solutions || {}).capabilitiesTitle || (isEn ? 'Other Capabilities' : 'سایر تخصص‌ها'))}</h2></div>
           <div class="cards">${others.map(x => capabilityCard(x, (cp.items || []).indexOf(x))).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -709,27 +752,27 @@
 
     insights(c) {
       const p = c.pages.insights, posts = c.articles.items || [];
-      return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: 'دیدگاه‌ها' }], o: p }) + `
+      return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: isEn ? 'Insights' : 'دیدگاه‌ها' }], o: p }) + `
         <section class="section"><div class="container">
           ${posts.length ? `<div class="post-grid">${posts.map((a, i) => postCard(a, c, i === 0)).join('')}</div>`
-            : '<div class="empty-state"><h2>هنوز مطلبی منتشر نشده است.</h2></div>'}
+            : `<div class="empty-state"><h2>${isEn ? 'No articles published yet.' : 'هنوز مطلبی منتشر نشده است.'}</h2></div>`}
         </div></section>
         ${ctaBand(c)}`;
     },
 
     article(c) {
       const posts = c.articles.items || [], a = findBy(posts, qsId()), p = c.pages.insights || {};
-      if (!a) return notFound('مطلب پیدا نشد', 'insights.html', 'همه‌ی مطالب');
+      if (!a) return notFound(isEn ? 'Article Not Found' : 'مطلب پیدا نشد', 'insights.html', isEn ? 'All Insights' : 'همه‌ی مطالب');
       document.title = `${a.title} | ${c.site.brandName || ''}`;
       const related = posts.filter(x => x.id !== a.id).slice(0, 3);
       return pageHero({ eyebrow: a.type, title: a.title, lead: a.excerpt, meta: [a.date, a.readTime],
-        crumbs: [{ label: 'دیدگاه‌ها', url: 'insights.html' }, { label: a.title }], o: a, k: { eyebrow: 'type', lead: 'excerpt' } }) + `
+        crumbs: [{ label: isEn ? 'Insights' : 'دیدگاه‌ها', url: 'insights.html' }, { label: a.title }], o: a, k: { eyebrow: 'type', lead: 'excerpt' } }) + `
         <section class="section"><div class="container">
           ${a.image ? `<div class="article-cover" style="${bg(a.image)}"></div>` : ''}
           <article class="prose"${sa(a, 'body')}>${prose(a.body)}</article>
         </div></section>
         ${related.length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(p, 'relatedTitle')}>${heading(p.relatedTitle || 'بینش‌های مرتبط')}</h2></div>
+          <div class="sec-head"><h2${sa(p, 'relatedTitle')}>${heading(p.relatedTitle || (isEn ? 'Related Insights' : 'بینش‌های مرتبط'))}</h2></div>
           <div class="post-grid">${related.map(x => postCard(x, c)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -744,9 +787,36 @@
         p.email && `<a class="channel" href="mailto:${esc(p.email)}"><span class="ico">${icons.mail}</span><span class="latin">${esc(p.email)}</span></a>`,
         p.phone && `<a class="channel" href="tel:${esc(p.phone.replace(/[^\d+]/g, ''))}"><span class="ico">${icons.phone}</span><span class="latin">${esc(p.phone)}</span></a>`,
         p.website && `<a class="channel" href="${url(/^https?:/.test(p.website) ? p.website : 'https://' + p.website)}" target="_blank" rel="noopener"><span class="ico">${icons.web}</span><span class="latin">${esc(p.website)}</span></a>`,
-        p.linkedin && `<a class="channel" href="${url(p.linkedin)}" target="_blank" rel="noopener"><span class="ico">${icons.linkedin}</span><span>لینکدین</span></a>`
+        p.linkedin && `<a class="channel" href="${url(p.linkedin)}" target="_blank" rel="noopener"><span class="ico">${icons.linkedin}</span><span>${isEn ? 'LinkedIn' : 'لینکدین'}</span></a>`
       ].filter(Boolean).join('');
-      return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: 'تماس با ما' }], o: p }) + `
+      const fLabels = isEn ? {
+        fullName: 'Full Name',
+        company: 'Brand Name',
+        mobile: 'Phone Number',
+        email: 'Email',
+        jobTitle: 'Job Title',
+        industry: 'Industry',
+        branches: 'Number of Branches',
+        city: 'City',
+        preferredContactMethod: 'Preferred Contact Method',
+        preferredContactTime: 'Best Time to Contact',
+        primaryChallenge: 'The issue your business is facing',
+        selectPlaceholder: 'Please select'
+      } : {
+        fullName: 'نام و نام خانوادگی',
+        company: 'نام برند',
+        mobile: 'شماره تماس',
+        email: 'ایمیل',
+        jobTitle: 'سمت',
+        industry: 'صنعت',
+        branches: 'تعداد شعب',
+        city: 'شهر',
+        preferredContactMethod: 'روش تماس ترجیحی',
+        preferredContactTime: 'زمان مناسب تماس',
+        primaryChallenge: 'مسئله‌ای که کسب‌وکارتان با آن مواجه است',
+        selectPlaceholder: 'انتخاب کنید'
+      };
+      return pageHero({ image: p.image, eyebrow: p.eyebrow, title: p.title, lead: p.lead, crumbs: [{ label: isEn ? 'Contact Us' : 'تماس با ما' }], o: p }) + `
         <section class="section"><div class="container contact-grid">
           <aside class="contact-card">
             <h2${sa(p, 'channelsTitle')}>${heading(p.channelsTitle)}</h2>
@@ -758,20 +828,20 @@
             ${p.formIntro ? `<p${sa(p, 'formIntro')}>${rich(p.formIntro)}</p>` : ''}
             <div class="form-grid">
               <label class="hp" aria-hidden="true">Website <input name="website_hp" tabindex="-1" autocomplete="off"></label>
-              ${fld('نام و نام خانوادگی', '<input name="fullName" required maxlength="120" placeholder=" ">', true)}
-              ${fld('نام برند', '<input name="company" required maxlength="120" placeholder=" ">', true)}
-              ${fld('شماره تماس', '<input name="mobile" required inputmode="tel" maxlength="30" placeholder=" " pattern="[0-9۰-۹+\\-\\s()]{7,}">', true)}
-              ${fld('ایمیل', '<input name="email" type="email" maxlength="160" placeholder=" ">')}
-              ${fld('سمت', '<input name="jobTitle" maxlength="120">')}
-              ${fld('صنعت', `<select name="industry"><option value="">انتخاب کنید</option>${opt(p.industryOptions)}</select>`)}
-              ${fld('تعداد شعب', '<input name="branches" maxlength="20" inputmode="numeric">')}
-              ${fld('شهر', '<input name="city" maxlength="80">')}
-              ${fld('روش تماس ترجیحی', `<select name="preferredContactMethod"><option value="">انتخاب کنید</option>${opt(p.contactMethods)}</select>`)}
-              ${fld('زمان مناسب تماس', '<input name="preferredContactTime" maxlength="80">')}
-              ${fld('مسئله‌ای که کسب‌وکارتان با آن مواجه است', '<textarea name="primaryChallenge" maxlength="3000"></textarea>', false, 'full')}
+              ${fld(fLabels.fullName, '<input name="fullName" required maxlength="120" placeholder=" ">', true)}
+              ${fld(fLabels.company, '<input name="company" required maxlength="120" placeholder=" ">', true)}
+              ${fld(fLabels.mobile, '<input name="mobile" required inputmode="tel" maxlength="30" placeholder=" " pattern="[0-9۰-۹+\\-\\s()]{7,}">', true)}
+              ${fld(fLabels.email, '<input name="email" type="email" maxlength="160" placeholder=" ">')}
+              ${fld(fLabels.jobTitle, '<input name="jobTitle" maxlength="120">')}
+              ${fld(fLabels.industry, `<select name="industry"><option value="">${fLabels.selectPlaceholder}</option>${opt(p.industryOptions)}</select>`)}
+              ${fld(fLabels.branches, '<input name="branches" maxlength="20" inputmode="numeric">')}
+              ${fld(fLabels.city, '<input name="city" maxlength="80">')}
+              ${fld(fLabels.preferredContactMethod, `<select name="preferredContactMethod"><option value="">${fLabels.selectPlaceholder}</option>${opt(p.contactMethods)}</select>`)}
+              ${fld(fLabels.preferredContactTime, '<input name="preferredContactTime" maxlength="80">')}
+              ${fld(fLabels.primaryChallenge, '<textarea name="primaryChallenge" maxlength="3000"></textarea>', false, 'full')}
               <label class="f-check full"><input type="checkbox" name="consent" required> <span${sa(p, 'consentText')}>${rich(p.consentText)}</span></label>
             </div>
-            <button class="btn btn-primary" type="submit"${sa(p, 'submitLabel')}>${esc(p.submitLabel || 'ارسال')} ${arrow}</button>
+            <button class="btn btn-primary" type="submit"${sa(p, 'submitLabel')}>${esc(p.submitLabel || (isEn ? 'Submit' : 'ارسال'))} ${arrow}</button>
             <div class="form-status" id="form-status" hidden></div>
           </form>
         </div></section>`;
@@ -779,7 +849,7 @@
 
     page(c) {
       const pg = findBy((c.legalPages || {}).items, qsId());
-      if (!pg) return notFound('صفحه پیدا نشد', 'index.html', 'بازگشت به صفحه‌ی اصلی');
+      if (!pg) return notFound(isEn ? 'Page Not Found' : 'صفحه پیدا نشد', 'index.html', isEn ? 'Back to Home' : 'بازگشت به صفحه‌ی اصلی');
       document.title = `${pg.title} | ${c.site.brandName || ''}`;
       return pageHero({ title: pg.title, crumbs: [{ label: pg.title }], o: pg }) + `
         <section class="section"><div class="container"><div class="prose"${sa(pg, 'body')}>${prose(pg.body)}</div></div></section>`;
@@ -795,7 +865,9 @@
       e.preventDefault();
       if (!form.checkValidity()) {
         const bad = form.querySelector(':invalid');
-        show(bad && bad.name === 'consent' ? 'لطفاً موافقت با ذخیره‌ی اطلاعات را تأیید کنید.' : 'لطفاً فیلدهای الزامی (نام، برند، شماره تماس) را درست کامل کنید.', false);
+        show(bad && bad.name === 'consent'
+          ? (isEn ? 'Please agree to the privacy policy.' : 'لطفاً موافقت با ذخیره‌ی اطلاعات را تأیید کنید.')
+          : (isEn ? 'Please fill in required fields (Name, Brand, Phone).' : 'لطفاً فیلدهای الزامی (نام، برند، شماره تماس) را درست کامل کنید.'), false);
         if (bad) bad.focus();
         return;
       }
@@ -807,11 +879,11 @@
       try {
         const r = await fetch('api/index.php?action=contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
         const j = await r.json().catch(() => ({}));
-        if (!r.ok || j.ok === false) throw new Error(j.error || 'ارسال ناموفق بود.');
+        if (!r.ok || j.ok === false) throw new Error(j.error || (isEn ? 'Submission failed.' : 'ارسال ناموفق بود.'));
         form.reset();
-        show((c.pages.contact || {}).successMessage || 'درخواست شما ثبت شد.', true);
+        show((c.pages.contact || {}).successMessage || (isEn ? 'Your request has been submitted.' : 'درخواست شما ثبت شد.'), true);
       } catch (err) {
-        show(err.message + ' می‌توانید از طریق ایمیل هم با ما در تماس باشید.', false);
+        show(err.message + (isEn ? ' You can also reach us via email.' : ' می‌توانید از طریق ایمیل هم با ما در تماس باشید.'), false);
       }
       btn.disabled = false;
     });
@@ -865,7 +937,12 @@
       [['#about', renderAbout], ['#services', renderServices], ['#pains', renderPains], ['#difference', renderDifference],
        ['#solutions', renderSolutions], ['#industries', renderIndustries]].forEach(([sel, fn]) => { if ($(sel)) fn(c); });
     } else if (PAGES[page]) {
-      const titles = { about: c.pages.about.title, solutions: 'خدمات', insights: c.pages.insights.title, contact: c.pages.contact.title };
+      const titles = {
+        about: c.pages.about.title || (isEn ? 'About Us' : 'درباره‌ی ما'),
+        solutions: isEn ? 'Services' : 'خدمات',
+        insights: c.pages.insights.title || (isEn ? 'Insights' : 'دیدگاه‌ها'),
+        contact: c.pages.contact.title || (isEn ? 'Contact' : 'تماس با ما')
+      };
       if (titles[page]) document.title = `${titles[page]} | ${c.site.brandName || ''}`;
       $('main').innerHTML = PAGES[page](c);
       initContactForm(c);
@@ -896,6 +973,6 @@
     .catch(err => {
       console.error('Content load failed', err);
       document.body.classList.remove('is-loading');
-      document.querySelector('main').innerHTML = '<div class="load-error">محتوای سایت بارگذاری نشد. سایت باید از طریق یک وب‌سرور باز شود (نه مستقیم از فایل).</div>';
+      document.querySelector('main').innerHTML = `<div class="load-error">${isEn ? 'Failed to load site content. Please serve via a web server.' : 'محتوای سایت بارگذاری نشد. سایت باید از طریق یک وب‌سرور باز شود (نه مستقیم از فایل).'}</div>`;
     });
 })();
