@@ -597,7 +597,7 @@
         <div class="post-meta">${a.type ? `<span class="type"${sa(a, 'type')}>${esc(a.type)}</span>` : ''}${a.date ? `<span>${esc(a.date)}</span>` : ''}${a.readTime ? `<span>${esc(a.readTime)}</span>` : ''}</div>
         <h3${sa(a, 'title')}>${heading(a.title)}</h3>
         ${a.excerpt ? `<p${sa(a, 'excerpt')}>${rich(a.excerpt)}</p>` : ''}
-        <span class="more"${sa(p, 'readMoreLabel')}>${esc(p.readMoreLabel || (isEn ? 'Read more' : 'ادامه‌ی مطلب'))} ${arrow}</span>
+        <span class="more"${sa(p, 'readMoreLabel')}>${esc(p.readMoreLabel || (isEn ? 'Read more' : 'ادامه مطلب'))} ${arrow}</span>
       </div>
     </a>`;
   }
@@ -708,7 +708,7 @@
 
     solution(c) {
       const sp = c.solutionPages, s = findBy(sp.items, qsId()), L = sp.detailLabels || {};
-      if (!s) return notFound(isEn ? 'Solution Not Found' : 'راهکار پیدا نشد', 'solutions.html', isEn ? 'All Services' : 'همه‌ی خدمات');
+      if (!s) return notFound(isEn ? 'Solution Not Found' : 'راهکار پیدا نشد', 'solutions.html', isEn ? 'All Services' : 'همه خدمات');
       document.title = `${s.tag ? s.tag + ' — ' : ''}${s.title} | ${c.site.brandName || ''}`;
       const caps = list(s.capabilities).map(id => findBy(c.capabilityPages.items, id)).filter(Boolean);
       const posts = list(s.articles).map(id => findBy(c.articles.items, id)).filter(Boolean);
@@ -751,7 +751,7 @@
 
     capability(c) {
       const cp = c.capabilityPages, k = findBy(cp.items, qsId());
-      if (!k) return notFound(isEn ? 'Capability Not Found' : 'تخصص پیدا نشد', 'solutions.html', isEn ? 'All Services' : 'همه‌ی خدمات');
+      if (!k) return notFound(isEn ? 'Capability Not Found' : 'تخصص پیدا نشد', 'solutions.html', isEn ? 'All Services' : 'همه خدمات');
       document.title = `${k.title} | ${c.site.brandName || ''}`;
       const sols = list(k.solutions).map(id => findBy(c.solutionPages.items, id)).filter(Boolean);
       const others = (cp.items || []).filter(x => x.id !== k.id);
@@ -781,7 +781,7 @@
 
     article(c) {
       const posts = c.articles.items || [], a = findBy(posts, qsId()), p = c.pages.insights || {};
-      if (!a) return notFound(isEn ? 'Article Not Found' : 'مطلب پیدا نشد', 'insights.html', isEn ? 'All Insights' : 'همه‌ی مطالب');
+      if (!a) return notFound(isEn ? 'Article Not Found' : 'مطلب پیدا نشد', 'insights.html', isEn ? 'All Insights' : 'همه مطالب');
       document.title = `${a.title} | ${c.site.brandName || ''}`;
       const related = posts.filter(x => x.id !== a.id).slice(0, 3);
       return pageHero({ eyebrow: a.type, title: a.title, lead: a.excerpt, meta: [a.date, a.readTime],
@@ -868,7 +868,7 @@
 
     page(c) {
       const pg = findBy((c.legalPages || {}).items, qsId());
-      if (!pg) return notFound(isEn ? 'Page Not Found' : 'صفحه پیدا نشد', 'index.html', isEn ? 'Back to Home' : 'بازگشت به صفحه‌ی اصلی');
+      if (!pg) return notFound(isEn ? 'Page Not Found' : 'صفحه پیدا نشد', 'index.html', isEn ? 'Back to Home' : 'بازگشت به صفحه اصلی');
       document.title = `${pg.title} | ${c.site.brandName || ''}`;
       return pageHero({ title: pg.title, crumbs: [{ label: pg.title }], o: pg }) + `
         <section class="section"><div class="container"><div class="prose"${sa(pg, 'body')}>${prose(pg.body)}</div></div></section>`;
@@ -885,7 +885,7 @@
       if (!form.checkValidity()) {
         const bad = form.querySelector(':invalid');
         show(bad && bad.name === 'consent'
-          ? (isEn ? 'Please agree to the privacy policy.' : 'لطفاً موافقت با ذخیره‌ی اطلاعات را تأیید کنید.')
+          ? (isEn ? 'Please agree to the privacy policy.' : 'لطفاً موافقت با ذخیره اطلاعات را تأیید کنید.')
           : (isEn ? 'Please fill in required fields (Name, Brand, Phone).' : 'لطفاً فیلدهای الزامی (نام، برند، شماره تماس) را درست کامل کنید.'), false);
         if (bad) bad.focus();
         return;
@@ -957,7 +957,7 @@
        ['#solutions', renderSolutions], ['#industries', renderIndustries]].forEach(([sel, fn]) => { if ($(sel)) fn(c); });
     } else if (PAGES[page]) {
       const titles = {
-        about: c.pages.about.title || (isEn ? 'About Us' : 'درباره‌ی ما'),
+        about: c.pages.about.title || (isEn ? 'About Us' : 'درباره ما'),
         solutions: isEn ? 'Services' : 'خدمات',
         insights: c.pages.insights.title || (isEn ? 'Insights' : 'دیدگاه‌ها'),
         contact: c.pages.contact.title || (isEn ? 'Contact' : 'تماس با ما')

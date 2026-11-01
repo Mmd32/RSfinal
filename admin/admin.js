@@ -12,7 +12,7 @@
      ========================================================= */
   const RICH_HINT = 'برای پررنگ کردن یک کلمه آن را بین دو ستاره بگذارید: **کلمه**';
   const PROSE_HINT = 'پاراگراف‌ها را با یک خط خالی جدا کنید. «## » اول خط = تیتر، «- » = فهرست، «> » = نقل‌قول، **کلمه** = پررنگ.';
-  const GROUPS = { home: 'صفحه‌ی اصلی', pages: 'صفحات داخلی', settings: 'تنظیمات سایت' };
+  const GROUPS = { home: 'صفحه اصلی', pages: 'صفحات داخلی', settings: 'تنظیمات سایت' };
   const BLOCK_LABELS = {
     about: 'ما کی هستیم',
     services: 'ما چه می‌کنیم (بخش آبی + کارت‌ها)',
@@ -25,10 +25,10 @@
     { key: 'layout', title: 'ترتیب بخش‌ها', intro: 'ترتیب بخش‌های صفحه را با کشیدن یا فلش‌ها عوض کنید. با خاموش کردن «نمایش»، آن بخش از سایت پنهان می‌شود (محتوایش پاک نمی‌شود). اسلایدشو همیشه بالای صفحه و فوتر همیشه پایین است.', fields: [
       { key: 'sections', type: 'order' }
     ] },
-    { key: 'hero', title: 'اسلایدشو', intro: 'بخش اول صفحه‌ی اصلی. هر اسلاید یک عکس، یک تیتر و یک متن دارد؛ ترتیب اسلایدها را با فلش‌ها عوض کنید.', fields: [
+    { key: 'hero', title: 'اسلایدشو', intro: 'بخش اول صفحه اصلی. هر اسلاید یک عکس، یک تیتر و یک متن دارد؛ ترتیب اسلایدها را با فلش‌ها عوض کنید.', fields: [
       { key: 'style', type: 'select', label: 'سبک نمایش', options: [
         ['split', 'دوبخشی — متن روی پنل سرمه‌ای، عکس کامل و روشن کنار آن (پیشنهادی)'],
-        ['overlay', 'تمام‌صفحه — عکس پس‌زمینه‌ی کل صفحه و متن روی آن']
+        ['overlay', 'تمام‌صفحه — عکس پس‌زمینه کل صفحه و متن روی آن']
       ], hint: 'در حالت دوبخشی هم متن کاملاً خواناست و هم عکس بدون تیرگی دیده می‌شود. برای متن‌های بلند مناسب‌تر است.' },
       { row: [
         { key: 'panelWidth', type: 'number', label: 'عرض پنل متن در حالت دوبخشی (درصد)', min: 34, max: 60, hint: 'بین ۳۴ تا ۶۰ — پیش‌فرض ۴۴' },
@@ -38,9 +38,9 @@
       { key: 'slides', type: 'list', label: 'اسلایدها', itemLabel: 'اسلاید', titleKey: 'title', thumbKey: 'image', min: 1,
         template: { image: '', imagePosition: 'center', imageAlt: '', eyebrow: '', title: 'تیتر اسلاید جدید', text: '', buttonLabel: '', buttonUrl: '' },
         fields: [
-          { key: 'image', type: 'image', label: 'عکس', hint: 'اندازه‌ی پیشنهادی: ۲۰۰۰×۱۶۰۰ پیکسل (نسبت ۵:۴)، حداقل ۱۴۰۰×۱۱۲۰. موضوع اصلی عکس را وسط کادر بگذارید؛ لبه‌ها در موبایل و دسکتاپ کمی بریده می‌شوند. در حالت تمام‌صفحه: ۲۴۰۰×۱۳۵۰ (۱۶:۹).' },
+          { key: 'image', type: 'image', label: 'عکس', hint: 'اندازه پیشنهادی: ۲۰۰۰×۱۶۰۰ پیکسل (نسبت ۵:۴)، حداقل ۱۴۰۰×۱۱۲۰. موضوع اصلی عکس را وسط کادر بگذارید؛ لبه‌ها در موبایل و دسکتاپ کمی بریده می‌شوند. در حالت تمام‌صفحه: ۲۴۰۰×۱۳۵۰ (۱۶:۹).' },
           { row: [
-            { key: 'imagePosition', type: 'select', label: 'نقطه‌ی تمرکز عکس', options: [['center', 'وسط'], ['top', 'بالا'], ['bottom', 'پایین'], ['right', 'راست'], ['left', 'چپ']], hint: 'اگر بخش مهم عکس بریده شد، این را عوض کنید.' },
+            { key: 'imagePosition', type: 'select', label: 'نقطه تمرکز عکس', options: [['center', 'وسط'], ['top', 'بالا'], ['bottom', 'پایین'], ['right', 'راست'], ['left', 'چپ']], hint: 'اگر بخش مهم عکس بریده شد، این را عوض کنید.' },
             { key: 'imageAlt', type: 'text', label: 'توضیح عکس (برای گوگل و نابینایان)' }
           ] },
           { key: 'eyebrow', type: 'text', label: 'متن کوچک بالای تیتر (اختیاری)' },
@@ -67,8 +67,8 @@
         { key: 'eyebrow', type: 'text', label: 'برچسب کوچک' },
         { key: 'title', type: 'text', label: 'تیتر' },
         { key: 'text', type: 'textarea', label: 'متن', hint: RICH_HINT },
-        { row: [ { key: 'primaryLabel', type: 'text', label: 'دکمه‌ی اصلی — متن' }, { key: 'primaryUrl', type: 'url', label: 'دکمه‌ی اصلی — لینک' } ] },
-        { row: [ { key: 'secondaryLabel', type: 'text', label: 'دکمه‌ی دوم — متن' }, { key: 'secondaryUrl', type: 'url', label: 'دکمه‌ی دوم — لینک' } ] }
+        { row: [ { key: 'primaryLabel', type: 'text', label: 'دکمه اصلی — متن' }, { key: 'primaryUrl', type: 'url', label: 'دکمه اصلی — لینک' } ] },
+        { row: [ { key: 'secondaryLabel', type: 'text', label: 'دکمه دوم — متن' }, { key: 'secondaryUrl', type: 'url', label: 'دکمه دوم — لینک' } ] }
       ] }
     ] },
 
@@ -94,7 +94,7 @@
       { key: 'title', type: 'text', label: 'تیتر' },
       { key: 'text', type: 'textarea', label: 'متن زیر تیتر', rows: 2, hint: RICH_HINT },
       { key: 'items', type: 'strings', label: 'موارد شماره‌دار', itemLabel: 'مورد', multiline: true },
-      { key: 'closing', type: 'textarea', label: 'جمله‌ی پایانی', rows: 2, hint: RICH_HINT }
+      { key: 'closing', type: 'textarea', label: 'جمله پایانی', rows: 2, hint: RICH_HINT }
     ] },
 
     { key: 'difference', title: 'تفاوت ما', fields: [
@@ -103,7 +103,7 @@
       { key: 'text', type: 'textarea', label: 'متن', hint: RICH_HINT },
       { row: [ { key: 'buttonLabel', type: 'text', label: 'متن دکمه' }, { key: 'buttonUrl', type: 'url', label: 'لینک دکمه' } ] },
       { key: 'videoImage', type: 'image', label: 'عکس کاور ویدیو', dark: true },
-      { key: 'videoUrl', type: 'url', label: 'لینک ویدیو', hint: 'لینک یوتیوب یا آپارات (مثل https://www.aparat.com/v/xxxxx). اگر خالی باشد دکمه‌ی پخش نمایش داده نمی‌شود.' }
+      { key: 'videoUrl', type: 'url', label: 'لینک ویدیو', hint: 'لینک یوتیوب یا آپارات (مثل https://www.aparat.com/v/xxxxx). اگر خالی باشد دکمه پخش نمایش داده نمی‌شود.' }
     ] },
 
     { key: 'solutions', title: 'کاشی‌های خدمات', fields: [
@@ -124,7 +124,7 @@
       { key: 'items', type: 'strings', label: 'صنایع (اسلایدر)', itemLabel: 'صنعت' }
     ] },
 
-    { key: 'nav', group: 'settings', title: 'منوی بالا', intro: 'آدرس صفحات: about.html ، solutions.html ، solution.html?id=fr ، capability.html?id=strategy ، insights.html ، article.html?id=… ، contact.html ، page.html?id=privacy — برای بخش‌های صفحه‌ی اصلی: index.html#industries', fields: [
+    { key: 'nav', group: 'settings', title: 'منوی بالا', intro: 'آدرس صفحات: about.html ، solutions.html ، solution.html?id=fr ، capability.html?id=strategy ، insights.html ، article.html?id=… ، contact.html ، page.html?id=privacy — برای بخش‌های صفحه اصلی: index.html#industries', fields: [
       { key: 'items', type: 'list', label: 'آیتم‌های منو', itemLabel: 'آیتم', titleKey: 'label', template: { label: 'آیتم جدید', url: '#', children: [] }, fields: [
         { row: [ { key: 'label', type: 'text', label: 'عنوان' }, { key: 'url', type: 'url', label: 'لینک', hint: 'برای رفتن به یک بخش همین صفحه: #about ، #services ، #industries ، #contact' } ] },
         { key: 'children', type: 'list', label: 'زیرمنو (اختیاری)', itemLabel: 'زیرمنو', titleKey: 'label', template: { tag: '', label: 'زیرمنوی جدید', url: '#' }, fields: [
@@ -132,7 +132,7 @@
           { key: 'url', type: 'url', label: 'لینک' }
         ] }
       ] },
-      { row: [ { key: 'langLabel', type: 'text', label: 'دکمه‌ی زبان — متن' }, { key: 'langUrl', type: 'url', label: 'دکمه‌ی زبان — لینک' } ] }
+      { row: [ { key: 'langLabel', type: 'text', label: 'دکمه زبان — متن' }, { key: 'langUrl', type: 'url', label: 'دکمه زبان — لینک' } ] }
     ] },
 
     { key: 'footer', group: 'settings', title: 'فوتر', fields: [
@@ -151,7 +151,7 @@
     ] },
 
     /* ================= inner pages ================= */
-    { key: 'pages.about', group: 'pages', title: 'درباره‌ی ما', view: '../about.html', fields: [
+    { key: 'pages.about', group: 'pages', title: 'درباره ما', view: '../about.html', fields: [
       { key: 'image', type: 'image', label: 'عکس بالای صفحه', dark: true },
       { row: [ { key: 'eyebrow', type: 'text', label: 'برچسب کوچک' }, { key: 'title', type: 'text', label: 'تیتر صفحه' } ] },
       { key: 'lead', type: 'textarea', label: 'متن زیر تیتر', rows: 2, hint: RICH_HINT },
@@ -164,7 +164,7 @@
       ] }
     ] },
 
-    { key: 'pages.solutions', group: 'pages', title: 'صفحه‌ی خدمات', view: '../solutions.html', intro: 'صفحه‌ی اصلی خدمات. کارت‌های «راهکارهای ویژه» و «تخصص‌ها» خودکار از بخش‌های خودشان ساخته می‌شوند.', fields: [
+    { key: 'pages.solutions', group: 'pages', title: 'صفحه خدمات', view: '../solutions.html', intro: 'صفحه اصلی خدمات. کارت‌های «راهکارهای ویژه» و «تخصص‌ها» خودکار از بخش‌های خودشان ساخته می‌شوند.', fields: [
       { key: 'image', type: 'image', label: 'عکس بالای صفحه', dark: true },
       { row: [ { key: 'eyebrow', type: 'text', label: 'برچسب کوچک' }, { key: 'title', type: 'text', label: 'تیتر صفحه' } ] },
       { key: 'lead', type: 'textarea', label: 'متن زیر تیتر (اختیاری)', rows: 2 },
@@ -178,11 +178,11 @@
         { key: 'eyebrow', type: 'text', label: 'برچسب کوچک بالای تیتر' },
         { key: 'text', type: 'textarea', label: 'متن زیر تیتر (اختیاری)', rows: 2 },
         { row: [ { key: 'interval', type: 'number', label: 'زمان هر اسلاید (ثانیه)', min: 3, max: 30 }, { key: 'autoplay', type: 'toggle', label: 'پخش خودکار' } ] },
-        { row: [ { key: 'detailLabel', type: 'text', label: 'متن دکمه‌ی «جزئیات»' }, { key: 'ctaLabel', type: 'text', label: 'متن دکمه‌ی دوم (خالی = بدون دکمه)' } ] },
-        { key: 'ctaUrl', type: 'url', label: 'لینک دکمه‌ی دوم' }
+        { row: [ { key: 'detailLabel', type: 'text', label: 'متن دکمه «جزئیات»' }, { key: 'ctaLabel', type: 'text', label: 'متن دکمه دوم (خالی = بدون دکمه)' } ] },
+        { key: 'ctaUrl', type: 'url', label: 'لینک دکمه دوم' }
       ] },
       { key: 'areasTitle', type: 'text', label: 'تیتر حوزه‌های خدمت' },
-      { key: 'areas', type: 'list', label: 'حوزه‌های خدمت', itemLabel: 'حوزه', titleKey: 'title', template: { title: 'حوزه‌ی جدید', text: '', items: [] }, fields: [
+      { key: 'areas', type: 'list', label: 'حوزه‌های خدمت', itemLabel: 'حوزه', titleKey: 'title', template: { title: 'حوزه جدید', text: '', items: [] }, fields: [
         { key: 'title', type: 'text', label: 'عنوان' }, { key: 'text', type: 'textarea', label: 'توضیح', rows: 2 },
         { key: 'items', type: 'strings', label: 'برچسب‌ها', itemLabel: 'برچسب' }
       ] },
@@ -197,7 +197,7 @@
       { key: 'compareItems', type: 'strings', label: 'نشانه‌ها', itemLabel: 'نشانه', multiline: true }
     ] },
 
-    { key: 'solutionPages', group: 'pages', title: 'راهکارهای ویژه', intro: 'هر آیتم یک صفحه‌ی کامل دارد (مثل FR™، SVP™ و FRANCH™). برای ساختن راهکار جدید «افزودن» را بزنید.', fields: [
+    { key: 'solutionPages', group: 'pages', title: 'راهکارهای ویژه', intro: 'هر آیتم یک صفحه کامل دارد (مثل FR™، SVP™ و FRANCH™). برای ساختن راهکار جدید «افزودن» را بزنید.', fields: [
       { key: 'items', type: 'list', label: 'راهکارها', itemLabel: 'راهکار', titleKey: 'title', thumbKey: 'image', view: '../solution.html?id=',
         template: { id: 'new-solution', tag: '', title: 'راهکار جدید', summary: '', intro: '', image: '', challenge: '', audience: '', questions: [], approach: [], outputs: [], impacts: [], disclaimer: '', faqs: [], capabilities: [], industries: [], articles: [] },
         fields: [
@@ -219,7 +219,7 @@
           { key: 'articles', type: 'refs', label: 'مقالات مرتبط', source: 'articles.items' },
           { key: 'industries', type: 'strings', label: 'صنایع مرتبط', itemLabel: 'صنعت' }
         ] },
-      { key: 'detailLabels', type: 'group', label: 'عنوان بخش‌ها در صفحه‌ی راهکار', fields: [
+      { key: 'detailLabels', type: 'group', label: 'عنوان بخش‌ها در صفحه راهکار', fields: [
         { row: [ { key: 'challenge', type: 'text', label: 'چالش' }, { key: 'audience', type: 'text', label: 'مخاطب' } ] },
         { row: [ { key: 'questions', type: 'text', label: 'پرسش‌ها' }, { key: 'approach', type: 'text', label: 'رویکرد' } ] },
         { row: [ { key: 'outputs', type: 'text', label: 'خروجی‌ها' }, { key: 'impacts', type: 'text', label: 'اثرها' } ] },
@@ -241,9 +241,9 @@
       { key: 'relatedTitle', type: 'text', label: 'تیتر «راهکارهای مرتبط»' }
     ] },
 
-    { key: 'articles', group: 'pages', title: 'مقالات', view: '../insights.html', intro: 'مطالب بخش دیدگاه‌ها. اولین مقاله‌ی فهرست، بزرگ‌تر نمایش داده می‌شود.', fields: [
+    { key: 'articles', group: 'pages', title: 'مقالات', view: '../insights.html', intro: 'مطالب بخش دیدگاه‌ها. اولین مقاله فهرست، بزرگ‌تر نمایش داده می‌شود.', fields: [
       { key: 'items', type: 'list', label: 'مقالات', itemLabel: 'مقاله', titleKey: 'title', thumbKey: 'image', view: '../article.html?id=',
-        template: { id: 'new-article', title: 'مقاله‌ی جدید', excerpt: '', type: 'مقاله', date: '', readTime: '', image: '', body: '' },
+        template: { id: 'new-article', title: 'مقاله جدید', excerpt: '', type: 'مقاله', date: '', readTime: '', image: '', body: '' },
         fields: [
           { row: [ { key: 'id', type: 'slug', label: 'شناسه (در آدرس صفحه)' }, { key: 'type', type: 'text', label: 'نوع (مقاله، راهنما…)' } ] },
           { key: 'title', type: 'text', label: 'عنوان' },
@@ -254,11 +254,11 @@
         ] }
     ] },
 
-    { key: 'pages.insights', group: 'pages', title: 'صفحه‌ی دیدگاه‌ها', view: '../insights.html', fields: [
+    { key: 'pages.insights', group: 'pages', title: 'صفحه دیدگاه‌ها', view: '../insights.html', fields: [
       { key: 'image', type: 'image', label: 'عکس بالای صفحه', dark: true },
       { row: [ { key: 'eyebrow', type: 'text', label: 'برچسب کوچک' }, { key: 'title', type: 'text', label: 'تیتر صفحه' } ] },
       { key: 'lead', type: 'textarea', label: 'متن زیر تیتر', rows: 2 },
-      { row: [ { key: 'readMoreLabel', type: 'text', label: 'متن «ادامه‌ی مطلب»' }, { key: 'relatedTitle', type: 'text', label: 'تیتر «دیدگاه‌های مرتبط»' } ] }
+      { row: [ { key: 'readMoreLabel', type: 'text', label: 'متن «ادامه مطلب»' }, { key: 'relatedTitle', type: 'text', label: 'تیتر «دیدگاه‌های مرتبط»' } ] }
     ] },
 
     { key: 'pages.contact', group: 'pages', title: 'تماس با ما', view: '../contact.html', fields: [
@@ -273,44 +273,44 @@
       { key: 'formIntro', type: 'textarea', label: 'متن بالای فرم', rows: 2 },
       { key: 'industryOptions', type: 'strings', label: 'گزینه‌های «صنعت»', itemLabel: 'گزینه' },
       { key: 'contactMethods', type: 'strings', label: 'گزینه‌های «روش تماس»', itemLabel: 'گزینه' },
-      { key: 'consentText', type: 'text', label: 'متن تأیید ذخیره‌ی اطلاعات' },
-      { row: [ { key: 'submitLabel', type: 'text', label: 'متن دکمه‌ی ارسال' }, { key: 'notifyEmail', type: 'text', label: 'ایمیل دریافت اعلان (اختیاری)', ltr: true, hint: 'روی هاست واقعی، هر درخواست جدید به این ایمیل هم فرستاده می‌شود (اگر هاست ارسال ایمیل را پشتیبانی کند).' } ] },
+      { key: 'consentText', type: 'text', label: 'متن تأیید ذخیره اطلاعات' },
+      { row: [ { key: 'submitLabel', type: 'text', label: 'متن دکمه ارسال' }, { key: 'notifyEmail', type: 'text', label: 'ایمیل دریافت اعلان (اختیاری)', ltr: true, hint: 'روی هاست واقعی، هر درخواست جدید به این ایمیل هم فرستاده می‌شود (اگر هاست ارسال ایمیل را پشتیبانی کند).' } ] },
       { key: 'successMessage', type: 'text', label: 'پیام بعد از ارسال موفق' }
     ] },
 
     { key: 'legalPages', group: 'pages', title: 'صفحات ساده', intro: 'صفحه‌های متنی مثل حریم خصوصی و شرایط استفاده. آدرس هر صفحه: page.html?id=شناسه', fields: [
       { key: 'items', type: 'list', label: 'صفحات', itemLabel: 'صفحه', titleKey: 'title', view: '../page.html?id=',
-        template: { id: 'new-page', title: 'صفحه‌ی جدید', body: '' },
+        template: { id: 'new-page', title: 'صفحه جدید', body: '' },
         fields: [
           { row: [ { key: 'id', type: 'slug', label: 'شناسه (در آدرس صفحه)' }, { key: 'title', type: 'text', label: 'عنوان' } ] },
           { key: 'body', type: 'textarea', label: 'متن', rows: 10, hint: 'PROSE' }
         ] }
     ] },
 
-    { key: 'cta', group: 'pages', title: 'نوار «رزرو جلسه»', intro: 'نوار آبی پایین همه‌ی صفحات داخلی (به جز تماس و صفحات ساده). اگر تیتر خالی باشد نمایش داده نمی‌شود.', fields: [
+    { key: 'cta', group: 'pages', title: 'نوار «رزرو جلسه»', intro: 'نوار آبی پایین همه صفحات داخلی (به جز تماس و صفحات ساده). اگر تیتر خالی باشد نمایش داده نمی‌شود.', fields: [
       { row: [ { key: 'eyebrow', type: 'text', label: 'برچسب کوچک' }, { key: 'title', type: 'text', label: 'تیتر' } ] },
       { key: 'text', type: 'textarea', label: 'متن', rows: 2 },
       { row: [ { key: 'buttonLabel', type: 'text', label: 'متن دکمه' }, { key: 'buttonUrl', type: 'url', label: 'لینک دکمه' } ] }
     ] },
 
     /* ================= settings ================= */
-    { key: 'typography', group: 'settings', title: 'تایپوگرافی (فونت و اندازه)', intro: 'فونت و اندازه‌ی متن‌های کل سایت. برای تغییر یک متنِ خاص، دکمه‌ی «Aa» کنار همان متن را در بخش خودش بزنید.', fields: [
+    { key: 'typography', group: 'settings', title: 'تایپوگرافی (فونت و اندازه)', intro: 'فونت و اندازه متن‌های کل سایت. برای تغییر یک متنِ خاص، دکمه «Aa» کنار همان متن را در بخش خودش بزنید.', fields: [
       { row: [
         { key: 'fontBody', type: 'select', label: 'فونت متن‌ها', options: [['lahzeh', 'لحظه'], ['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ']] },
         { key: 'fontHeading', type: 'select', label: 'فونت تیترها', options: [['', 'مثل متن‌ها'], ['lahzeh', 'لحظه'], ['vazirmatn', 'وزیرمتن'], ['iransans', 'ایران‌سنس'], ['noto-kufi', 'نوتو کوفی'], ['noto-naskh', 'نوتو نسخ'], ['lalezar', 'لاله‌زار (نمایشی)']] }
       ] },
-      { key: 'scale', type: 'range', label: 'اندازه‌ی کلی همه‌ی متن‌ها', min: 70, max: 150, step: 5, unit: '٪', def: 100 },
+      { key: 'scale', type: 'range', label: 'اندازه کلی همه متن‌ها', min: 70, max: 150, step: 5, unit: '٪', def: 100 },
       { row: [
-        { key: 'headingScale', type: 'range', label: 'اندازه‌ی تیترها', min: 60, max: 160, step: 5, unit: '٪', def: 100 },
-        { key: 'bodyScale', type: 'range', label: 'اندازه‌ی متن‌های معمولی', min: 70, max: 150, step: 5, unit: '٪', def: 100 }
+        { key: 'headingScale', type: 'range', label: 'اندازه تیترها', min: 60, max: 160, step: 5, unit: '٪', def: 100 },
+        { key: 'bodyScale', type: 'range', label: 'اندازه متن‌های معمولی', min: 70, max: 150, step: 5, unit: '٪', def: 100 }
       ] },
       { type: 'typoPreview' }
     ] },
     { key: 'site', group: 'settings', title: 'تنظیمات کلی', fields: [
-      { row: [ { key: 'title', type: 'text', label: 'عنوان صفحه‌ی اصلی (تب مرورگر و گوگل)' }, { key: 'brandName', type: 'text', label: 'نام برند (در عنوان صفحات داخلی)' } ] },
+      { row: [ { key: 'title', type: 'text', label: 'عنوان صفحه اصلی (تب مرورگر و گوگل)' }, { key: 'brandName', type: 'text', label: 'نام برند (در عنوان صفحات داخلی)' } ] },
       { key: 'description', type: 'textarea', label: 'توضیح سایت برای گوگل', rows: 2 },
-      { key: 'logo', type: 'image', label: 'لوگوی هدر (روی زمینه‌ی تیره)', dark: true, keepFormat: true, hint: 'PNG با پس‌زمینه‌ی شفاف' },
-      { key: 'logoFooter', type: 'image', label: 'لوگوی فوتر (روی زمینه‌ی آبی)', dark: true, keepFormat: true },
+      { key: 'logo', type: 'image', label: 'لوگوی هدر (روی زمینه تیره)', dark: true, keepFormat: true, hint: 'PNG با پس‌زمینه شفاف' },
+      { key: 'logoFooter', type: 'image', label: 'لوگوی فوتر (روی زمینه آبی)', dark: true, keepFormat: true },
       { row: [ { key: 'logoAlt', type: 'text', label: 'متن جایگزین لوگو' }, { key: 'homeUrl', type: 'url', label: 'لینک لوگو' } ] }
     ] }
   ];
@@ -377,7 +377,7 @@
     $('#auth-sub').textContent = setup ? 'اولین ورود است. یک رمز عبور قوی (حداقل ۸ کاراکتر) انتخاب کنید.' : 'برای ویرایش محتوای سایت وارد شوید.';
     $('#pw2-wrap').hidden = !setup;
     $('#pw1').autocomplete = setup ? 'new-password' : 'current-password';
-    $('#auth-btn').textContent = setup ? 'ذخیره‌ی رمز و ورود' : 'ورود';
+    $('#auth-btn').textContent = setup ? 'ذخیره رمز و ورود' : 'ورود';
     $('#auth-form').dataset.mode = setup ? 'setup' : 'login';
     $('#pw1').focus();
   }
@@ -498,7 +498,7 @@
           h('span', { class: 'tp-eyebrow', text: 'پیش‌نمایش' }),
           h('div', { class: 'tp-h1', text: 'رشد پایدار، از طریق ایجاد یک سازمان توانمند' }),
           h('div', { class: 'tp-h2', text: 'ما مسئله را می‌شناسیم.' }),
-          h('p', { class: 'tp-p', text: 'ریتیل سلوشنز به برندها کمک می‌کند از کسب‌وکارهایی فروش‌محور و وابسته به افراد، به سازمان‌های ریتیل حرفه‌ای منسجم و آماده‌ی رشد تبدیل شوند.' }));
+          h('p', { class: 'tp-p', text: 'ریتیل سلوشنز به برندها کمک می‌کند از کسب‌وکارهایی فروش‌محور و وابسته به افراد، به سازمان‌های ریتیل حرفه‌ای منسجم و آماده رشد تبدیل شوند.' }));
         const upd = () => {
           const t = obj, s = (Number(t.scale) || 100) / 100, hs = (Number(t.headingScale) || 100) / 100, bs = (Number(t.bodyScale) || 100) / 100;
           const body = FONT_CSS[t.fontBody] || FONT_CSS.vazirmatn, head = FONT_CSS[t.fontHeading] || body;
@@ -508,7 +508,7 @@
           box.querySelector('.tp-eyebrow').style.cssText = `font-family:${body}`;
         };
         liveUpdaters.add(upd); upd();
-        return h('div', { class: 'field' }, h('span', { class: 'field-label', text: 'پیش‌نمایش (اندازه‌ی دسکتاپ)' }), box,
+        return h('div', { class: 'field' }, h('span', { class: 'field-label', text: 'پیش‌نمایش (اندازه دسکتاپ)' }), box,
           h('small', { class: 'hint', text: 'برای دیدن نتیجه روی کل سایت، «پیش‌نمایش تغییرات» را بزنید.' }));
       }
       case 'image': return renderImage(obj, f);
@@ -601,8 +601,8 @@
     color.addEventListener('input', () => { colorOn.checked = true; set('color', color.value); });
     colorOn.addEventListener('change', () => set('color', colorOn.checked ? color.value : ''));
     const preview = h('div', { class: 'aa-preview' });
-    const bgBtn = h('button', { type: 'button', class: 'btn btn-ghost btn-sm', onclick: () => preview.classList.toggle('dark') }, 'زمینه‌ی تیره/روشن');
-    const btn = h('button', { type: 'button', class: 'aa-btn', title: 'فونت و اندازه‌ی همین متن' }, 'Aa');
+    const bgBtn = h('button', { type: 'button', class: 'btn btn-ghost btn-sm', onclick: () => preview.classList.toggle('dark') }, 'زمینه تیره/روشن');
+    const btn = h('button', { type: 'button', class: 'aa-btn', title: 'فونت و اندازه همین متن' }, 'Aa');
     const panel = h('div', { class: 'aa-panel', hidden: true },
       h('div', { class: 'aa-grid' },
         h('label', {}, h('span', { text: 'فونت' }), font),
@@ -614,7 +614,7 @@
       h('div', { class: 'aa-preview-wrap' }, preview),
       h('div', { class: 'aa-actions' }, bgBtn,
         h('button', { type: 'button', class: 'btn btn-danger btn-sm', onclick: () => { delete (obj._style || {})[key]; if (obj._style && !Object.keys(obj._style).length) delete obj._style; markDirty(); refresh(); } }, 'برگرداندن به حالت پیش‌فرض')),
-      h('small', { class: 'hint', text: 'اندازه نسبت به اندازه‌ی فعلی همین متن در سایت است (۱۰۰٪ = بدون تغییر). پیش‌نمایش تقریبی است؛ برای دیدن روی صفحه «پیش‌نمایش تغییرات» را بزنید.' }));
+      h('small', { class: 'hint', text: 'اندازه نسبت به اندازه فعلی همین متن در سایت است (۱۰۰٪ = بدون تغییر). پیش‌نمایش تقریبی است؛ برای دیدن روی صفحه «پیش‌نمایش تغییرات» را بزنید.' }));
     function refresh() {
       const s = get();
       font.value = s.font || ''; weight.value = s.weight || ''; align.value = s.align || '';
@@ -622,7 +622,7 @@
       colorOn.checked = !!s.color; if (s.color) color.value = s.color;
       btn.classList.toggle('on', Object.keys(s).length > 0);
       if (panel.hidden) return;
-      const text = String(getText() || '').replace(/\*\*/g, '').slice(0, 400) || 'نمونه‌ی متن';
+      const text = String(getText() || '').replace(/\*\*/g, '').slice(0, 400) || 'نمونه متن';
       preview.textContent = text;
       preview.style.cssText = `font-family:${FONT_CSS[s.font] || 'inherit'};font-weight:${s.weight || 'inherit'};text-align:${s.align || 'right'};${s.color ? 'color:' + s.color + ';' : ''}font-size:${18 * (s.size || 100) / 100}px`;
     }
@@ -722,7 +722,7 @@
         upd(); headUpdaters.add(upd);
         const stop = fn => e => { e.stopPropagation(); fn(); };
         const tools = h('span', { class: 'tools' },
-          f.view && item.id ? h('a', { class: 'icon-btn', title: 'مشاهده‌ی صفحه (نسخه‌ی ذخیره‌شده)', href: f.view + encodeURIComponent(item.id), target: '_blank', rel: 'noopener', onclick: e => e.stopPropagation() }, '↗') : null,
+          f.view && item.id ? h('a', { class: 'icon-btn', title: 'مشاهده صفحه (نسخه ذخیره‌شده)', href: f.view + encodeURIComponent(item.id), target: '_blank', rel: 'noopener', onclick: e => e.stopPropagation() }, '↗') : null,
           h('button', { type: 'button', class: 'icon-btn', title: 'بالا', disabled: i === 0, onclick: stop(() => move(i, -1)) }, '↑'),
           h('button', { type: 'button', class: 'icon-btn', title: 'پایین', disabled: i === arr.length - 1, onclick: stop(() => move(i, 1)) }, '↓'),
           f.fixed ? null : h('button', { type: 'button', class: 'icon-btn', title: 'کپی', onclick: stop(() => { arr.splice(i + 1, 0, clone(item)); openItems.add(arr[i + 1]); changed(); }) }, '⧉'),
@@ -839,11 +839,11 @@
      ========================================================= */
   async function renderBackups(box) {
     $('#page-title').textContent = 'نسخه‌های پشتیبان';
-    const panel = h('div', { class: 'panel' }, h('p', { class: 'panel-intro', text: 'قبل از هر ذخیره، نسخه‌ی قبلی سایت به‌صورت خودکار نگه داشته می‌شود (۵۰ نسخه‌ی آخر). با «بازگردانی» سایت به همان نسخه برمی‌گردد.' }));
+    const panel = h('div', { class: 'panel' }, h('p', { class: 'panel-intro', text: 'قبل از هر ذخیره، نسخه قبلی سایت به‌صورت خودکار نگه داشته می‌شود (۵۰ نسخه آخر). با «بازگردانی» سایت به همان نسخه برمی‌گردد.' }));
     box.append(panel);
     try {
       const r = await api('backups');
-      if (!r.items.length) { panel.append(h('p', { class: 'muted', text: 'هنوز نسخه‌ی پشتیبانی وجود ندارد.' })); return; }
+      if (!r.items.length) { panel.append(h('p', { class: 'muted', text: 'هنوز نسخه پشتیبانی وجود ندارد.' })); return; }
       const fmt = t => new Date(t * 1000).toLocaleString('fa-IR', { dateStyle: 'medium', timeStyle: 'short' });
       panel.append(h('table', { class: 'table' },
         h('tr', {}, h('th', { text: 'تاریخ' }), h('th', { text: 'حجم' }), h('th')),
@@ -851,7 +851,7 @@
           h('td', { text: fmt(it.time) }),
           h('td', { text: fa(Math.round(it.size / 1024)) + ' کیلوبایت' }),
           h('td', { style: 'text-align:left' }, h('button', { class: 'btn btn-ghost btn-sm', onclick: async () => {
-            if (!confirm('سایت به این نسخه برگردد؟ نسخه‌ی فعلی هم پشتیبان‌گیری می‌شود.')) return;
+            if (!confirm('سایت به این نسخه برگردد؟ نسخه فعلی هم پشتیبان‌گیری می‌شود.')) return;
             try { await api('restore', { file: it.file }); toast('نسخه بازگردانی شد', 'ok'); await startApp(); show('backups'); }
             catch (e) { toast(e.message, 'err'); }
           } }, 'بازگردانی'))))));
@@ -861,7 +861,7 @@
   const MSG_LABELS = { company: 'برند', jobTitle: 'سمت', mobile: 'شماره تماس', email: 'ایمیل', industry: 'صنعت', branches: 'تعداد شعب', city: 'شهر', preferredContactMethod: 'روش تماس', preferredContactTime: 'زمان تماس', primaryChallenge: 'مسئله‌ای که کسب‌وکارتان با آن مواجه است' };
   async function renderMessages(box) {
     $('#page-title').textContent = 'پیام‌های فرم تماس';
-    const panel = h('div', { class: 'panel' }, h('p', { class: 'panel-intro', text: 'درخواست‌هایی که از صفحه‌ی «تماس با ما» ارسال شده‌اند. جدیدترین‌ها بالا هستند.' }));
+    const panel = h('div', { class: 'panel' }, h('p', { class: 'panel-intro', text: 'درخواست‌هایی که از صفحه «تماس با ما» ارسال شده‌اند. جدیدترین‌ها بالا هستند.' }));
     box.append(panel);
     let items;
     try { items = (await api('messages')).items; } catch (e) { panel.append(h('p', { class: 'form-error', text: e.message })); return; }
