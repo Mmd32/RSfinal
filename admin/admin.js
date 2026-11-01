@@ -258,7 +258,7 @@
       { key: 'image', type: 'image', label: 'عکس بالای صفحه', dark: true },
       { row: [ { key: 'eyebrow', type: 'text', label: 'برچسب کوچک' }, { key: 'title', type: 'text', label: 'تیتر صفحه' } ] },
       { key: 'lead', type: 'textarea', label: 'متن زیر تیتر', rows: 2 },
-      { row: [ { key: 'readMoreLabel', type: 'text', label: 'متن «ادامه‌ی مطلب»' }, { key: 'relatedTitle', type: 'text', label: 'تیتر «بینش‌های مرتبط»' } ] }
+      { row: [ { key: 'readMoreLabel', type: 'text', label: 'متن «ادامه‌ی مطلب»' }, { key: 'relatedTitle', type: 'text', label: 'تیتر «دیدگاه‌های مرتبط»' } ] }
     ] },
 
     { key: 'pages.contact', group: 'pages', title: 'تماس با ما', view: '../contact.html', fields: [

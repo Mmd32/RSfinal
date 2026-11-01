@@ -743,7 +743,7 @@
           ${list(s.industries).length ? `<div class="detail-box"><h3${sa(L, 'industries')}>${heading(L.industries)}</h3><div class="chips">${s.industries.filter(Boolean).map(t => `<span${sa(s, 'industries')}>${esc(t)}</span>`).join('')}</div></div>` : ''}
         </div></section>` : ''}
         ${posts.length ? `<section class="section"><div class="container">
-          <div class="sec-head"><h2${sa(c.pages.insights, 'relatedTitle')}>${heading((c.pages.insights || {}).relatedTitle || (isEn ? 'Related Insights' : 'بینش‌های مرتبط'))}</h2></div>
+          <div class="sec-head"><h2${sa(c.pages.insights, 'relatedTitle')}>${heading((c.pages.insights || {}).relatedTitle || (isEn ? 'Related Insights' : 'دیدگاه‌های مرتبط'))}</h2></div>
           <div class="post-grid">${posts.map(a => postCard(a, c)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
@@ -791,7 +791,7 @@
           <article class="prose"${sa(a, 'body')}>${prose(a.body)}</article>
         </div></section>
         ${related.length ? `<section class="section surface"><div class="container">
-          <div class="sec-head"><h2${sa(p, 'relatedTitle')}>${heading(p.relatedTitle || (isEn ? 'Related Insights' : 'بینش‌های مرتبط'))}</h2></div>
+          <div class="sec-head"><h2${sa(p, 'relatedTitle')}>${heading(p.relatedTitle || (isEn ? 'Related Insights' : 'دیدگاه‌های مرتبط'))}</h2></div>
           <div class="post-grid">${related.map(x => postCard(x, c)).join('')}</div>
         </div></section>` : ''}
         ${ctaBand(c)}`;
