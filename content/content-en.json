@@ -230,7 +230,7 @@
     "buttonLabel": "About Our Approach",
     "buttonUrl": "about.html",
     "videoUrl": "",
-    "videoImage": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=80",
+    "videoImage": "uploads/page-difference.jpg",
     "image": "uploads/page-difference.jpg"
   },
   "solutions": {
@@ -258,10 +258,10 @@
         "image": "uploads/solution-franch.jpg"
       },
       {
-        "tag": "Strategy",
-        "title": "Growth Strategy Formulation",
-        "url": "capability.html?id=strategy",
-        "image": "https://images.unsplash.com/photo-1522684462852-01b24e76b77d?auto=format&fit=crop&w=900&q=80"
+        "tag": "Expansion",
+        "title": "Branch Expansion Planning",
+        "url": "capability.html?id=expansion",
+        "image": "uploads/services-expansion.jpg"
       }
     ]
   },
